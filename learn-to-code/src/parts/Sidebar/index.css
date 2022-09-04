@@ -1,0 +1,32 @@
+.sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 17%;
+  height: 90%;
+  background-color: #1d1b1b;
+  z-index: 100;
+  color: #d03852;
+}
+
+.sidebarList {
+  height: auto;
+  width: 100%;
+  padding: 0;
+}
+
+.sidebarList .sidebar__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  list-style-type: none;
+  margin: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.sidebarList .sidebar__item:hover {
+  cursor: pointer;
+  background-color: rgb(246, 209, 146);
+}

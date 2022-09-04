@@ -1,0 +1,11 @@
+.main-container {
+  display: flex;
+
+  width: 83%;
+  height: 90vh;
+  background-color: #790606;
+  color: #000;
+  top: 10%;
+  right: 0;
+  position: absolute;
+}
