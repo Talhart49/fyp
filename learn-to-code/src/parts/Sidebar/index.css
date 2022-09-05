@@ -4,9 +4,11 @@
   left: 0;
   width: 17%;
   height: 90%;
-  background-color: #1d1b1b;
+  background-color: #fff;
   z-index: 100;
-  color: #d03852;
+  color: #000;
+  border-right: 1px solid #e6e6e6;
+  transition: all 0.5s ease;
 }
 
 .sidebarList {
@@ -28,5 +30,5 @@
 
 .sidebarList .sidebar__item:hover {
   cursor: pointer;
-  background-color: rgb(246, 209, 146);
+  background-color: #ede7f6;
 }

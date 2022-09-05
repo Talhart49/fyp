@@ -8,8 +8,8 @@ const LearnHTML = () => {
   return (
     <div>
       <Header />
-      <Sidebar />
-      <TutorialContent />
+      {/* <Sidebar />
+      <TutorialContent /> */}
     </div>
   );
 };
