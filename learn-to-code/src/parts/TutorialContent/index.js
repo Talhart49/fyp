@@ -3,40 +3,43 @@ import axios from 'axios';
 import './index.css';
 
 const TutorialContent = () => {
-  const [data, setData] = useState([]);
-  let attr;
+  const [data, setData] = useState({});
+
+  let title = window.location.href.split('/')[4];
+  console.log(title);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/gethtmlschemas').then((res) => {
-      setData(res.data);
-    });
+    axios
+      .get(`http://localhost:8080/api/gethtmlschemas/${title}`)
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      });
   }, []);
 
   return (
     <div className='main-container'>
-      {data.map((item) => (
-        <div className='main-content' key={item._id}>
-          <h2>{item.title}</h2>
-          <p>{item.content}</p>
-          <table>
-            <tr>
-              <th>Tag</th>
-              <th>Description</th>
-            </tr>
-            <th>
-              <td>{item.attributeNames}</td>
-            </th>
-            <th>
-              <td>{item.attributeExplanation}</td>
-            </th>
-          </table>
+      <div className='main-content' key={data._id}>
+        <h2>{data.title}</h2>
+        <p>{data.content}</p>
+        <table>
+          <tr>
+            <th>Tag</th>
+            <th>Description</th>
+          </tr>
+          <th>
+            <td>{data.attributeNames}</td>
+          </th>
+          <th>
+            <td>{data.attributeExplanation}</td>
+          </th>
+        </table>
 
-          <h3>Example</h3>
-          <textarea name='description' rows='10' col='50'>
-            {item.example}
-          </textarea>
-        </div>
-      ))}
+        <h3>Example</h3>
+        <textarea name='description' rows='10' col='50'>
+          {data.example}
+        </textarea>
+      </div>
     </div>
   );
 };

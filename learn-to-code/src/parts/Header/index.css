@@ -68,6 +68,12 @@
   font-weight: 700;
   text-decoration: none;
 }
+
+.nav-right {
+  position: fixed;
+  top: 0.5rem;
+  right: 1.5rem;
+}
 .nav-right .nav-right-btn {
   background-color: #e3f2fd;
   border: none;
@@ -85,7 +91,7 @@
 
 .user {
   font-size: 25px;
-  margin-right: 9px;
+  margin-right: 12px;
 }
 
 .setting {
@@ -99,11 +105,7 @@
 }
 
 .sidebar-inactive {
-  display: none;
-}
-
-.sidebar-active {
-  display: block;
+  translate: -100vw;
 }
 
 .dull {
@@ -111,4 +113,39 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
+}
+
+.sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 17%;
+  height: 90%;
+  background-color: #fff;
+  z-index: 100;
+  color: #000;
+  border-right: 1px solid #e6e6e6;
+  transition: all 0.5s ease;
+}
+
+.sidebarList {
+  height: auto;
+  width: 100%;
+  padding: 0;
+}
+
+.sidebarList .sidebar__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  list-style-type: none;
+  margin: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.sidebarList .sidebar__item:hover {
+  cursor: pointer;
+  background-color: #ede7f6;
 }

@@ -10,8 +10,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/:title', async (req, res) => {
+router.get('/:title', async (req, res) => {
   try {
+    console.log('Request receiveed');
     const html = await HTMLSchema.findOne({ title: req.params.title });
     res.status(200).send(html);
   } catch (error) {

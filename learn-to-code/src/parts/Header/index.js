@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './index.css';
 import Sidebar from '../../parts/Sidebar';
 
@@ -7,10 +8,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { FaUserAstronaut } from 'react-icons/fa';
 import { AiOutlineSetting, AiOutlineMenu } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => setSidebar(!sidebar);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/gethtmlschemas').then((res) => {
+      setData(res.data);
+    });
+  }, []);
+
   return (
     <nav className='nav-wrapper'>
       <div className='nav-left'>
@@ -37,12 +48,18 @@ const Header = () => {
           <AiOutlineSetting className='setting' />
         </button>
       </div>
-      {sidebar && (
-        <>
-          <Sidebar />
-          {/* <div className='dull' onClick={showSidebar} /> */}
-        </>
-      )}
+      <div className={sidebar ? 'sidebar' : 'sidebar-inactive'}>
+        <h2>Tutorial</h2>
+        <ul className='sidebarList'>
+          {data.map((item) => (
+            <Link to={item.title}>
+              <li className='sidebar__item' key={item._id}>
+                <h3>{item.title}</h3>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };
