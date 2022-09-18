@@ -9,9 +9,12 @@ function App() {
     <>
       <Routes>
         <Route path='/' exact element={<LearnToCode />} />
-        <Route path='html' element={<LearnHTML />}>
-          <Route path=':title' element={<TutorialContent />} />
-        </Route>
+        <Route path='html' element={<LearnHTML />}></Route>
+        <Route
+          path='html/:title'
+          element={<TutorialContent />}
+          key={window.location.pathname}
+        />
       </Routes>
     </>
   );
