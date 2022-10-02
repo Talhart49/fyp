@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
 import Sidebar from '../../parts/Sidebar';
-
 import Input from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -52,11 +51,11 @@ const Header = () => {
         <h2>Tutorial</h2>
         <ul className='sidebarList'>
           {data.map((item) => (
-            <Link to={item.title}>
-              <li className='sidebar__item' key={item._id}>
+            <li className='sidebar__item' key={item._id}>
+              <Link to={item.title}>
                 <h3>{item.title}</h3>
-              </li>
-            </Link>
+              </Link>
+            </li>
           ))}
         </ul>
       </div>

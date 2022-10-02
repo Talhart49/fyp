@@ -64,3 +64,34 @@ td {
   justify-content: center;
   align-items: center;
 }
+
+.textarea {
+  border: 1px solid #e3f2fd;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem #e3f2fd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 60%;
+}
+.textarea p {
+  margin: 0;
+  padding: 0.2rem;
+}
+
+.btn {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem #e3f2fd;
+  background-color: #e3f2fd;
+  border: 1px solid #e3f2fd;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: 0 0 1.5rem #e3f2fd;
+  background-color: #90caf9;
+}

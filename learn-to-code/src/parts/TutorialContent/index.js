@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
+import { Link } from 'react-router-dom';
 
 const TutorialContent = () => {
   const [data, setData] = useState({});
@@ -47,9 +48,18 @@ const TutorialContent = () => {
         </table>
 
         <h3>Example</h3>
-        <textarea name='description' rows='20' col='50'>
-          {data.example}
-        </textarea>
+        <div className='textarea' name='description' rows='12' col='550'>
+          {data.example ? (
+            data.example.split(',').map((ex) => {
+              return <p>{ex}</p>;
+            })
+          ) : (
+            <p>There is no example for this tag</p>
+          )}
+        </div>
+        <Link to={`try`}>
+          <button className='btn'>Try it Yourself</button>
+        </Link>
       </div>
     </div>
   );
