@@ -1,58 +1,98 @@
-.signup_container {
+.login_container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #e3f2fd;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.signup_form_container {
-  width: 900px;
-  height: 500px;
+.login_form_container {
+  width: 450px;
+  height: 750px;
   display: flex;
+  flex-direction: column;
   border-radius: 10px;
+  background-color: white;
   box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
+.Top_content {
+  width: 100%;
+  height: 37%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3%;
+}
+.title {
+  margin: 0px 0px 0.35em;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: Roboto, sans-serif;
+  line-height: 1.167;
+  color: rgb(103, 58, 183);
+}
+.Logo {
+  margin: 0px 0px 1.5em 0em;
+  font-size: 1.75rem;
+  font-weight: 600;
+  font-family: Roboto, sans-serif;
+  line-height: 1.167;
+  color: rgb(103, 58, 183);
+}
+.googleBtn {
+  width: 370px;
+  height: 50px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+  cursor: pointer;
+  padding: 0 10px;
+  border: none;
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+.googleBtn:hover {
+  background-color: #e3f2fd;
+  border: 1px solid #2296f3;
+}
+.googleIcon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.Or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 3%;
+}
 .left {
-  flex: 1;
+  width: 100%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #1d1b1b;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-}
-
-.left h1 {
-  margin-top: 0;
-  color: #d03852;
-  font-size: 35px;
-  align-self: center;
-}
-
-.right {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
 .form_container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1.3rem;
 }
 
 .form_container h1 {
-  font-size: 34px;
+  font-size: 30px;
   margin-top: 0;
 }
 
@@ -60,41 +100,64 @@
   outline: none;
   border: none;
   width: 370px;
-  padding: 15px;
-  border-radius: 10px;
   background-color: #edf5f3;
-  margin: 5px 0;
-  font-size: 14px;
 }
 
-.error_msg {
-  width: 370px;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 14px;
-  background-color: #f34646;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1d1b1b;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.right h1 {
+  margin-top: 0;
+  color: #d03852;
+  font-size: 40px;
+  align-self: center;
 }
 
 .white_btn,
 .green_btn {
   border: none;
   outline: none;
-  padding: 12px 0;
+  padding: 10px 0;
   background-color: white;
-  border-radius: 20px;
   width: 180px;
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
+  color: #4d4d4d;
 }
 
 .green_btn {
-  background-color: #1d1b1b;
-  color: #d03852;
+  background-color: #673ab7;
+  color: #fff;
   margin: 10px;
-  font-size: 19px;
   width: 98%;
+  font-size: 16px;
+}
+.forgotPassword {
+  color: #673ab7;
+  font-size: 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  text-align: right;
+  width: 100%;
+  padding: 10px;
+}
+.bottom {
+  padding-top: 20px;
+  border-top: 1px solid #e3f2fd;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

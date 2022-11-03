@@ -2,10 +2,22 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { FcGoogle } from 'react-icons/fc';
+import React from 'react';
 
 const Login = () => {
   const [data, setData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [values, setValues] = React.useState({
+    showPassword: false,
+  });
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -28,14 +40,34 @@ const Login = () => {
       }
     }
   };
-
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
   return (
     <div className={styles.login_container}>
       <div className={styles.login_form_container}>
+        <div className={styles.Top_content}>
+          <h1 className={styles.Logo}>Templater</h1>
+          <h1 className={styles.title}>Hi, Welcome Back</h1>
+          <button className={styles.googleBtn}>
+            <FcGoogle className={styles.googleIcon} />
+            <span className={styles.googleBtn__text}>Sign in with Google</span>
+          </button>
+          <div className={styles.Or}>
+            <span>OR</span>
+          </div>
+        </div>
+
         <div className={styles.left}>
+          <p>Sign in with Email Address</p>
           <form className={styles.form_container} onSubmit={handleSubmit}>
-            <h1>Login to Your Account</h1>
-            <input
+            <TextField
+              id='outlined-basic'
+              label='Email'
+              variant='outlined'
               type='email'
               placeholder='Email'
               name='email'
@@ -43,27 +75,48 @@ const Login = () => {
               value={data.email}
               required
               className={styles.input}
+              style={{ width: '100%', marginBottom: '20px' }}
+              error={error}
             />
-            <input
-              type='password'
-              placeholder='Password'
-              name='password'
-              onChange={handleChange}
-              value={data.password}
-              required
-              className={styles.input}
-            />
-            {error && <div className={styles.error_msg}>{error}</div>}
+            <FormControl
+              variant='outlined'
+              styles={{ marginBottom: '0', width: '100%' }}>
+              <InputLabel htmlFor='outlined-adornment-password'>
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id='outlined-adornment-password'
+                type={values.showPassword ? 'text' : 'password'}
+                value={data.password}
+                name='password'
+                className={styles.input}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      edge='end'>
+                      {values.showPassword ? (
+                        <MdVisibilityOff />
+                      ) : (
+                        <MdVisibility />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label='Password'
+                error={error}
+              />
+            </FormControl>
+            <button className={styles.forgotPassword}>Forgot Password?</button>
             <button type='submit' className={styles.green_btn}>
               Sign In
             </button>
           </form>
-        </div>
-        <div className={styles.right}>
-          <h1>New Here ?</h1>
-          <Link to='/signup'>
+          <Link to='/signup' className={styles.bottom}>
             <button type='button' className={styles.white_btn}>
-              Sign Up
+              Don't have an account?
             </button>
           </Link>
         </div>
