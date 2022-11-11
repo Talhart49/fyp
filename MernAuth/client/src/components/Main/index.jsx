@@ -19,6 +19,24 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Avatar from '@mui/material/Avatar';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Tooltip from '@mui/material/Tooltip';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -67,8 +85,21 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerRight() {
+  const navigate = useNavigate();
+
+  const userData = localStorage.getItem('email');
+
+  const [data, setData] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -80,15 +111,40 @@ export default function PersistentDrawerRight() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location = './';
+    localStorage.removeItem('email');
+    navigate('/login');
   };
+
+  // const getUserInfo = async () => {
+  //   await axios
+  //     .get('http://localhost:8080/api/LoggedUser')
+  //     .then((res) => {
+  //       setData(res.data);
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // React.useEffect(async () => {
+  //   getUserInfo();
+  // }, []);
+
+  React.useEffect(() => {
+    axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
-          <Typography variant='h6' noWrap sx={{ flexGrow: 1 }} component='div'>
-            Persistent drawer
+          <Typography variant='h5' noWrap sx={{ flexGrow: 1 }} component='div'>
+            Templater
           </Typography>
           <IconButton
             color='inherit'
@@ -102,35 +158,6 @@ export default function PersistentDrawerRight() {
       </AppBar>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
       </Main>
       <Drawer
         sx={{
@@ -160,21 +187,28 @@ export default function PersistentDrawerRight() {
               alignItems: 'center',
               marginTop: '10px',
             }}>
-            <Avatar
-              alt='Remy Sharp'
-              src='/static/images/avatar/1.jpg'
-              sx={{
-                width: 56,
-                height: 56,
-                marginTop: 2,
-              }}
-            />
+            <Tooltip title='Edit Profile' placement='right-end'>
+              <Link
+                to={'./profile'}
+                style={{ textDecoration: 'none', color: 'black' }}>
+                <Avatar
+                  alt={data.firstName}
+                  src='/static/images/avatar/1.jpg'
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    marginTop: 2,
+                  }}
+                />
+              </Link>
+            </Tooltip>
+
             <Typography
               variant='h6'
               noWrap
               sx={{ flexGrow: 1, marginTop: 2 }}
               component='div'>
-              Remy Sharp
+              {data.firstName} {data.lastName}
             </Typography>
           </Box>
         </DrawerHeader>
@@ -192,8 +226,8 @@ export default function PersistentDrawerRight() {
                 <ListItemButton
                   sx={{
                     marginTop: 1,
-                    marginBottom: 1,
-                  }}>
+                  }}
+                  onClick={handleOpen}>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
@@ -205,19 +239,48 @@ export default function PersistentDrawerRight() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Feedbacks', 'Payments', 'Help Center'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                <Link
+                  to={`/${text}`}
+                  style={{
+                    textDecoration: 'none',
+                    display: 'flex',
+                    color: 'black',
+                  }}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </Link>
               </ListItemButton>
             </ListItem>
           ))}
-          <ListItemButton onClick={handleLogout}>Logout</ListItemButton>
+          <ListItemButton onClick={handleLogout}>
+            <InboxIcon
+              sx={{
+                marginRight: 4,
+              }}
+            />
+            <ListItemText primary={'Logout'} />
+          </ListItemButton>
         </List>
       </Drawer>
+      <Modal
+        open={openModal}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Box sx={style}>
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            Important
+          </Typography>
+          <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+            Sorry Nothing here
+          </Typography>
+        </Box>
+      </Modal>
     </Box>
   );
 }

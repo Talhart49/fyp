@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './styles.module.css';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -23,13 +23,17 @@ const Login = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const url = 'http://localhost:8080/api/auth';
       const { data: res } = await axios.post(url, data);
       localStorage.setItem('token', res.data);
-      window.location = '/Main';
+      localStorage.setItem('email', data.email);
+
+      navigate('/Dashboard');
     } catch (error) {
       if (
         error.response &&
