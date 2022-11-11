@@ -34,8 +34,8 @@ router.post('/', async (req, res) => {
     res.status(200).send({
       data: token,
       message: 'logged in successfully',
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
+      phone: user.phone,
       email: user.email,
     });
   } catch (error) {

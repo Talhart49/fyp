@@ -186,14 +186,15 @@ export default function PersistentDrawerRight() {
               justifyContent: 'center',
               alignItems: 'center',
               marginTop: '10px',
+              marginInlineStart: '2rem',
             }}>
             <Tooltip title='Edit Profile' placement='right-end'>
               <Link
                 to={'./profile'}
                 style={{ textDecoration: 'none', color: 'black' }}>
                 <Avatar
-                  alt={data.firstName}
-                  src='/static/images/avatar/1.jpg'
+                  alt={data.fullName}
+                  src={data.dp}
                   sx={{
                     width: 56,
                     height: 56,
@@ -208,7 +209,7 @@ export default function PersistentDrawerRight() {
               noWrap
               sx={{ flexGrow: 1, marginTop: 2 }}
               component='div'>
-              {data.firstName} {data.lastName}
+              {data.fullName}
             </Typography>
           </Box>
         </DrawerHeader>

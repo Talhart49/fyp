@@ -15,8 +15,8 @@ import React from 'react';
 
 const Signup = () => {
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
+    fullName: '',
+    phone: '',
     email: '',
     password: '',
   });
@@ -78,13 +78,13 @@ const Signup = () => {
             <form className={styles.form_container} onSubmit={handleSubmit}>
               <TextField
                 id='outlined-basic'
-                label='First Name'
+                label='Full Name'
                 variant='outlined'
                 type='text'
-                placeholder='First Name'
-                name='firstName'
+                placeholder='Full Name'
+                name='fullName'
                 onChange={handleChange}
-                value={data.firstName}
+                value={data.fullName}
                 required
                 className={styles.input}
                 style={{ width: '100%', marginBottom: '20px' }}
@@ -92,13 +92,13 @@ const Signup = () => {
               />
               <TextField
                 id='outlined-basic'
-                label='Last Name'
+                label='Phone Number'
                 variant='outlined'
-                type='text'
-                placeholder='Last Name'
-                name='lastName'
+                type='number'
+                placeholder='Phone Number'
+                name='phone'
                 onChange={handleChange}
-                value={data.lastName}
+                value={data.phone}
                 required
                 className={styles.input}
                 style={{ width: '100%', marginBottom: '20px' }}
