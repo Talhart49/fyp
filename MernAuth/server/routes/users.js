@@ -2,8 +2,6 @@ const router = require('express').Router();
 const { User, validate } = require('../models/user');
 const bcrypt = require('bcrypt');
 
-const multer = require('multer');
-
 router.post('/', async (req, res) => {
   try {
     const { error } = validate(req.body);
@@ -24,6 +22,55 @@ router.post('/', async (req, res) => {
     res.status(201).send({ message: 'User created successfully' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/edit', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res
+        .status(409)
+        .send({ message: 'User with email does not exist' });
+    }
+
+    user.fullName = req.body.fullName;
+    user.phone = req.body.phone;
+    user.email = req.body.email;
+
+    await user.save();
+    res.status(201).send({ message: 'User updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+router.post('/changePassword/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res
+        .status(409)
+        .send({ message: 'User with email does not exist' });
+    }
+
+    const oldPassword = req.body.oldPassword;
+    const newPassword = user.password;
+    console.log(oldPassword);
+    console.log(newPassword);
+    const validPassword = await bcrypt.compare(
+      req.body.oldPassword,
+      user.password
+    );
+    if (!validPassword) {
+      return res.status(401).send({ message: 'Invalid Password' });
+    }
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const hashPassword = await bcrypt.hash(req.body.newPassword, salt);
+    user.password = hashPassword;
+    await user.save();
+    res.status(201).send({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
   }
 });
 

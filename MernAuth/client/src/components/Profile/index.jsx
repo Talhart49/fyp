@@ -18,6 +18,11 @@ const Profile = () => {
     email: '',
     password: '',
   });
+  const [Pass, setPass] = React.useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
   React.useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setData(res.data);
@@ -25,12 +30,6 @@ const Profile = () => {
     });
   }, []);
 
-  const [dataInput, setDataInput] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    password: '',
-  });
   const [error, setError] = useState('');
   const [values, setValues] = React.useState({
     showPassword1: false,
@@ -43,10 +42,13 @@ const Profile = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  const handleChangeP = ({ currentTarget: input }) => {
+    setPass({ ...Pass, [input.name]: input.value });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:8080/api/users';
+      const url = 'http://localhost:8080/api/users/edit';
       const { data: res } = await axios.post(url, data);
       navigate('/dashboard');
       console.log(res.message);
@@ -61,6 +63,26 @@ const Profile = () => {
       }
     }
   };
+
+  const changePassword = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:8080/api/users/changePassword/${userData}`;
+      const { data: res } = await axios.post(url, Pass);
+      navigate('/dashboard');
+      console.log(res.message);
+    } catch (error) {
+      console.log(error.response.data.message);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
+
   const handleClickShowPassword1 = () => {
     setValues({
       ...values,
@@ -93,7 +115,8 @@ const Profile = () => {
             className='avatar'
           />
           <div className='Edit-dp-btn'>
-            <input type='file' className='btn' />
+            <input type='file' />
+            <button className='btn'>Upload Picture</button>
             <p>Acceptable formats: .jpg and .png, Max size: 2MB</p>
           </div>
         </div>
@@ -150,7 +173,7 @@ const Profile = () => {
               type='submit'
               className='submit-button'
               style={{ width: '40%', marginBottom: '20px' }}>
-              Sign In
+              Save Changes
             </button>
           </form>
         </div>
@@ -158,7 +181,7 @@ const Profile = () => {
           <h2>
             <b>Change Password</b>
           </h2>
-          <form className='form' onSubmit={handleSubmit}>
+          <form className='form' onSubmit={changePassword}>
             <FormControl
               sx={{ m: 1, width: '40%', marginBottom: '20px' }}
               variant='outlined'>
@@ -168,9 +191,9 @@ const Profile = () => {
               <OutlinedInput
                 id='outlined-adornment-password'
                 type={values.showPassword1 ? 'text' : 'password'}
-                value={data.password}
-                onChange={handleChange}
-                name='password'
+                value={Pass.oldPassword}
+                onChange={handleChangeP}
+                name='oldPassword'
                 required
                 error={error}
                 endAdornment={
@@ -199,9 +222,9 @@ const Profile = () => {
               <OutlinedInput
                 id='outlined-adornment-password'
                 type={values.showPassword2 ? 'text' : 'password'}
-                value={data.password}
-                onChange={handleChange}
-                name='password'
+                value={Pass.newPassword}
+                onChange={handleChangeP}
+                name='newPassword'
                 required
                 error={error}
                 endAdornment={
@@ -230,9 +253,9 @@ const Profile = () => {
               <OutlinedInput
                 id='outlined-adornment-password'
                 type={values.showPassword3 ? 'text' : 'password'}
-                value={data.password}
-                onChange={handleChange}
-                name='password'
+                value={Pass.confirmPassword}
+                onChange={handleChangeP}
+                name='confirmPassword'
                 required
                 error={error}
                 endAdornment={
