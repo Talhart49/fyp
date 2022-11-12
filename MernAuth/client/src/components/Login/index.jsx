@@ -33,7 +33,7 @@ const Login = () => {
       localStorage.setItem('token', res.data);
       localStorage.setItem('email', data.email);
 
-      navigate('/Dashboard');
+      navigate('/dashboard');
     } catch (error) {
       if (
         error.response &&
@@ -113,7 +113,9 @@ const Login = () => {
                 error={error}
               />
             </FormControl>
-            <button className={styles.forgotPassword}>Forgot Password?</button>
+            <Link to='/OTP' className={styles.forgotPassword}>
+              Forgot Password?
+            </Link>
             <button type='submit' className={styles.green_btn}>
               Sign In
             </button>

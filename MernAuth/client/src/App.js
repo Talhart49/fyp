@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Landing from './components/Landing';
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
+import OTP from './pages/OTP';
 
 function App() {
   const user = localStorage.getItem('token');
@@ -24,6 +25,7 @@ function App() {
           <Route path='/Dashboard/Profile' element={<Profile />} />
         </Route>
       )}
+      <Route path='/OTP' element={<OTP />} />
     </Routes>
   );
 }
