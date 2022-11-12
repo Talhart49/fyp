@@ -7,7 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
-
+import './index.css';
 import axios from 'axios';
 
 const OTP = () => {
@@ -112,120 +112,125 @@ const OTP = () => {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Enter Email</h1>
-        <TextField
-          id='outlined-basic'
-          label='Email'
-          variant='outlined'
-          type='email'
-          placeholder='Email'
-          name='email'
-          onChange={handleChange}
-          value={Email}
-          required
-          className=''
-          style={{ width: '40%', marginBottom: '20px' }}
-        />
-        <button>Submit</button>
-      </form>
-
-      <form onSubmit={handleSubmitOTP}>
-        <h1>OTP</h1>
-        <TextField
-          id='outlined-basic'
-          label='otp'
-          variant='outlined'
-          type='number'
-          placeholder='OTP'
-          name='otp'
-          onChange={handleChangeotp}
-          value={OTP}
-          required
-          className=''
-          style={{ width: '40%', marginBottom: '20px' }}
-        />
-        <button>Submit</button>
-      </form>
-
-      {result && (
-        <div className='change-password'>
-          <h2>
-            <b>Change Password</b>
-          </h2>
-          <form className='form' onSubmit={changePassword}>
-            <FormControl
-              sx={{ m: 1, width: '40%', marginBottom: '20px' }}
-              variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id='outlined-adornment-password'
-                type={values.showPassword2 ? 'text' : 'password'}
-                value={Pass.newPassword}
-                onChange={handleChangeP}
-                name='newPassword'
+    <div className='container'>
+      <div className='main'>
+        {!result ? (
+          <div className='form_container-dis'>
+            <h1 className='title-top'>Forgot Password</h1>
+            <form onSubmit={handleSubmit}>
+              <h1 className='title'>Enter Email</h1>
+              <TextField
+                id='outlined-basic'
+                label='Email'
+                variant='outlined'
+                type='email'
+                placeholder='Email'
+                name='email'
+                onChange={handleChange}
+                value={Email}
                 required
-                error={error}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword2}
-                      edge='end'>
-                      {values.showPassword2 ? (
-                        <MdVisibilityOff />
-                      ) : (
-                        <MdVisibility />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label='Password'
+                className=''
+                style={{ width: '100%', marginBottom: '20px' }}
               />
-            </FormControl>
-            <FormControl
-              sx={{ m: 1, width: '40%', marginBottom: '20px' }}
-              variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>
-                Confirm Password
-              </InputLabel>
-              <OutlinedInput
-                id='outlined-adornment-password'
-                type={values.showPassword3 ? 'text' : 'password'}
-                value={Pass.confirmPassword}
-                onChange={handleChangeP}
-                name='confirmPassword'
+              <button className='green_btn'>Send</button>
+            </form>
+
+            <form onSubmit={handleSubmitOTP}>
+              <h1 className='title'>Enter OTP</h1>
+              <TextField
+                id='outlined-basic'
+                label='otp'
+                variant='outlined'
+                type='number'
+                placeholder='OTP'
+                name='otp'
+                onChange={handleChangeotp}
+                value={OTP}
                 required
-                error={error}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword3}
-                      edge='end'>
-                      {values.showPassword3 ? (
-                        <MdVisibilityOff />
-                      ) : (
-                        <MdVisibility />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label='Confirm Password'
+                className=''
+                style={{ width: '100%', marginBottom: '20px' }}
               />
-            </FormControl>
-            <button
-              type='submit'
-              className='submit-button'
-              style={{ width: '40%', marginBottom: '20px' }}>
-              Reset Password
-            </button>
-          </form>
-        </div>
-      )}
+              <button className='green_btn'>Verify</button>
+            </form>
+          </div>
+        ) : (
+          <div className='form_container-dis'>
+            <h2 className='title'>
+              <b>Change Password</b>
+            </h2>
+            <form className='form' onSubmit={changePassword}>
+              <FormControl
+                sx={{ m: 1, width: '100%', marginBottom: '20px' }}
+                variant='outlined'>
+                <InputLabel htmlFor='outlined-adornment-password'>
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id='outlined-adornment-password'
+                  type={values.showPassword2 ? 'text' : 'password'}
+                  value={Pass.newPassword}
+                  onChange={handleChangeP}
+                  name='newPassword'
+                  required
+                  error={error}
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword2}
+                        edge='end'>
+                        {values.showPassword2 ? (
+                          <MdVisibilityOff />
+                        ) : (
+                          <MdVisibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label='Password'
+                />
+              </FormControl>
+              <FormControl
+                sx={{ m: 1, width: '100%', marginBottom: '20px' }}
+                variant='outlined'>
+                <InputLabel htmlFor='outlined-adornment-password'>
+                  Confirm Password
+                </InputLabel>
+                <OutlinedInput
+                  id='outlined-adornment-password'
+                  type={values.showPassword3 ? 'text' : 'password'}
+                  value={Pass.confirmPassword}
+                  onChange={handleChangeP}
+                  name='confirmPassword'
+                  required
+                  error={error}
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword3}
+                        edge='end'>
+                        {values.showPassword3 ? (
+                          <MdVisibilityOff />
+                        ) : (
+                          <MdVisibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label='Confirm Password'
+                />
+              </FormControl>
+              <button
+                type='submit'
+                className='green_btn'
+                style={{ width: '100%', marginBottom: '20px' }}>
+                Reset Password
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
