@@ -33,7 +33,14 @@ const Login = () => {
       localStorage.setItem('token', res.data);
       localStorage.setItem('email', data.email);
 
-      navigate('/dashboard');
+      if (
+        data.email === 'ranatalhaa02@gmail.com' &&
+        data.password === 'Admin@123'
+      ) {
+        navigate('/Admin_Dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       if (
         error.response &&
