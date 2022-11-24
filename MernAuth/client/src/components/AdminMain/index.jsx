@@ -144,14 +144,6 @@ export default function PersistentDrawerRight() {
       </AppBar>
       <Main open={open}>
         <DrawerHeader />
-        <Typography variant='h4' sx={{ flexGrow: 1 }} component='div'>
-          Dashboard
-        </Typography>
-        <TemplatesGraph />
-        <EarningsGraph />
-        <Typography variant='h4' sx={{ flexGrow: 1 }} component='div'>
-          Templates
-        </Typography>
       </Main>
       <Drawer
         sx={{

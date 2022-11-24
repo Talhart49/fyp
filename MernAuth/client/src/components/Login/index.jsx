@@ -37,7 +37,7 @@ const Login = () => {
         data.email === 'ranatalhaa02@gmail.com' &&
         data.password === 'Admin@123'
       ) {
-        navigate('/Admin_Dashboard');
+        navigate('/Admin_Dashboard/AdminMainContent');
       } else {
         navigate('/dashboard');
       }
