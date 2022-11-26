@@ -24,9 +24,6 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
-import TemplatesGraph from '../../parts/TemplatesGraph';
-import EarningsGraph from '../../parts/EarningsGraph';
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -128,12 +125,24 @@ export default function PersistentDrawerRight() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
-        <Toolbar>
-          <Typography variant='h5' noWrap sx={{ flexGrow: 1 }} component='div'>
+        <Toolbar
+          sx={{
+            backgroundColor: '#fff',
+          }}>
+          <Typography
+            variant='h5'
+            noWrap
+            sx={{
+              color: 'black',
+              flexGrow: 1,
+              marginBottom: '0px',
+              paddingBottom: '0px',
+            }}
+            component='div'>
             Templater
           </Typography>
           <IconButton
-            color='inherit'
+            color='black'
             aria-label='open drawer'
             edge='end'
             onClick={handleDrawerOpen}
@@ -142,7 +151,13 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Main open={open}>
+      <Main
+        open={open}
+        sx={{
+          marginBottom: '0px',
+          paddingBottom: '0px',
+          backgroundColor: '#E3F2FD',
+        }}>
         <DrawerHeader />
       </Main>
       <Drawer

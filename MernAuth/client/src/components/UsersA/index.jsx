@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import {
   DataGrid,
@@ -10,7 +11,6 @@ import {
 } from '@mui/x-data-grid';
 
 const renderDetailsButton = (params) => {
-  console.log('renderDetails', params);
   return (
     <strong>
       <Button
@@ -146,6 +146,46 @@ CustomToolbar.propTypes = {
 
 const Index = () => {
   const [filterButtonEl, setFilterButtonEl] = React.useState(null);
+  const [data, setData] = React.useState();
+  const [modata, setModata] = React.useState([]);
+  let d;
+  React.useEffect(() => {
+    axios.get(`http://localhost:8080/api/admin/`).then((res) => {
+      setData(res.data);
+      console.log(res.data);
+      modifying(res.data);
+    });
+  }, []);
+
+  const modifying = async (data) => {
+    const fdata = await data.filter((item) => item.fullName !== 'Admin');
+    console.log('gg', fdata);
+    console.log(modata);
+    fdata.map((item, index) => {
+      const obj = {
+        id: index + 1,
+        fullName: item.fullName,
+        email: item.email,
+        phone: item.phone,
+        status: item.status,
+        block: item.block,
+      };
+      setModata((prev) => [...prev, obj]);
+    });
+    console.log('modata', modata);
+  };
+
+  const AllUsersData = [];
+  const uniqueUsers = modata.filter((item) => {
+    const i = AllUsersData.findIndex((x) => x.id === item.id);
+    if (i <= -1) {
+      AllUsersData.push({ ...item });
+      return true;
+    }
+    return false;
+  });
+
+  console.log('AllUsersData', AllUsersData);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -158,9 +198,11 @@ const Index = () => {
           justifyContent: 'center',
           alignItems: 'center',
           margin: 'auto',
+          backgroundColor: 'white',
+          borderRadius: 1,
         }}>
         <DataGrid
-          rows={rows}
+          rows={AllUsersData}
           columns={columns}
           pageSize={7}
           rowsPerPageOptions={[7]}

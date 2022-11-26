@@ -9,6 +9,7 @@ import OTP from './pages/OTP';
 import AdminDashboard from './components/AdminDashboard';
 import AdminMainContent from './components/AdminMainContent';
 import UsersA from './components/UsersA';
+import TemplatesA from './components/TemplatesA';
 
 function App() {
   const user = localStorage.getItem('token');
@@ -36,6 +37,7 @@ function App() {
             element={<AdminMainContent />}
           />
           <Route path='/Admin_Dashboard/Users' element={<UsersA />} />
+          <Route path='/Admin_Dashboard/Templates' element={<TemplatesA />} />
         </Route>
       )}
     </Routes>

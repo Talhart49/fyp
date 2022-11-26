@@ -7,7 +7,13 @@ const Dashboard = () => {
   return (
     <div>
       <Main />
-      <div className='details'>
+      <div
+        className='details'
+        style={{
+          backgroundColor: '#E3F2FD',
+          height: '100vh',
+          width: '100%',
+        }}>
         <Outlet />
       </div>
     </div>
