@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 import {
   DataGrid,
@@ -11,6 +13,7 @@ import {
 } from '@mui/x-data-grid';
 
 const renderDetailsButton = (params) => {
+  console.log(params.row);
   return (
     <strong>
       <Button
@@ -18,7 +21,7 @@ const renderDetailsButton = (params) => {
         color='primary'
         size='small'
         style={{ marginLeft: 16 }}>
-        {params.row.block === 0 ? 'Block' : 'Unblock'}
+        {params.row.block !== '0' ? 'Unblock' : 'Block'}
       </Button>
     </strong>
   );
@@ -54,85 +57,17 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    fullName: 'Snow',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: 0,
-  },
-  {
-    id: 2,
-    fullName: 'Lannister',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-  {
-    id: 3,
-    fullName: 'Lannister',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-  {
-    id: 4,
-    fullName: 'Stark',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Premium',
-    block: '0',
-  },
-  {
-    id: 5,
-    fullName: 'Targaryen',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-  {
-    id: 6,
-    fullName: 'Melisandre',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-  {
-    id: 7,
-    fullName: 'Clifford',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-  {
-    id: 8,
-    fullName: 'Frances',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-  {
-    id: 9,
-    fullName: 'Roxie',
-    phone: '03025754902',
-    email: 'Snow@snow.com',
-    status: 'Normal',
-    block: '0',
-  },
-];
-
-// const columns = React.useMemo(
-//   () => data.columns.filter((column) => VISIBLE_FIELDS.includes(column.field)),
-//   [data.columns]
-// );
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const CustomToolbar = ({ setFilterButtonEl }) => (
   <GridToolbarContainer>
@@ -145,17 +80,41 @@ CustomToolbar.propTypes = {
 };
 
 const Index = () => {
+  const [open, setOpen] = React.useState(false);
+  const [modalData, setModalData] = React.useState({});
+  const handleOpen = (params) => {
+    setOpen(true);
+    setModalData(params.row);
+  };
+  const handleClose = () => setOpen(false);
+
   const [filterButtonEl, setFilterButtonEl] = React.useState(null);
   const [data, setData] = React.useState();
   const [modata, setModata] = React.useState([]);
-  let d;
   React.useEffect(() => {
     axios.get(`http://localhost:8080/api/admin/`).then((res) => {
       setData(res.data);
       console.log(res.data);
       modifying(res.data);
     });
-  }, []);
+  }, [modalData]);
+
+  const handleBlockClick = (e, modalData) => {
+    const email = modalData.email;
+    console.log(email);
+    axios
+      .post(`http://localhost:8080/api/admin/block/${email}`, {
+        block: modalData.block === '0' ? '1' : '0',
+      })
+      .then((res) => {
+        console.log(email, res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setOpen(false);
+    window.location.reload(false);
+  };
 
   const modifying = async (data) => {
     const fdata = await data.filter((item) => item.fullName !== 'Admin');
@@ -206,7 +165,7 @@ const Index = () => {
           columns={columns}
           pageSize={7}
           rowsPerPageOptions={[7]}
-          disableSelectionOnClick
+          onCellClick={handleOpen}
           components={{
             Toolbar: CustomToolbar,
           }}
@@ -220,6 +179,46 @@ const Index = () => {
           }}
         />
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Box sx={style}>
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            User Details
+          </Typography>
+          <Typography
+            id='modal-modal-description'
+            sx={{
+              mt: 2,
+            }}>
+            {modalData.fullName}
+          </Typography>
+          <Typography
+            id='modal-modal-description'
+            sx={{
+              mt: 2,
+            }}>
+            {modalData.email}
+          </Typography>
+          <Typography
+            id='modal-modal-description'
+            sx={{
+              mt: 2,
+            }}>
+            {modalData.phone}
+            <Button
+              variant='contained'
+              color='primary'
+              size='small'
+              style={{ marginLeft: 16 }}
+              onClick={(e) => handleBlockClick(e, modalData)}>
+              {modalData.block !== '0' ? 'Unblock' : 'Block'}
+            </Button>
+          </Typography>
+        </Box>
+      </Modal>
     </Box>
   );
 };
