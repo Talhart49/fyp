@@ -10,6 +10,9 @@ import AdminDashboard from './components/AdminDashboard';
 import AdminMainContent from './components/AdminMainContent';
 import UsersA from './components/UsersA';
 import TemplatesA from './components/TemplatesA';
+import HTMLGuidesA from './components/HTMLGuidesA';
+import AddHTML from './components/AddHTML';
+import UpdateHTMLG from './components/UpdateHTMLG';
 
 function App() {
   const user = localStorage.getItem('token');
@@ -38,6 +41,17 @@ function App() {
           />
           <Route path='/Admin_Dashboard/Users' element={<UsersA />} />
           <Route path='/Admin_Dashboard/Templates' element={<TemplatesA />} />
+          <Route
+            path='/Admin_Dashboard/HTML_Guides'
+            element={<HTMLGuidesA />}
+          />
+          <Route path='/Admin_Dashboard/JS_Guides' element={<HTMLGuidesA />} />
+          <Route path='/Admin_Dashboard/CSS_Guides' element={<HTMLGuidesA />} />
+          <Route path='/Admin_Dashboard/Add_HTML' element={<AddHTML />} />
+          <Route
+            path='/Admin_Dashboard/Update_HTML'
+            element={<UpdateHTMLG />}
+          />
         </Route>
       )}
     </Routes>

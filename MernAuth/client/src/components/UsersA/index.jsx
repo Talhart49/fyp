@@ -13,7 +13,6 @@ import {
 } from '@mui/x-data-grid';
 
 const renderDetailsButton = (params) => {
-  console.log(params.row);
   return (
     <strong>
       <Button

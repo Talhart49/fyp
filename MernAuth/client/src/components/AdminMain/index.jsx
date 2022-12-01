@@ -100,6 +100,9 @@ export default function PersistentDrawerRight() {
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
 
+  const [OpenG, setOpenG] = React.useState(true);
+  const handleOpenG = () => setOpenG(!OpenG);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -139,7 +142,7 @@ export default function PersistentDrawerRight() {
               paddingBottom: '0px',
             }}
             component='div'>
-            Templater
+            Admin Dashboard
           </Typography>
           <IconButton
             color='black'
@@ -210,24 +213,106 @@ export default function PersistentDrawerRight() {
 
         <Divider />
         <List>
-          {['Users', 'Guides', 'Templates'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <Link
-                  to={`/Admin_Dashboard/${text}`}
-                  style={{
-                    textDecoration: 'none',
-                    display: 'flex',
-                    color: 'black',
-                  }}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </Link>
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem key={'Users'} disablePadding>
+            <ListItemButton>
+              <Link
+                to={`/Admin_Dashboard/Users`}
+                style={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  color: 'black',
+                }}>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Users'} />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem key={'Guides'} disablePadding>
+            <ListItemButton onClick={handleOpenG}>
+              <Link
+                style={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  color: 'black',
+                }}>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Guides          v'} />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+          {OpenG ? (
+            <List>
+              <ListItem key={'HTML_Guides'} disablePadding>
+                <ListItemButton onClick={handleOpenG}>
+                  <Link
+                    to={`/Admin_Dashboard/HTML_Guides`}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'flex',
+                      color: 'black',
+                    }}>
+                    <ListItemIcon>
+                      <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={'HTML Guides'} />
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={'CSS_Guides'} disablePadding>
+                <ListItemButton onClick={handleOpenG}>
+                  <Link
+                    to={`/Admin_Dashboard/CSS_Guides`}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'flex',
+                      color: 'black',
+                    }}>
+                    <ListItemIcon>
+                      <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={'CSS Guides'} />
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={'JS_Guides'} disablePadding>
+                <ListItemButton onClick={handleOpenG}>
+                  <Link
+                    to={`/Admin_Dashboard/JS_Guides`}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'flex',
+                      color: 'black',
+                    }}>
+                    <ListItemIcon>
+                      <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={'JS Guides'} />
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          ) : null}
+
+          <ListItem key={'Templates'} disablePadding>
+            <ListItemButton>
+              <Link
+                to={`/Admin_Dashboard/Templates`}
+                style={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  color: 'black',
+                }}>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Templates'} />
+              </Link>
+            </ListItemButton>
+          </ListItem>
         </List>
         <Divider />
         <List>
