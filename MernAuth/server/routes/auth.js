@@ -23,10 +23,14 @@ router.post('/', async (req, res) => {
     if (!user)
       return res.status(401).send({ message: 'Invalid Email or Password' });
 
+    if (user.block === '1') {
+      return res.status(401).send({ message: 'Your account is blocked' });
+    }
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
+
     if (!validPassword)
       return res.status(401).send({ message: 'Invalid Email or Password' });
 
@@ -37,6 +41,7 @@ router.post('/', async (req, res) => {
       fullName: user.fullName,
       phone: user.phone,
       email: user.email,
+      block: user.block,
     });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error' });

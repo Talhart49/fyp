@@ -1,9 +1,10 @@
+import { Box } from '@mui/material';
 import React, { useCallback, useState } from 'react';
-import { PieChart, Pie, Sector } from 'recharts';
+import { PieChart, Pie, Sector, Text } from 'recharts';
 
 const data = [
-  { name: 'Ecommerce', value: 400 },
-  { name: 'Portfolio', value: 300 },
+  { name: 'Ecommerce', value: 600 },
+  { name: 'Portfolio', value: 50 },
   { name: 'Blogs', value: 300 },
   { name: 'Eduation', value: 200 },
 ];
@@ -72,9 +73,9 @@ const renderActiveShape = (props) => {
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
-        fill='#333'>{`PV ${value}`}</text>
+        fill='#333'>{`RV ${value}`}</text>
       <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        x={ex + (cos >= 0 ? 1 : -1) * -35}
         y={ey}
         dy={18}
         textAnchor={textAnchor}
@@ -103,37 +104,89 @@ function App() {
   );
 
   return (
-    <>
-      <PieChart width={500} height={400}>
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={data}
-          cx={200}
-          cy={200}
-          innerRadius={60}
-          outerRadius={150}
-          fill='#53a018'
-          dataKey='value'
-          onMouseEnter={onPieEnter}
-        />
-      </PieChart>
-
-      <PieChart width={500} height={700}>
-        <Pie
-          activeIndex={activeIndex2}
-          activeShape={renderActiveShape}
-          data={data2}
-          cx={200}
-          cy={200}
-          innerRadius={60}
-          outerRadius={150}
-          fill='#8884d8'
-          dataKey='value'
-          onMouseEnter={onPieEnter2}
-        />
-      </PieChart>
-    </>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        padding: '1rem',
+      }}>
+      <div>
+        <h3
+          style={{
+            textAlign: 'start',
+            fontSize: '1.3rem',
+            fontWeight: 'bold',
+            color: '#000',
+            marginTop: '1rem',
+          }}>
+          Top Category of Templates
+        </h3>
+        <PieChart
+          width={450}
+          height={400}
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: '1rem',
+            boxShadow: '0 0 1rem 0 rgba(0, 0, 0, 0.1)',
+            marginleft: '1rem',
+            marginRight: '1rem',
+          }}>
+          <Text x={200} y={200} textAnchor='middle' dominantBaseline='middle'>
+            1000
+          </Text>
+          <Pie
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
+            data={data}
+            cx={200}
+            cy={200}
+            innerRadius={60}
+            outerRadius={100}
+            fill='#53a018'
+            dataKey='value'
+            onMouseEnter={onPieEnter}
+          />
+        </PieChart>
+      </div>
+      <div>
+        <h3
+          style={{
+            textAlign: 'start',
+            fontSize: '1.3rem',
+            fontWeight: 'bold',
+            color: '#000',
+            marginTop: '1rem',
+          }}>
+          Top Templates
+        </h3>
+        <PieChart
+          width={450}
+          height={400}
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: '1rem',
+            boxShadow: '0 0 1rem 0 rgba(0, 0, 0, 0.1)',
+            marginleft: '1rem',
+            marginRight: '1rem',
+          }}>
+          <Pie
+            activeIndex={activeIndex2}
+            activeShape={renderActiveShape}
+            data={data2}
+            cx={200}
+            cy={200}
+            innerRadius={60}
+            outerRadius={100}
+            fill='#8884d8'
+            dataKey='value'
+            onMouseEnter={onPieEnter2}
+          />
+        </PieChart>
+      </div>
+    </Box>
   );
 }
 

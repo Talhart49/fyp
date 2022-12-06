@@ -61,7 +61,7 @@ const Signup = () => {
         <div className={styles.login_form_container}>
           <div className={styles.Top_content}>
             <h1 className={styles.Logo}>Templater</h1>
-            <h1 className={styles.title}>Hi, Welcome Back</h1>
+            <h1 className={styles.title}>Welcome to Templater</h1>
             <button className={styles.googleBtn}>
               <FcGoogle className={styles.googleIcon} />
               <span className={styles.googleBtn__text}>
@@ -153,7 +153,7 @@ const Signup = () => {
                 Forgot Password?
               </button>
               <button type='submit' className={styles.green_btn}>
-                Sign In
+                Sign Up
               </button>
             </form>
             <Link to='/login' className={styles.bottom}>

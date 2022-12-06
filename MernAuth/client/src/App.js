@@ -11,8 +11,16 @@ import AdminMainContent from './components/AdminMainContent';
 import UsersA from './components/UsersA';
 import TemplatesA from './components/TemplatesA';
 import HTMLGuidesA from './components/HTMLGuidesA';
+import CSSGuidesA from './components/CSSGuidesA';
+import JSGuidesA from './components/JSGuidesA';
+
 import AddHTML from './components/AddHTML';
+import AddCSS from './components/AddCSS';
+import AddJS from './components/AddJS';
+
 import UpdateHTMLG from './components/UpdateHTMLG';
+import UpdateCSSG from './components/UpdateCSSG';
+import UpdateJSG from './components/UpdateJSG';
 
 function App() {
   const user = localStorage.getItem('token');
@@ -24,12 +32,12 @@ function App() {
       <Route
         path='/login'
         exact
-        element={<Navigate replace to='/Dashboard' />}
+        element={<Navigate replace to='/dashboard' />}
       />
 
       {user && (
-        <Route path='/Dashboard' element={<Dashboard />}>
-          <Route path='/Dashboard/Profile' element={<Profile />} />
+        <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='/dashboard/Profile' element={<Profile />} />
         </Route>
       )}
       <Route path='/OTP' element={<OTP />} />
@@ -45,13 +53,18 @@ function App() {
             path='/Admin_Dashboard/HTML_Guides'
             element={<HTMLGuidesA />}
           />
-          <Route path='/Admin_Dashboard/JS_Guides' element={<HTMLGuidesA />} />
-          <Route path='/Admin_Dashboard/CSS_Guides' element={<HTMLGuidesA />} />
+          <Route path='/Admin_Dashboard/JS_Guides' element={<JSGuidesA />} />
+          <Route path='/Admin_Dashboard/CSS_Guides' element={<CSSGuidesA />} />
           <Route path='/Admin_Dashboard/Add_HTML' element={<AddHTML />} />
+          <Route path='/Admin_Dashboard/Add_CSS' element={<AddCSS />} />
+          <Route path='/Admin_Dashboard/Add_JS' element={<AddJS />} />
+
           <Route
             path='/Admin_Dashboard/Update_HTML'
             element={<UpdateHTMLG />}
           />
+          <Route path='/Admin_Dashboard/Update_CSS' element={<UpdateCSSG />} />
+          <Route path='/Admin_Dashboard/Update_JS' element={<UpdateJSG />} />
         </Route>
       )}
     </Routes>

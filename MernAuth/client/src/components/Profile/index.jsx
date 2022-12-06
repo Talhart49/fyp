@@ -26,7 +26,7 @@ const Profile = () => {
   React.useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setData(res.data);
-      console.log(res.data);
+      console.log(res.data.block);
     });
   }, []);
 
@@ -139,6 +139,7 @@ const Profile = () => {
               className='input-fields'
               style={{ width: '40%', marginBottom: '20px' }}
               error={error}
+              InputLabelProps={{ shrink: true }}
             />
             <TextField
               id='outlined-basic'
@@ -153,6 +154,7 @@ const Profile = () => {
               className='input-fields'
               style={{ width: '40%', marginBottom: '20px' }}
               error={error}
+              InputLabelProps={{ shrink: true }}
             />
             <TextField
               id='outlined-basic'

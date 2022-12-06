@@ -37,6 +37,7 @@ const Login = () => {
         data.email === 'ranatalhaa02@gmail.com' &&
         data.password === 'Admin@123'
       ) {
+        console.log('Block', res.block);
         navigate('/Admin_Dashboard/AdminMainContent');
       } else {
         navigate('/dashboard');
