@@ -24,6 +24,8 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import GroupIcon from '@mui/icons-material/Group';
 import SchoolIcon from '@mui/icons-material/School';
 import WebStoriesOutlinedIcon from '@mui/icons-material/WebStoriesOutlined';
@@ -343,7 +345,7 @@ export default function PersistentDrawerRight() {
             </ListItem>
           ))}
           <ListItemButton onClick={handleLogout}>
-            <InboxIcon
+            <LogoutIcon
               sx={{
                 marginRight: 4,
               }}
