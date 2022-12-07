@@ -61,10 +61,17 @@ const Modall = () => {
 };
 
 const RenderViewButton = (params) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <strong>
         <Button
+          onClick={() => {
+            localStorage.setItem('title', params.row.title);
+
+            navigate('/Admin_Dashboard/View_HTML');
+          }}
           variant='contained'
           color='primary'
           size='small'

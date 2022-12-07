@@ -24,6 +24,14 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
+import GroupIcon from '@mui/icons-material/Group';
+import SchoolIcon from '@mui/icons-material/School';
+import WebStoriesOutlinedIcon from '@mui/icons-material/WebStoriesOutlined';
+
+import HtmlIcon from '@mui/icons-material/Html';
+import CssIcon from '@mui/icons-material/Css';
+import JavascriptIcon from '@mui/icons-material/Javascript';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -223,7 +231,7 @@ export default function PersistentDrawerRight() {
                   color: 'black',
                 }}>
                 <ListItemIcon>
-                  <InboxIcon />
+                  <GroupIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Users'} />
               </Link>
@@ -238,9 +246,9 @@ export default function PersistentDrawerRight() {
                   color: 'black',
                 }}>
                 <ListItemIcon>
-                  <MailIcon />
+                  <SchoolIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Guides          v'} />
+                <ListItemText primary={'Guides'} />
               </Link>
             </ListItemButton>
           </ListItem>
@@ -256,7 +264,7 @@ export default function PersistentDrawerRight() {
                       color: 'black',
                     }}>
                     <ListItemIcon>
-                      <MailIcon />
+                      <HtmlIcon />
                     </ListItemIcon>
                     <ListItemText primary={'HTML Guides'} />
                   </Link>
@@ -272,7 +280,7 @@ export default function PersistentDrawerRight() {
                       color: 'black',
                     }}>
                     <ListItemIcon>
-                      <MailIcon />
+                      <CssIcon />
                     </ListItemIcon>
                     <ListItemText primary={'CSS Guides'} />
                   </Link>
@@ -288,7 +296,7 @@ export default function PersistentDrawerRight() {
                       color: 'black',
                     }}>
                     <ListItemIcon>
-                      <MailIcon />
+                      <JavascriptIcon />
                     </ListItemIcon>
                     <ListItemText primary={'JS Guides'} />
                   </Link>
@@ -307,7 +315,7 @@ export default function PersistentDrawerRight() {
                   color: 'black',
                 }}>
                 <ListItemIcon>
-                  <InboxIcon />
+                  <WebStoriesOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Templates'} />
               </Link>

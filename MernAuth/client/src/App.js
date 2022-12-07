@@ -22,6 +22,14 @@ import UpdateHTMLG from './components/UpdateHTMLG';
 import UpdateCSSG from './components/UpdateCSSG';
 import UpdateJSG from './components/UpdateJSG';
 
+import ViewHTMLA from './components/ViewHTMLA';
+import TutorialContent from './parts/TutorialContent';
+import ContentHTML from './parts/ContentHTML';
+
+import Editor from './pages/Editor';
+
+import ViewHTMLU from './components/ViewHTMLU';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -38,6 +46,16 @@ function App() {
       {user && (
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='/dashboard/Profile' element={<Profile />} />
+          <Route path='/dashboard/ViewHTML_U' element={<ViewHTMLU />}>
+            <Route
+              path='/dashboard/ViewHTML_U/:title'
+              element={<ContentHTML />}
+            />
+            <Route
+              path='/dashboard/ViewHTML_U/:title/Editor'
+              element={<Editor />}
+            />
+          </Route>
         </Route>
       )}
       <Route path='/OTP' element={<OTP />} />
@@ -65,6 +83,17 @@ function App() {
           />
           <Route path='/Admin_Dashboard/Update_CSS' element={<UpdateCSSG />} />
           <Route path='/Admin_Dashboard/Update_JS' element={<UpdateJSG />} />
+
+          <Route
+            path='/Admin_Dashboard/TutorialContent'
+            element={<TutorialContent />}
+          />
+          <Route path='/Admin_Dashboard/View_HTML' element={<ViewHTMLA />} />
+
+          <Route
+            path='/Admin_Dashboard/View_HTML/Editor'
+            element={<Editor />}
+          />
         </Route>
       )}
     </Routes>

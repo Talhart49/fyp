@@ -25,6 +25,22 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Tooltip from '@mui/material/Tooltip';
 
+import SchoolIcon from '@mui/icons-material/School';
+import CreateIcon from '@mui/icons-material/Create';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+import './styles.css';
+import Input from '@mui/material/Input';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+import { FaUserAstronaut } from 'react-icons/fa';
+import { AiOutlineSetting, AiOutlineMenu } from 'react-icons/ai';
+
+import HtmlIcon from '@mui/icons-material/Html';
+import CssIcon from '@mui/icons-material/Css';
+import JavascriptIcon from '@mui/icons-material/Javascript';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -131,6 +147,26 @@ export default function PersistentDrawerRight() {
   //   getUserInfo();
   // }, []);
 
+  const [down, setDown] = React.useState(false);
+  const handleDropDown = () => {
+    setDown(!down);
+  };
+
+  const handlehtml = () => {
+    navigate('/dashboard/ViewHtml_U');
+    setDown(!down);
+  };
+
+  const handlecss = () => {
+    navigate('/dashboard/ViewHtml_U');
+    setDown(!down);
+  };
+
+  const handlejs = () => {
+    navigate('/dashboard/ViewHtml_U');
+    setDown(!down);
+  };
+
   React.useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setData(res.data);
@@ -142,18 +178,58 @@ export default function PersistentDrawerRight() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
-        <Toolbar>
-          <Typography variant='h5' noWrap sx={{ flexGrow: 1 }} component='div'>
+        <Toolbar
+          sx={{
+            pr: '24px', // keep right padding when drawer closed
+            backgroundColor: '#fff',
+          }}>
+          <Typography
+            variant='h5'
+            noWrap
+            sx={{
+              flexGrow: 1,
+              color: '#000',
+              cursor: 'pointer',
+              fontFamily: 'Poppins',
+              fontWeight: 'bold',
+            }}
+            component='div'>
             Templater
           </Typography>
-          <IconButton
+
+          <div className='nav-left-left'>
+            <AiOutlineMenu
+              className='burger_menu'
+              onClick={handleDrawerOpen}
+              style={{
+                ...(open && { display: 'none' }),
+              }}
+            />
+
+            <Input
+              id='input-with-icon-adornment'
+              startAdornment={
+                <InputAdornment position='start'>
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </div>
+
+          <div className='nav-right'>
+            <button className='nav-right-btn'>
+              <FaUserAstronaut className='user' />
+              <AiOutlineSetting className='setting' />
+            </button>
+          </div>
+          {/* <IconButton
             color='inherit'
             aria-label='open drawer'
             edge='end'
             onClick={handleDrawerOpen}
             sx={{ ...(open && { display: 'none' }) }}>
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
       <Main open={open}>
@@ -221,22 +297,87 @@ export default function PersistentDrawerRight() {
             marginTop: 4,
             marginBottom: 7,
           }}>
-          {['Learn to Code', 'Create Templates', 'My Templates'].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding>
+          <ListItem key={'learn to code'} disablePadding>
+            <ListItemButton
+              sx={{
+                marginTop: 1,
+              }}
+              onClick={handleDropDown}>
+              <ListItemIcon>
+                <SchoolIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Learn to Code'} />
+            </ListItemButton>
+          </ListItem>
+
+          {down && (
+            <List>
+              <ListItem key={'learn html'} disablePadding>
                 <ListItemButton
                   sx={{
                     marginTop: 1,
                   }}
-                  onClick={handleOpen}>
+                  onClick={handlehtml}>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    <HtmlIcon />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={'Learn HTML'} />
                 </ListItemButton>
               </ListItem>
-            )
+
+              <ListItem key={'learn CSS'} disablePadding>
+                <ListItemButton
+                  sx={{
+                    marginTop: 1,
+                  }}
+                  onClick={handlecss}>
+                  <ListItemIcon>
+                    <CssIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'Learn CSS'} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem key={'learn JS'} disablePadding>
+                <ListItemButton
+                  sx={{
+                    marginTop: 1,
+                  }}
+                  onClick={handlejs}>
+                  <ListItemIcon>
+                    <JavascriptIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'Learn JS'} />
+                </ListItemButton>
+              </ListItem>
+            </List>
           )}
+
+          <ListItem key={'Create Template'} disablePadding>
+            <ListItemButton
+              sx={{
+                marginTop: 1,
+              }}
+              onClick={handleOpen}>
+              <ListItemIcon>
+                <CreateIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Create Template'} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem key={'My Template'} disablePadding>
+            <ListItemButton
+              sx={{
+                marginTop: 1,
+              }}
+              onClick={handleOpen}>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary={'My Templates'} />
+            </ListItemButton>
+          </ListItem>
         </List>
         <Divider />
         <List>
@@ -259,7 +400,7 @@ export default function PersistentDrawerRight() {
             </ListItem>
           ))}
           <ListItemButton onClick={handleLogout}>
-            <InboxIcon
+            <LogoutIcon
               sx={{
                 marginRight: 4,
               }}

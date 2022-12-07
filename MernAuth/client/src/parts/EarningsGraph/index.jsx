@@ -68,27 +68,17 @@ export default class Graphs extends PureComponent {
         <div
           style={{
             width: '100%',
-            height: 400,
+            height: 800,
             backgroundColor: '#fff',
             borderRadius: '1rem',
             boxShadow: '0 0 1rem 0 rgba(0, 0, 0, 0.1)',
             marginleft: '1rem',
             marginRight: '1rem',
-
-            '@media (min-width: 950px)': {
-              width: '70%',
-              height: 400,
-              backgroundColor: '#fff',
-              borderRadius: '1rem',
-              boxShadow: '0 0 1rem 0 rgba(0, 0, 0, 0.1)',
-              marginleft: '1rem',
-              marginRight: '1rem',
-            },
           }}>
           <ResponsiveContainer>
             <ComposedChart
-              width={500}
-              height={400}
+              width={1000}
+              height={600}
               data={data}
               margin={{
                 top: 20,

@@ -14,9 +14,6 @@ const LearnHTML = () => {
       <div className='details'>
         <Outlet />
       </div>
-      {/* <Sidebar
-       />
-      <TutorialContent /> */}
     </div>
   );
 };
