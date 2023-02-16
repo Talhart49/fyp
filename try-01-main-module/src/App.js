@@ -27,12 +27,12 @@ function Navbar() {
       <title>Template</title>
 
       <style>
-        ${Nav.finalCode.style}
+         ${Nav.finalCode.style}
         
         </style>
     </head>
     <body>
-      ${Nav.html}
+       ${Nav.html}
     </body>
   </html>
   `,
@@ -43,6 +43,9 @@ function Navbar() {
 function App() {
   return (
     <div className='App'>
+      <h1> hiii</h1>
+
+    
       <Output
         data={`
           ${Navbar().data}
