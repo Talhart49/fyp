@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { finalCode } from '../../redux/FoodSite01_redux/FS1_Slice';
 import Navbar from './Navbar';
 import {
   Checkbox,
@@ -9,11 +10,16 @@ import {
   FormGroup,
   Typography,
   Box,
+  Fab,
 } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 
 function Index() {
   const navElements = useSelector((state) => state.FS1.navbar);
+  const navDesign = useSelector((state) => state.FS1.navbarDesign);
+  const dispatch = useDispatch();
+
+  const [completeCode, setCompleteCode] = useState();
 
   const [nav, setNav] = useState(false);
   const [about, setAbout] = useState(false);
@@ -28,7 +34,7 @@ function Index() {
     <!-- ---header logo--- -->
     <div class="header-logo">
       <img
-        src="https://i.ibb.co/k9CdNdC/logo-img.png"
+        src="${navElements.nav_logo}"
         alt="logo-img"
         border="0"
       />
@@ -97,6 +103,93 @@ function Index() {
     <!-- ---menu bar--- -->
     <div id="menu-bar" class="fas fa-bars"></div>
   </header>
+    `;
+  let navbarDesign = `
+    .header {
+
+      ${navDesign.position === 'center' ? 'max-width: 1200px;' : 'right: 0;'}
+      width: 100%;
+      height: 6rem;
+      padding: ${navDesign.padding}rem 8rem;
+      background-color: ${navDesign.navBackgroundColor};
+      -webkit-box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 1rem;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header .header-logo {
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .header .header-logo img {
+      width: 4rem;
+      height: auto;
+      cursor: pointer;
+    }
+
+    .header .navbar {
+      padding: 0 1rem;
+    }
+
+    .header .navbar ul {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header .navbar ul li {
+      text-align: center;
+    }
+
+    .header .navbar ul li a {
+      font-size: ${navDesign.fontSize}rem;
+      font-family: ${navDesign.fontFamily}
+      text-transform: capitalize;
+      margin: 0 ${navDesign.margin}rem;
+      font-weight: ${navDesign.fontWeight};
+      color: #${navDesign.navTextColor};
+    }
+
+    .header .navbar ul li a:hover,
+    .header .navbar ul li a.active {
+      color: ${navDesign.navHoverColor};
+      border-bottom: 0.2rem solid ${navDesign.navHoverColor};
+    }
+
+    .header #menu-bar {
+      font-size: 3rem;
+      padding: 1rem;
+      cursor: pointer;
+      display: none;
+    }
     `;
   let aboutCode = `
   <!-- ====markup about section==== -->
@@ -348,6 +441,9 @@ function Index() {
     });
     let code = `
     </head>
+    <style>
+      ${nav ? navbarDesign : ''}
+      </style>
     <body>
         ${nav ? navbarCode : ''} 
         ${about ? aboutCode : ''}
@@ -363,7 +459,8 @@ function Index() {
   
       `;
 
-    console.log('code', code);
+    setCompleteCode(code);
+    dispatch(finalCode(code));
   };
 
   const handleCustomeSection = (section) => {
@@ -374,6 +471,21 @@ function Index() {
 
   return (
     <React.Fragment>
+      <Fab
+        color='secondary'
+        aria-label='add'
+        sx={{
+          height: 100,
+          position: 'absolute',
+          bottom: '1rem',
+          alignSelf: 'flex-end',
+          zIndex: 100,
+          width: 100,
+        }}>
+        <Link to='/FoodSite01'>
+          <h4>Preview</h4>
+        </Link>
+      </Fab>
       <FormControl
         sx={{
           display: 'flex',
