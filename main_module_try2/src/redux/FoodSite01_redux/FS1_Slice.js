@@ -59,6 +59,88 @@ const initialState = {
     text_align: 'left',
     padding: '1',
   },
+  menu: {
+    menu_heading: 'Our Delicious ',
+    menu_catagory1: 'breakfast',
+    menu_catagory2: 'lunch',
+    menu_catagory3: 'dinner',
+    menu_catagory4: 'desserts',
+
+    menu_catagory1_img: 'https://i.ibb.co/WtDY8jV/menu-breakfast.jpg',
+    menu_catagory2_img: 'https://i.ibb.co/F5KnzBL/menu-lunch.jpg',
+    menu_catagory3_img: 'https://i.ibb.co/b1LZnYw/menu-dinner.jpg',
+    menu_catagory4_img: 'https://i.ibb.co/d7YB3Cm/menu-desert.jpg',
+
+    menu_info1_heading: 'we serve best food in the country',
+    menu_info1_paragraph:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, perspiciatis.',
+
+    menu_info2_heading: 'we serve best food in the country',
+    menu_info2_paragraph:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, perspiciatis.',
+
+    menu_info3_heading: 'we serve best food in the country',
+    menu_info3_paragraph:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, perspiciatis.',
+
+    menu_info4_heading: 'we serve best food in the country',
+    menu_info4_paragraph:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, perspiciatis.',
+  },
+  menuDesign: {
+    info_heading_fontSize: '2.4',
+    info_heading_fontWeight: 'bold',
+    info_paragraph_fontSize: '1.6',
+    info_paragraph_fontWeight: 'normal',
+    text_align: 'left',
+
+    border_radius_img: '1',
+    border_radius_frame: '1',
+
+    image_padding: '2',
+
+    buttons_headings_border_type: 'dashed',
+    buttons_margin_bottom: '5',
+  },
+
+  popular: {
+    background_Picture: 'https://i.ibb.co/1nYcthp/popular-bg.jpg',
+
+    card1_heading: 'Fried Chicken',
+    card1_stars: '4',
+    card1_price: '20.00',
+    card1_img: 'https://i.ibb.co/7XZ5Z5p/popular1.jpg',
+
+    card2_heading: 'Margherita',
+    card2_stars: '4',
+    card2_price: '20.00',
+    card2_img: 'https://i.ibb.co/7XZ5Z5p/popular1.jpg',
+
+    card3_heading: 'Borrito',
+    card3_stars: '4',
+    card3_price: '20.00',
+    card3_img: 'https://i.ibb.co/7XZ5Z5p/popular1.jpg',
+
+    card4_heading: 'Pasta',
+    card4_stars: '4',
+    card4_price: '20.00',
+    card4_img: 'https://i.ibb.co/7XZ5Z5p/popular1.jpg',
+
+    cards_button: 'Add to cart',
+  },
+
+  popularDesign: {
+    main_heading_marginTop: '3',
+    card_padding: '1',
+    transition_time: '0.4',
+    card_border_radius: '1',
+    card_background_color: '#f0f8ff',
+    card_heading_fontSize: '3',
+    card_heading_fontWeight: 'bold',
+    stars_fontSize: '1.6',
+    stars_color: '#f7ca3e',
+    price_fontSize: '2.6',
+  },
 };
 
 const FS1_Slice = createSlice({
@@ -86,6 +168,18 @@ const FS1_Slice = createSlice({
     editAboutDesign: (state, action) => {
       state.aboutDesign = action.payload;
     },
+    editMenu: (state, action) => {
+      state.menu = action.payload;
+    },
+    editMenuDesign: (state, action) => {
+      state.menuDesign = action.payload;
+    },
+    editPopular: (state, action) => {
+      state.popular = action.payload;
+    },
+    editPopularDesign: (state, action) => {
+      state.popularDesign = action.payload;
+    },
   },
 });
 
@@ -97,6 +191,10 @@ export const {
   editHomeDesign,
   editAbout,
   editAboutDesign,
+  editMenu,
+  editMenuDesign,
+  editPopular,
+  editPopularDesign,
 } = FS1_Slice.actions;
 
 export default FS1_Slice.reducer;

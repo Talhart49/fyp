@@ -5,6 +5,8 @@ import { finalCode } from '../../redux/FoodSite01_redux/FS1_Slice';
 import Navbar from './Navbar';
 import Home from './Home';
 import About from './About';
+import Menu from './Menu';
+import Popular from './Popular';
 import {
   Checkbox,
   Button,
@@ -25,6 +27,42 @@ function Index() {
 
   const aboutElements = useSelector((state) => state.FS1.about);
   const aboutElemDesign = useSelector((state) => state.FS1.aboutDesign);
+
+  const menuElements = useSelector((state) => state.FS1.menu);
+  const menuElemDesign = useSelector((state) => state.FS1.menuDesign);
+
+  const popularElements = useSelector((state) => state.FS1.popular);
+  const popularElemDesign = useSelector((state) => state.FS1.popularDesign);
+
+  const stars1 = () => {
+    let stars = '';
+    for (let i = 0; i < popularElements.card1_stars; i++) {
+      stars += `<i class="fas fa-star"></i>`;
+    }
+    return stars;
+  };
+
+  const stars2 = () => {
+    let stars = '';
+    for (let i = 0; i < popularElements.card2_stars; i++) {
+      stars += `<i class="fas fa-star"></i>`;
+    }
+    return stars;
+  };
+  const stars3 = () => {
+    let stars = '';
+    for (let i = 0; i < popularElements.card3_stars; i++) {
+      stars += `<i class="fas fa-star"></i>`;
+    }
+    return stars;
+  };
+  const stars4 = () => {
+    let stars = '';
+    for (let i = 0; i < popularElements.card4_stars; i++) {
+      stars += `<i class="fas fa-star"></i>`;
+    }
+    return stars;
+  };
 
   useEffect(() => {
     console.log(homeElemDesign);
@@ -410,18 +448,18 @@ function Index() {
   let menuCode = `
   <!-- ====markup menu section==== -->
   <section id="menu" class="menu">
-    <h2>our delicious <span>menu</span></h2>
+    <h2>${menuElements.menu_heading} <span>menu</span></h2>
     <div class="catagory">
-      <input type="button" value="breakfast" />
-      <input type="button" class="active" value="lunch" />
-      <input type="button" value="dinner" />
-      <input type="button" value="desert" />
+      <input type="button" value=${menuElements.menu_catagory1} />
+      <input type="button" class="active" value=${menuElements.menu_catagory2}/>
+      <input type="button" value=${menuElements.menu_catagory3} />
+      <input type="button" value=${menuElements.menu_catagory4} />
     </div>
 
     <div class="catagory-img">
       <img
         id="c-img"
-        src="https://i.ibb.co/F5KnzBL/menu-lunch.jpg"
+        src=${menuElements.menu_catagory2_image}
         alt="Net Error"
       />
     </div>
@@ -429,41 +467,137 @@ function Index() {
     <!-- ---info content 01--- -->
     <div class="menu-content">
       <div class="info">
-        <h3><span>01.</span>we serve best food in the country</h3>
+        <h3><span>01.</span>${menuElements.menu_info1_heading}</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore,
-          perspiciatis.
+          ${menuElements.menu_info1_paragraph}
         </p>
       </div>
 
       <!-- ---info content 02--- -->
       <div class="info">
-        <h3><span>02.</span>we serve best food in the country</h3>
+        <h3><span>02.</span>${menuElements.menu_info2_heading}</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore,
-          perspiciatis.
+          ${menuElements.menu_info2_paragraph}
         </p>
       </div>
 
       <!-- ---info content 03--- -->
       <div class="info">
-        <h3><span>03.</span>we serve best food in the country</h3>
+        <h3><span>03.</span>${menuElements.menu_info3_heading}</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore,
-          perspiciatis.
+          ${menuElements.menu_info3_paragraph}
         </p>
       </div>
 
       <!-- ---info content 04--- -->
       <div class="info">
-        <h3><span>04.</span>we serve best food in the country</h3>
+        <h3><span>04.</span>${menuElements.menu_info4_heading}</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore,
-          perspiciatis.
+          ${menuElements.menu_info4_paragraph}
         </p>
       </div>
     </div>
   </section>
+  `;
+  let menuDesign = `
+  .menu {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr);
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu h2 {
+    grid-column: 1 / -1;
+  }
+
+  .menu .catagory {
+    grid-column: 1 / -1;
+    padding: 2rem 0;
+    margin-bottom: ${menuElemDesign.buttons_margin_bottom}rem;
+    border-top: 0.3rem ${menuElemDesign.buttons_headings_border_type} rgba(0, 0, 0, 0.2);
+    border-bottom: 0.3rem ${menuElemDesign.buttons_headings_border_type} rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .menu .catagory input.active {
+    color: #ffffff;
+    background-color: #f7ca3e;
+  }
+  
+  .menu .catagory-img {
+    padding: ${menuElemDesign.image_padding}rem;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 6;
+    grid-column: 1 / 7;
+    -webkit-box-shadow: 0.2rem 0.4rem 1rem #333333;
+    box-shadow: 0.2rem 0.4rem 1rem #333333;
+    border-radius: ${menuElemDesign.border_radius_frame}rem;
+    height: 100%;
+  }
+
+  .menu .catagory-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: ${menuElemDesign.border_radius_img}rem;
+  }
+
+  .menu .menu-content {
+    grid-column: 7 / -1;
+    padding: 1rem;
+  }
+
+  .menu .menu-content .info {
+    text-align: left;
+  }
+
+  .menu .menu-content .info h3 {
+    padding-top: 1rem;
+    font-size: ${menuElemDesign.info_heading_fontSize}rem;
+    color: #000000;
+    font-weight: ${menuElemDesign.info_heading_fontWeight};
+    text-transform: capitalize;
+  }
+
+  .menu .menu-content .info h3 span {
+    color: #f7ca3e;
+    padding-right: 1rem;
+  }
+
+  .menu .menu-content .info p {
+    color: #333333;
+    padding: 1rem;
+    font-size: ${menuElemDesign.info_paragraph_fontSize}rem;
+    font-weight: ${menuElemDesign.info_paragraph_fontWeight};
+    line-height: 1.5;
+    text-transform: capitalize;
+    text-align: ${menuElemDesign.text_align};
+    padding: 0 4rem 0;
+  }
   `;
   let popularCode = `
   <!-- ====markup popular section==== -->
@@ -473,65 +607,156 @@ function Index() {
           <div class="popular-content">
             <!-- ---card 01--- -->
             <div class="p-card">
-              <img src="https://i.ibb.co/Sw575B1/product-1.jpg" alt="Net Error" />
-              <h4>delecious food</h4>
+              <img src="${popularElements.card1_img}" alt="Net Error" />
+              <h4>${popularElements.card1_heading}</h4>
               <div class="review">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                ${stars1()}
               </div>
-              <p class="price">$ 30.00</p>
-              <input type="button" value="add to cart" />
+              <p class="price">$ ${popularElements.card1_price}</p>
+              <input type="button" value="${popularElements.cards_button}" />
             </div>
   
             <!-- ---card 02--- -->
             <div class="p-card">
-              <img src="https://i.ibb.co/JFQvVH4/product-2.jpg" alt="Net Error" />
-              <h4>delecious food</h4>
+              <img src="${popularElements.card2_img}" alt="Net Error" />
+              <h4>${popularElements.card2_heading}</h4>
               <div class="review">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+              ${stars2()}
               </div>
-              <p class="price">$ 30.00</p>
-              <input type="button" value="add to cart" />
+              <p class="price">$ ${popularElements.card2_price}</p>
+              <input type="button" value="${popularElements.cards_button}" />
             </div>
   
             <!-- ---card 03--- -->
             <div class="p-card">
-              <img src="https://i.ibb.co/qCTQPB6/product-3.jpg" alt="Net Error" />
-              <h4>delecious food</h4>
+              <img src="${popularElements.card3_img}" alt="Net Error" />
+              <h4>${popularElements.card3_heading}</h4>
               <div class="review">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+
+              ${stars3()}
               </div>
-              <p class="price">$ 30.00</p>
-              <input type="button" value="add to cart" />
+              <p class="price">$ ${popularElements.card3_price}</p>
+              <input type="button" value="${popularElements.cards_button}" />
             </div>
   
             <!-- ---card 04--- -->
             <div class="p-card">
-              <img src="https://i.ibb.co/rpx2n2f/product-4.jpg" alt="Net Error" />
-              <h4>delecious food</h4>
+              <img src="${popularElements.card4_img}" alt="Net Error" />
+              <h4>${popularElements.card4_heading}</h4>
               <div class="review">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+              ${stars4()}
               </div>
-              <p class="price">$ 30.00</p>
-              <input type="button" value="add to cart" />
+              <p class="price">$ ${popularElements.card4_price}</p>
+              <input type="button" value="${popularElements.cards_button}" />
             </div>
           </div>
         </section>
+  `;
+  let popularDesign = `
+  .popular {
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(255, 255, 255, 0.7)),
+        to(rgba(255, 255, 255, 0.7))
+      ),
+      url(${popularElements.background_Picture}});
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.7)
+      ),
+      url(${popularElements.background_Picture});
+    background-repeat: no-repeat;
+    background-size: content;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+
+ 
+  .popular h2 {
+    margin-top: ${popularElemDesign.main_heading_marginTop}rem;
+  }
+
+  .popular .popular-content {
+    text-align: center;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr);
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    gap: 4rem;
+  }
+
+  .popular .popular-content .p-card {
+    padding: ${popularElemDesign.card_padding}rem;
+    background-color: #${popularElemDesign.card_background_color};
+    -webkit-box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+    border-radius: ${popularElemDesign.card_border_radius}rem;
+    -webkit-transition: all ${popularElemDesign.transition_time}s linear;
+    transition: all ${popularElemDesign.transition_time}s linear;
+  }
+
+  .popular .popular-content .p-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0.1rem solid #f7ca3e;
+  }
+
+  .popular .popular-content .p-card h4 {
+    color: #000000;
+    padding: 1rem;
+    font-size: ${popularElemDesign.card_heading_fontSize}rem;
+    font-weight: ${popularElemDesign.card_heading_fontWeight};
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .popular .popular-content .p-card .review {
+    text-align: center;
+  }
+
+  .popular .popular-content .p-card .review i {
+    color: #${popularElemDesign.stars_color};
+    font-size: ${popularElemDesign.stars_fontSize}rem;
+  }
+
+  .popular .popular-content .p-card .price {
+    padding: 1rem;
+    font-size: ${popularElemDesign.price_fontSize}rem;
+  }
+
+  .popular .popular-content .p-card input {
+    margin-bottom: 1rem;
+  }
+
+  .popular .popular-content .p-card:hover {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+    -webkit-box-shadow: 0.4rem 0.8rem 2rem #333333;
+    box-shadow: 0.4rem 0.8rem 2rem #333333;
+  }
+
+  .popular .popular-content .p-card:nth-child(odd) {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 5;
+    grid-column: 2 / 7;
+  }
+
+  .popular .popular-content .p-card:nth-child(even) {
+    -ms-grid-column: 7;
+    -ms-grid-column-span: 5;
+    grid-column: 7 / 12;
+  }
   `;
   let galleryCode = `
   <!-- ====markup gallery section==== -->
@@ -597,6 +822,86 @@ function Index() {
         </section>
   `;
 
+  let footerCode = ``;
+
+  let jsCode = `
+  <script>
+  // selecting all necessary dom element
+
+  //select for menu
+  const menuBar = document.querySelector('#menu-bar');
+  const navbar = document.querySelector('.navbar');
+
+  //select for menu image
+  const catagory = document.querySelectorAll('.catagory input');
+  const cataImg = document.querySelector('#c-img');
+
+  // select for connect section with nav item
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.navbar ul li a');
+
+  // event listener for toggle menu
+  menuBar.addEventListener('click', () => {
+    menuBar.classList.toggle('fa-times');
+    menuBar.classList.toggle('active');
+    navbar.classList.toggle('active');
+  });
+
+  // scroll event
+  document.addEventListener('scroll', () => {
+    menuBar.classList.remove('fa-times');
+    menuBar.classList.remove('active');
+    navbar.classList.remove('active');
+
+    // conect With nav link
+    connectSecWithNavLink();
+  });
+
+  // controlling menu image
+  catagory.forEach((element) => {
+    element.addEventListener('click', () => {
+      catagory.forEach((ele) => {
+        ele.classList.remove('active');
+      });
+
+      let values = element.value;
+      element.classList.add('active');
+      if (values === '${menuElements.menu_catagory1}') {
+        cataImg.src = '${menuElements.menu_catagory1_img}';
+      } else if (values === '${menuElements.menu_catagory2}') {
+        cataImg.src = '${menuElements.menu_catagory2_img}';
+      } else if (values === '${menuElements.menu_catagory3}') {
+        cataImg.src = '${menuElements.menu_catagory3_img}';
+      } else if (values === '${menuElements.menu_catagory4}') {
+        cataImg.src = '${menuElements.menu_catagory4_img}';
+      }
+    });
+  });
+
+  // handeling scroll event and mar nav item
+  const connectSecWithNavLink = () => {
+    let current = '';
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+
+      if (pageYOffset >= sectionTop - 60) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach((link) => {
+      let linkAttribute = link.attributes.href.value;
+      link.classList.remove('active');
+
+      if (linkAttribute === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  };
+</script>
+  `;
+
   const [sections, setSections] = useState(['Navbar', 'Home']);
   const [extend, setExtend] = useState([]);
 
@@ -634,7 +939,9 @@ function Index() {
       ${nav ? navbarDesign : ''}
       ${home ? homeDesign : ''}
       ${about ? aboutDesign : ''}
-      
+      ${menu ? menuDesign : ''}
+      ${popular ? popularDesign : ''}
+
       </style>
     <body>
         ${nav ? navbarCode : ''} 
@@ -645,6 +952,8 @@ function Index() {
         ${gallery ? galleryCode : ''}
         ${order ? orderCode : ''}
 
+
+       ${jsCode} 
     </body>
   </html>
   
@@ -825,6 +1134,14 @@ function Index() {
             return <Home />;
           } else if (section === 'About') {
             return <About />;
+          } else if (section === 'Menu') {
+            return <Menu />;
+          } else if (section === 'Popular') {
+            return <Popular />;
+            // } else if (section === 'Gallery') {
+            //   return <Gallery />;
+            // } else if (section === 'Order') {
+            //   return <Order />;
           }
         })}
       </Box>
