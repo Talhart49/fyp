@@ -32,18 +32,12 @@ function Navbar() {
   const [padding, setPadding] = useState(navDesign.padding);
   const [margin, setMargin] = useState(navDesign.margin);
 
-  // const handleNavElementsChanges = (e) => {
-  //   setNavElementsNew({ ...navElementsNew, [e.target.name]: e.target.value });
-
-  //   dispatch({ navElementsNew });
-  // };
-
   return (
     <div>
       <div
         style={{
           gap: '1rem',
-          width: '100%',
+          width: '500px',
           margin: '1rem',
           padding: '1rem',
           border: '1px solid #000',

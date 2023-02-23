@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { finalCode } from '../../redux/FoodSite01_redux/FS1_Slice';
 import Navbar from './Navbar';
+import Home from './Home';
+import About from './About';
 import {
   Checkbox,
   Button,
@@ -17,11 +19,23 @@ import FormControl from '@mui/material/FormControl';
 function Index() {
   const navElements = useSelector((state) => state.FS1.navbar);
   const navDesign = useSelector((state) => state.FS1.navbarDesign);
+
+  const homeElements = useSelector((state) => state.FS1.home);
+  const homeElemDesign = useSelector((state) => state.FS1.homeDesign);
+
+  const aboutElements = useSelector((state) => state.FS1.about);
+  const aboutElemDesign = useSelector((state) => state.FS1.aboutDesign);
+
+  useEffect(() => {
+    console.log(homeElemDesign);
+  }, [homeElemDesign]);
+
   const dispatch = useDispatch();
 
   const [completeCode, setCompleteCode] = useState();
 
   const [nav, setNav] = useState(false);
+  const [home, setHome] = useState(false);
   const [about, setAbout] = useState(false);
   const [menu, setMenu] = useState(false);
   const [popular, setPopular] = useState(false);
@@ -175,7 +189,7 @@ function Index() {
       text-transform: capitalize;
       margin: 0 ${navDesign.margin}rem;
       font-weight: ${navDesign.fontWeight};
-      color: #${navDesign.navTextColor};
+      color: ${navDesign.navTextColor};
     }
 
     .header .navbar ul li a:hover,
@@ -191,33 +205,207 @@ function Index() {
       display: none;
     }
     `;
+  let homeCode = `
+  <main>
+      <!-- ====markup home section==== -->
+      <section id="home" class="home">
+        <div class="home-desc">
+          <h1>${homeElements.home_heading}</h1>
+          <p>
+            ${homeElements.home_paragraph}
+          </p>
+          <input type="button" value=${homeElements.home_button} />
+        </div>
+
+        <div class="home-image">
+          <img
+            src=${homeElements.home_backgroundImage}
+            alt="home-img"
+            border="0"
+          />
+        </div>
+      </section>
+  `;
+  let homeDesign = `
+  .home {
+    margin: ${homeElemDesign.margin}rem 0;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr) ;
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 0;
+  }
+
+  .home .home-desc {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 6;
+    grid-column: 1 / 7;
+    text-align: ${homeElemDesign.text_align};
+  }
+
+  .home .home-desc h1 {
+    color: #000000;
+    padding: 1rem;
+    font-size: ${homeElemDesign.heading_fontSize}rem;
+    font-weight: ${homeElemDesign.heading_fontWeight};
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .home .home-desc p {
+    color: #333333;
+    padding: 1rem;
+    font-size: ${homeElemDesign.paragraph_fontSize}rem;
+    line-height: 1.5;
+    font-weight: ${homeElemDesign.paragraph_fontWeight};
+    text-transform: capitalize;
+    text-align: left;
+  }
+
+  .home .home-desc input {
+    margin-top: 3rem;
+  }
+
+  .home .home-image {
+    grid-column: 7 / -1;
+    text-align: center;
+  }
+
+  .home .home-image img {
+    width: 100%;
+  }
+
+  .home::after,
+  .home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -6rem;
+    background-color: ${homeElemDesign.animation_background_color};
+    border-radius: 3rem;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    height: 40rem;
+    width: 70rem;
+    z-index: -2;
+    -webkit-animation: animate 1.5s linear 1;
+    animation: animate 1.5s linear 1;
+  }
+
+  .home::before {
+    top: -7rem;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+    z-index: -1;
+  }
+
+  @-webkit-keyframes animate {
+    0% {
+      -webkit-transform: rotate(50deg) translateY(-40rem);
+      transform: rotate(50deg) translateY(-40rem);
+    }
+  }
+
+  @keyframes animate {
+    0% {
+      -webkit-transform: rotate(50deg) translateY(-40rem);
+      transform: rotate(50deg) translateY(-40rem);
+    }
+  }
+  `;
   let aboutCode = `
   <!-- ====markup about section==== -->
         <section id="about" class="about">
           <div class="about-image">
             <img
-              src="https://i.ibb.co/JQFCkkT/about-frame-img.png"
+              src=${aboutElements.about_Image_Frame}
               alt="about-frame-img"
               border="0"
             />
           </div>
   
           <div class="about-desc">
-            <h2>a world about us</h2>
+            <h2>${aboutElements.about_heading}</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque sint
-              illum similique mollitia facere maiores nemo saepe repellendus enim,
-              debitis perspiciatis dolore deleniti. Vel quos aliquid impedit
-              neque.
+              ${aboutElements.about_paragraph1}
             </p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga ipsa
-              dolore ex aut maiores perferendis a doloribus aliquid vitae natus.
+              ${aboutElements.about_paragraph2}
             </p>
   
-            <input type="button" value="learn more" />
+            <input type="button" value=${aboutElements.about_button} />
           </div>
         </section>
+  `;
+  let aboutDesign = `
+  .about {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr) [12];
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    min-height: 50rem;
+  }
+
+  .about .about-image {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 6;
+    grid-column: 1 / 7;
+    height: 100%;
+    background-image: url(${aboutElements.about_Image});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-mix-blend-mode: screen;
+  }
+
+  .about .about-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .about .about-desc {
+    grid-column: 7 / -1;
+  }
+
+  .about .about-desc h2 {
+    color: #000000;
+    padding: ${aboutElemDesign.padding}rem;
+    font-size: ${aboutElemDesign.heading_fontSize}rem;
+    font-weight: ${aboutElemDesign.heading_fontWeight};
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .about .about-desc p {
+    color: #333333;
+    padding: ${aboutElemDesign.padding}rem;
+    font-size: ${aboutElemDesign.paragraph_fontSize}rem;
+    font-weight: ${aboutElemDesign.paragraph_fontWeight};
+    line-height: 1.5;
+    text-transform: capitalize;
+    text-align: ${aboutElemDesign.text_align};
+  }
+
+  .about .about-desc input {
+    margin: 2rem 3rem;
+  }
   `;
   let menuCode = `
   <!-- ====markup menu section==== -->
@@ -409,7 +597,7 @@ function Index() {
         </section>
   `;
 
-  const [sections, setSections] = useState(['Navbar']);
+  const [sections, setSections] = useState(['Navbar', 'Home']);
   const [extend, setExtend] = useState([]);
 
   const handleSectionsChange = (event) => {
@@ -426,7 +614,8 @@ function Index() {
     sections.forEach((section) => {
       if (section == 'Navbar') {
         setNav(true);
-        console.log('nav', section);
+      } else if (section === 'Home') {
+        setHome(true);
       } else if (section === 'About') {
         setAbout(true);
       } else if (section === 'Menu') {
@@ -443,9 +632,13 @@ function Index() {
     </head>
     <style>
       ${nav ? navbarDesign : ''}
+      ${home ? homeDesign : ''}
+      ${about ? aboutDesign : ''}
+      
       </style>
     <body>
         ${nav ? navbarCode : ''} 
+        ${home ? homeCode : ''}
         ${about ? aboutCode : ''}
         ${menu ? menuCode : ''}
         ${popular ? popularCode : ''}
@@ -460,12 +653,15 @@ function Index() {
       `;
 
     setCompleteCode(code);
+    console.log('code', code);
     dispatch(finalCode(code));
   };
 
   const handleCustomeSection = (section) => {
-    if (section === 'Navbar') {
+    if (!extend.includes(section)) {
       setExtend((prev) => [...prev, section]);
+    } else {
+      setExtend((prev) => prev.filter((item) => item !== section));
     }
   };
 
@@ -511,6 +707,12 @@ function Index() {
             control={<Checkbox defaultChecked />}
             label='Navbar'
             value='Navbar'
+          />
+          <FormControlLabel
+            disabled
+            control={<Checkbox defaultChecked />}
+            label='Home'
+            value='Home'
           />
           <FormControlLabel
             control={
@@ -597,6 +799,7 @@ function Index() {
                 border: '1px solid',
                 borderRadius: 3,
                 width: 300,
+                marginBottom: 2,
               }}>
               <h3
                 style={{
@@ -615,10 +818,13 @@ function Index() {
             </Box>
           );
         })}
-
         {extend.map((section) => {
           if (section === 'Navbar') {
             return <Navbar />;
+          } else if (section === 'Home') {
+            return <Home />;
+          } else if (section === 'About') {
+            return <About />;
           }
         })}
       </Box>
