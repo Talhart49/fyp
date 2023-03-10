@@ -16,6 +16,9 @@ const getCSSRoutes = require('./routes/getCSS');
 const AddJSRoutes = require('./routes/addJS');
 const getJSRoutes = require('./routes/getJS');
 
+const stripes = require('./routes/stripe');
+const payment = require('./routes/payment');
+
 //DB connection
 
 connection();
@@ -37,6 +40,9 @@ app.use('/api/JSG', AddJSRoutes);
 app.use('/api/getHTMLG', gethtmlRoutes);
 app.use('/api/getCSSG', getCSSRoutes);
 app.use('/api/getJSG', getJSRoutes);
+
+app.use('/api/stripe', stripes);
+app.use('/api/payment', payment);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('listening on port ' + port));

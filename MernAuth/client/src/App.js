@@ -30,6 +30,9 @@ import Editor from './pages/Editor';
 
 import ViewHTMLU from './components/ViewHTMLU';
 
+import PaymentsU from './components/PaymentU';
+import CardPayment from './components/PaymentU/CardPayment';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -46,6 +49,8 @@ function App() {
       {user && (
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='/dashboard/Profile' element={<Profile />} />
+          <Route path='/dashboard/Payments' element={<PaymentsU />} />
+          <Route path='/dashboard/Payments/Card' element={<CardPayment />} />
           <Route path='/dashboard/ViewHTML_U' element={<ViewHTMLU />}>
             <Route
               path='/dashboard/ViewHTML_U/:title'

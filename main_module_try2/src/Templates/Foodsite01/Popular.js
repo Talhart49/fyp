@@ -10,7 +10,7 @@ import {
   editPopularDesign,
 } from '../../redux/FoodSite01_redux/FS1_Slice';
 
-function Home() {
+function Popular() {
   const popularElements = useSelector((state) => state.FS1.popular);
   const popularDesign = useSelector((state) => state.FS1.popularDesign);
 
@@ -305,4 +305,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Popular;

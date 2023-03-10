@@ -291,24 +291,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-{
-  /* <div className='main-content' key={data.firstName}>
-        <h2>{data.firstName}</h2>
-        <p className='description'>{data.email}</p>
-        <table className='attr-table'>
-          <tr>
-            <th>Tag</th>
-            <th>Description</th>
-          </tr>
-        </table>
-
-        <h3>Example</h3>
-        <div className='textarea' name='description' rows='12' col='550'>
-          {data.email}
-        </div>
-        <Link to={`try`}>
-          <button className='btn'>Try it Yourself</button>
-        </Link>
-      </div> */
-}

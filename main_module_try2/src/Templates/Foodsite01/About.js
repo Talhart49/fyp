@@ -8,7 +8,7 @@ import {
   editAboutDesign,
 } from '../../redux/FoodSite01_redux/FS1_Slice';
 
-function Home() {
+function About() {
   const AboutElements = useSelector((state) => state.FS1.about);
   const AboutDesign = useSelector((state) => state.FS1.aboutDesign);
 
@@ -119,7 +119,7 @@ function Home() {
           </div>
 
           <div>
-            <h3>Home Design</h3>
+            <h3>About Design</h3>
             <form
               action=''
               style={{
@@ -238,4 +238,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default About;

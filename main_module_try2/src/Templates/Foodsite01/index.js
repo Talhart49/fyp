@@ -7,6 +7,10 @@ import Home from './Home';
 import About from './About';
 import Menu from './Menu';
 import Popular from './Popular';
+import Gallery from './Gallery';
+import Order from './Order';
+import Footer from './Footer';
+
 import {
   Checkbox,
   Button,
@@ -33,6 +37,14 @@ function Index() {
 
   const popularElements = useSelector((state) => state.FS1.popular);
   const popularElemDesign = useSelector((state) => state.FS1.popularDesign);
+
+  const galleryElements = useSelector((state) => state.FS1.gallery);
+
+  const orderElements = useSelector((state) => state.FS1.order);
+  const orderElemDesign = useSelector((state) => state.FS1.orderDesign);
+
+  const footerElements = useSelector((state) => state.FS1.footer);
+  const footerElemDesign = useSelector((state) => state.FS1.footerDesign);
 
   const stars1 = () => {
     let stars = '';
@@ -79,6 +91,8 @@ function Index() {
   const [popular, setPopular] = useState(false);
   const [gallery, setGallery] = useState(false);
   const [order, setOrder] = useState(false);
+  const [footer, setFooter] = useState(false);
+  const [responsive, setResponsive] = useState(false);
 
   let navbarCode = `
   <!-- ====markup header element==== -->
@@ -257,7 +271,7 @@ function Index() {
 
         <div class="home-image">
           <img
-            src=${homeElements.home_backgroundImage}
+            src="${homeElements.home_backgroundImage}"
             alt="home-img"
             border="0"
           />
@@ -365,7 +379,7 @@ function Index() {
         <section id="about" class="about">
           <div class="about-image">
             <img
-              src=${aboutElements.about_Image_Frame}
+              src="${aboutElements.about_Image_Frame}"
               alt="about-frame-img"
               border="0"
             />
@@ -451,7 +465,7 @@ function Index() {
     <h2>${menuElements.menu_heading} <span>menu</span></h2>
     <div class="catagory">
       <input type="button" value=${menuElements.menu_catagory1} />
-      <input type="button" class="active" value=${menuElements.menu_catagory2}/>
+      <input type="button" class="active" value=${menuElements.menu_catagory2} />
       <input type="button" value=${menuElements.menu_catagory3} />
       <input type="button" value=${menuElements.menu_catagory4} />
     </div>
@@ -459,7 +473,7 @@ function Index() {
     <div class="catagory-img">
       <img
         id="c-img"
-        src=${menuElements.menu_catagory2_image}
+        src="${menuElements.menu_catagory2_img}"
         alt="Net Error"
       />
     </div>
@@ -661,7 +675,7 @@ function Index() {
         from(rgba(255, 255, 255, 0.7)),
         to(rgba(255, 255, 255, 0.7))
       ),
-      url(${popularElements.background_Picture}});
+      url(${popularElements.background_Picture});
     background-image: linear-gradient(
         rgba(255, 255, 255, 0.7),
         rgba(255, 255, 255, 0.7)
@@ -697,7 +711,7 @@ function Index() {
 
   .popular .popular-content .p-card {
     padding: ${popularElemDesign.card_padding}rem;
-    background-color: #${popularElemDesign.card_background_color};
+    background-color: ${popularElemDesign.card_background_color};
     -webkit-box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
     box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
     border-radius: ${popularElemDesign.card_border_radius}rem;
@@ -726,7 +740,7 @@ function Index() {
   }
 
   .popular .popular-content .p-card .review i {
-    color: #${popularElemDesign.stars_color};
+    color: ${popularElemDesign.stars_color};
     font-size: ${popularElemDesign.stars_fontSize}rem;
   }
 
@@ -766,41 +780,132 @@ function Index() {
           <div class="gallery-content">
             <!-- ---gallery card 01--- -->
             <div class="g-card">
-              <img src="https://i.ibb.co/t4rdMfx/img1.jpg" alt="Net Error" />
-              <h3>delicious food</h3>
+              <img src="${galleryElements.card1_img}" alt="Net Error" />
+              <h3>${galleryElements.card1_heading}</h3>
             </div>
   
             <!-- ---gallery card 02--- -->
             <div class="g-card">
-              <img src="https://i.ibb.co/LzXpjZz/img2.jpg" alt="Net Error" />
-              <h3>delicious food</h3>
+              <img src="${galleryElements.card2_img}" alt="Net Error" />
+              <h3>${galleryElements.card2_heading}</h3>
             </div>
   
             <!-- ---gallery card 03--- -->
             <div class="g-card">
-              <img src="https://i.ibb.co/R0f3kzj/img3.jpg" alt="Net Error" />
-              <h3>delicious food</h3>
+              <img src="${galleryElements.card3_img}" alt="Net Error" />
+              <h3>${galleryElements.card3_heading}</h3>
             </div>
   
             <!-- ---gallery card 04--- -->
             <div class="g-card">
-              <img src="https://i.ibb.co/Jx6tyMm/img4.jpg" alt="Net Error" />
-              <h3>delicious food</h3>
+              <img src="${galleryElements.card4_img}" alt="Net Error" />
+              <h3>${galleryElements.card4_heading}</h3>
             </div>
   
             <!-- ---gallery card 05--- -->
             <div class="g-card">
-              <img src="https://i.ibb.co/F5VHCqn/img5.jpg" alt="Net Error" />
-              <h3>delicious food</h3>
+              <img src="${galleryElements.card5_img}" alt="Net Error" />
+              <h3>${galleryElements.card5_heading}</h3>
             </div>
   
             <!-- ---gallery card 06--- -->
             <div class="g-card">
-              <img src="https://i.ibb.co/n7zn9jh/img6.jpg" alt="Net Error" />
-              <h3>delicious food</h3>
+              <img src="${galleryElements.card6_img}" alt="Net Error" />
+              <h3>${galleryElements.card6_heading}</h3>
             </div>
           </div>
         </section>
+  `;
+  let galleryDesign = `
+  .gallery .gallery-content {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr);
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    gap: 4rem;
+  }
+
+  .gallery .gallery-content .g-card {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+
+  .gallery .gallery-content .g-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  .gallery .gallery-content .g-card h3 {
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #000000;
+    padding: 1rem;
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    text-align: center;
+    color: #fff;
+    opacity: 0.5;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+
+  .gallery .gallery-content .g-card::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+
+  .gallery .gallery-content .g-card:hover h3 {
+    top: 50%;
+    opacity: 1;
+    -webkit-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+  }
+
+  .gallery .gallery-content .g-card:hover::before {
+    top: 0;
+  }
+
+  .gallery .gallery-content .g-card:nth-child(3n + 1) {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 4;
+    grid-column: 1 / 5;
+  }
+
+  .gallery .gallery-content .g-card:nth-child(3n + 2) {
+    -ms-grid-column: 5;
+    -ms-grid-column-span: 4;
+    grid-column: 5 / 9;
+  }
+
+  .gallery .gallery-content .g-card:nth-child(3n + 3) {
+    grid-column: 9 / -1;
+  }
   `;
   let orderCode = `
   <!-- ====markup order section==== -->
@@ -809,21 +914,331 @@ function Index() {
   
           <div class="order-content">
             <form action="#" class="order-form" autocomplete="off">
-              <input type="text" placeholder="name" required />
-              <input type="email" placeholder="email" required />
-              <input type="password" placeholder="password" required />
-              <input type="number" placeholder="phone Number" required />
-              <textarea cols="30" rows="8" placeholder="address"></textarea>
+              <input type="text" placeholder="${orderElements.input_feild1}" required />
+              <input type="email" placeholder="${orderElements.input_feild2}" required />
+              <input type="password" placeholder="${orderElements.input_feild3}" required />
+              <textarea cols="30" rows="8" placeholder="${orderElements.input_feild4}"></textarea>
+              <textarea cols="30" rows="8" placeholder="${orderElements.input_feild5}"></textarea>
   
-              <button type="submit">Order now</button>
+              <button type="submit">${orderElements.button}</button>
             </form>
-            <img src="https://i.ibb.co/Fxmbtcc/form-img.jpg" alt="Net Error" />
+            <img src="${orderElements.image}" alt="Net Error" />
           </div>
         </section>
+        </main>
   `;
+  let orderDesign = `
+.order {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr);
+  grid-template-columns: repeat(12, 1fr);
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1rem;
+}
 
-  let footerCode = ``;
+.order h2 {
+  grid-column: 1 / -1;
+}
 
+.order .order-content {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 10;
+  grid-column: 2 / 12;
+  -webkit-box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr);
+  grid-template-columns: repeat(12, 1fr);
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1rem;
+  gap: 0;
+}
+
+.order .order-content .order-form {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 6;
+  grid-column: 1 / 7;
+  padding: ${orderElemDesign.form_padding}rem;
+  text-align: ${orderElemDesign.form_textAlign};
+}
+
+.order .order-content .order-form input,
+.order .order-content .order-form textarea {
+  display: block;
+  width: 100%;
+  font-size: ${orderElemDesign.input_feilds_fontSize}rem;
+  padding: ${orderElemDesign.input_feilds_padding}rem 1rem;
+  margin: ${orderElemDesign.input_feilds_margin}rem 0;
+  text-transform: inherit;
+  background-color: ${orderElemDesign.input_feilds_backgroundColor};
+}
+
+.order .order-content .order-form input::-webkit-input-placeholder,
+.order .order-content .order-form textarea::-webkit-input-placeholder {
+  text-transform: capitalize;
+}
+
+.order .order-content .order-form input:-ms-input-placeholder,
+.order .order-content .order-form textarea:-ms-input-placeholder {
+  text-transform: capitalize;
+}
+
+.order .order-content .order-form input::-ms-input-placeholder,
+.order .order-content .order-form textarea::-ms-input-placeholder {
+  text-transform: capitalize;
+}
+
+.order .order-content .order-form input::placeholder,
+.order .order-content .order-form textarea::placeholder {
+  text-transform: capitalize;
+}
+
+.order .order-content .order-form textarea {
+  max-width: 100%;
+  resize: none;
+}
+
+.order .order-content img {
+  grid-column: 7 / -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;}
+  `;
+  let footerCode = `
+  <!-- ====markup footer element==== -->
+    <footer class="footer">
+      <div class="contact-info">
+        <h4>${footerElements.section1_heading}</h4>
+        <p><i class="fas fa-location-dot"></i><span>${footerElements.section1_paragraph1}</span></p>
+        <p><i class="fas fa-envelope"></i> <span>${footerElements.section1_paragraph2}</span></p>
+        <p><i class="fas fa-phone"></i> <span>${footerElements.section1_paragraph3}</span></p>
+        <p><i class="fas fa-phone"></i> <span>${footerElements.section1_paragraph4}</span></p>
+      </div>
+
+      <div class="location">
+        <h4>${footerElements.section2_heading}</h4>
+        <ul>
+          <li><a href="#">${footerElements.section2_paragraph1}</a></li>
+          <li><a href="#">${footerElements.section2_paragraph2}</a></li>
+          <li><a href="#">${footerElements.section2_paragraph3}</a></li>
+          <li><a href="#">${footerElements.section2_paragraph4}</a></li>
+        </ul>
+      </div>
+
+      <div class="quick-links">
+        <h4>${footerElements.section3_heading}</h4>
+        <ul>
+          <li><a href="#${footerElements.section3_paragraph1}">${footerElements.section3_paragraph1}</a></li>
+          <li><a href="#${footerElements.section3_paragraph2}">${footerElements.section3_paragraph2}</a></li>
+          <li><a href="#${footerElements.section3_paragraph3}">${footerElements.section3_paragraph3}</a></li>
+          <li><a href="#${footerElements.section3_paragraph4}">${footerElements.section3_paragraph4}</a></li>
+          <li><a href="#${footerElements.section3_paragraph5}">${footerElements.section3_paragraph5}</a></li>
+          <li><a href="#${footerElements.section3_paragraph6}">${footerElements.section3_paragraph6}</a></li>
+
+        </ul>
+      </div>
+
+      <div class="follow-us">
+        <h4>${footerElements.section4_heading}</h4>
+        <ul>
+          <li>
+            <a href="${footerElements.facebook_link}" target="blank">facebook</a>
+          </li>
+          <li>
+            <a href="${footerElements.instagram_link}" target="blank">instagram</a>
+          </li>
+          <li><a href="${footerElements.twitter_link}" target="blank">twitter</a></li>
+          <li>
+            <a href="${footerElements.linkdin_link}" target="blank">linkedin</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="copyright">
+        <p>${footerElements.copyright}</p>
+      </div>
+    </footer>
+  `;
+  let footerDesign = `
+  .footer {
+    padding: ${footerElemDesign.padding}rem 1rem;
+    background-color: ${footerElemDesign.background_color};
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr);
+    grid-template-columns: repeat(12, 1fr);
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .footer .contact-info {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 3;
+    grid-column: 1 / 4;
+    padding: 1rem;
+    min-height: 32rem;
+  }
+
+  .footer .contact-info p {
+    padding: 1rem;
+    font-size: ${footerElemDesign.description_fontSize}rem;
+  }
+
+  .footer .contact-info p i {
+    font-size: ${footerElemDesign.icon_fontSize}rem;
+    color: ${footerElemDesign.icon_color};
+  }
+
+  .footer .contact-info p span {
+    padding-left: 1rem;
+    color: ${footerElemDesign.description_color};
+  }
+
+  .footer .contact-info p:first-of-type i {
+    width: 1.6rem;
+  }
+
+  .footer .contact-info p:first-of-type span {
+    text-transform: capitalize;
+  }
+
+  .footer .location {
+    -ms-grid-column: 4;
+    -ms-grid-column-span: 3;
+    grid-column: 4 / 7;
+    padding: 1rem;
+    min-height: 32rem;
+  }
+
+  .footer .location ul {
+    padding: 1rem;
+  }
+
+  .footer .location ul li {
+    padding: 1rem 0;
+  }
+
+  .footer .quick-links {
+    -ms-grid-column: 7;
+    -ms-grid-column-span: 3;
+    grid-column: 7 / 10;
+    padding: 1rem;
+    min-height: 32rem;
+  }
+
+  .footer .quick-links ul {
+    padding: 1rem;
+  }
+
+  .footer .quick-links ul li {
+    padding: 1rem 0;
+  }
+
+  .footer .follow-us {
+    grid-column: 10 / -1;
+    padding: 1rem;
+    min-height: 32rem;
+  }
+
+  .footer .follow-us ul {
+    padding: 1rem;
+  }
+
+  .footer .follow-us ul li {
+    padding: 1rem 0;
+  }
+
+  .footer .copyright {
+    grid-column: 1 / -1;
+    border-top: 0.1rem solid #f7ca3e;
+  }
+
+  .footer .copyright p {
+    font-size: ${footerElemDesign.copyright_fontSize}rem;
+    color: ${footerElemDesign.copyright_color};
+    padding-top: 1rem;
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .footer .copyright p span {
+    color: #f7ca3e;
+    font-weight: 500;
+  }
+
+  .footerTitle {
+    font-size: 2.4rem;
+    color: #ffffff;
+    font-weight: 500;
+    text-align: left;
+    text-transform: capitalize;
+    padding: 1rem;
+  }
+
+  .footerLink {
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-transform: capitalize;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+
+  .footerLink:hover {
+    color: #f7ca3e;
+  }
+
+  .footerTitle,
+  .footer .contact-info h4,
+  .footer .location h4,
+  .footer .quick-links h4,
+  .footer .follow-us h4 {
+    font-size: 2.4rem;
+    color: #ffffff;
+    font-weight: 500;
+    text-align: left;
+    text-transform: capitalize;
+    padding: 1rem;
+  }
+
+  .footerLink,
+  .footer .location ul li a,
+  .footer .quick-links ul li a,
+  .footer .follow-us ul li a {
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-transform: capitalize;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+
+  .footerLink:hover,
+  .footer .location ul li a:hover,
+  .footer .quick-links ul li a:hover,
+  .footer .follow-us ul li a:hover {
+    color: #f7ca3e;
+  }
+  `;
   let jsCode = `
   <script>
   // selecting all necessary dom element
@@ -901,6 +1316,207 @@ function Index() {
   };
 </script>
   `;
+  let responsiveDesign = `
+  @media screen and (max-width: 991px) {
+    .header {
+      padding: 1rem 5rem;
+    }
+    .menu .catagory-img {
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 5;
+      grid-column: 1 / 6;
+    }
+    .menu .menu-content {
+      grid-column: 6 / -1;
+    }
+    .gallery .gallery-content {
+      gap: 3rem;
+    }
+    .gallery .gallery-content .g-card:nth-child(2n + 1) {
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 6;
+      grid-column: 1 / 7;
+    }
+    .gallery .gallery-content .g-card:nth-child(2n + 2) {
+      grid-column: 7 / -1;
+    }
+    .order .order-content {
+      grid-column: 1 / -1;
+    }
+    .order .order-content .order-form {
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 7;
+      grid-column: 1 / 8;
+    }
+    .order .order-content img {
+      grid-column: 8 / -1;
+    }
+    .footer .contact-info {
+      -ms-grid-column: 2;
+      -ms-grid-column-span: 5;
+      grid-column: 2 / 7;
+    }
+    .footer .location {
+      -ms-grid-column: 7;
+      -ms-grid-column-span: 5;
+      grid-column: 7 / 12;
+    }
+    .footer .quick-links {
+      -ms-grid-column: 2;
+      -ms-grid-column-span: 5;
+      grid-column: 2 / 7;
+    }
+    .footer .follow-us {
+      -ms-grid-column: 7;
+      -ms-grid-column-span: 5;
+      grid-column: 7 / 12;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    html {
+      font-size: 55%;
+    }
+    .header {
+      padding: 1rem 3rem;
+    }
+    .header .navbar {
+      padding: 2rem 0;
+      display: block;
+      width: 40%;
+      height: calc(100vh - 6rem);
+      background-color: #f0f8ff;
+      position: absolute;
+      top: 6rem;
+      right: -100%;
+      z-index: 100;
+      border-bottom-left-radius: 50%;
+      -webkit-box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0.3rem 2rem rgba(0, 0, 0, 0.2);
+      -webkit-transition: all 0.4s linear;
+      transition: all 0.4s linear;
+    }
+    .header .navbar.active {
+      right: 0;
+    }
+    .header .navbar ul {
+      margin-top: 3rem;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: start;
+      gap: 4rem;
+    }
+    .header .navbar ul li {
+      width: 100%;
+    }
+    .header #menu-bar {
+      display: block;
+      -webkit-transition: all 0.4s linear;
+      transition: all 0.4s linear;
+    }
+    .header #menu-bar.active {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+      color: #f7ca3e;
+    }
+    .home .home-desc {
+      grid-column: 1 / -1;
+    }
+    .home .home-desc p {
+      text-align: center;
+      padding: 1rem 3rem;
+    }
+    .home .home-image {
+      grid-column: 1 / -1;
+    }
+    .home .home-image img {
+      width: 80%;
+    }
+    .home::after,
+    .home::before {
+      display: none;
+    }
+    .about .about-image {
+      grid-column: 1 / -1;
+    }
+    .about .about-desc {
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+    .about .about-desc p {
+      text-align: center;
+    }
+    .menu .catagory-img {
+      grid-column: 1 / -1;
+    }
+    .menu .menu-content {
+      grid-column: 1 / -1;
+    }
+    .popular .popular-content .p-card:nth-child(odd) {
+      -ms-grid-column: 2;
+      -ms-grid-column-span: 10;
+      grid-column: 2 / 12;
+    }
+    .popular .popular-content .p-card:nth-child(even) {
+      -ms-grid-column: 2;
+      -ms-grid-column-span: 10;
+      grid-column: 2 / 12;
+    }
+    .gallery .gallery-content {
+      gap: 2rem;
+    }
+    .gallery .gallery-content .g-card:nth-child(n) {
+      grid-column: 1 / -1;
+    }
+    .order .order-content {
+      grid-column: 1 / -1;
+    }
+    .order .order-content .order-form {
+      grid-column: 1 / -1;
+    }
+    .order .order-content img {
+      display: none;
+    }
+    .footer .contact-info {
+      min-height: auto;
+      grid-column: 1 / -1;
+    }
+    .footer .location {
+      min-height: auto;
+      grid-column: 1 / -1;
+    }
+    .footer .quick-links {
+      min-height: auto;
+      grid-column: 1 / -1;
+    }
+    .footer .follow-us {
+      min-height: auto;
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    html {
+      font-size: 50%;
+    }
+    .header {
+      padding: 1rem 2rem;
+    }
+    .header .navbar {
+      width: 70%;
+    }
+  }
+  `;
 
   const [sections, setSections] = useState(['Navbar', 'Home']);
   const [extend, setExtend] = useState([]);
@@ -931,16 +1547,215 @@ function Index() {
         setGallery(true);
       } else if (section === 'Order') {
         setOrder(true);
+      } else if (section === 'Footer') {
+        setFooter(true);
       }
     });
     let code = `
-    </head>
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>food-website</title>
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/Vgf46Dw/title-logo.png"
+      type="image/x-icon"
+    />
+
+    <!-- ----linked font awesome cdn---- -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500&family=Roboto:wght@100;300;400;500;700&display=swap');
+    .buttonStyle,
+    ${sections.includes('Home') ? '.home .home-desc input,' : ''}
+    ${sections.includes('About') ? '.about .about-desc input,' : ''}
+    ${sections.includes('Menu') ? '.menu .catagory input,' : ''}
+    ${
+      sections.includes('Popular')
+        ? '.popular .popular-content .p-card input,'
+        : ''
+    }
+    ${
+      sections.includes('Order')
+        ? '.order .order-content .order-form button'
+        : ''
+    }{
+      padding: 0.5rem 3rem;
+      border: 0.2rem solid #f7ca3e;
+      border-radius: 50rem;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      text-transform: capitalize;
+      background-color: transparent;
+      -webkit-transition: all 0.4s linear;
+      transition: all 0.4s linear;
+    }
+
+    .buttonStyle:hover,
+    ${sections.includes('Home') ? '.home .home-desc input:hover,' : ''}
+    ${sections.includes('About') ? '.about .about-desc input:hover,' : ''}
+    ${sections.includes('Menu') ? '.menu .catagory input:hover,' : ''}
+    ${
+      sections.includes('Popular')
+        ? '.popular .popular-content .p-card input:hover,'
+        : ''
+    }
+    ${
+      sections.includes('Order')
+        ? '.order .order-content .order-form button:hover'
+        : ''
+    } {
+      color: #ffffff;
+      background-color: #f7ca3e;
+    }
+
+    .sectionHeading,
+    ${sections.includes('Menu') ? '.menu h2,' : ''}
+    ${sections.includes('Popular') ? '.popular h2,' : ''}
+    ${sections.includes('Gallery') ? '.gallery h2,' : ''}
+    ${sections.includes('Order') ? '.order h2' : ''} {
+      font-size: 4rem;
+      padding: 2rem;
+      font-weight: 700;
+      text-align: center;
+      text-transform: capitalize;
+      color: #000000;
+    }
+    
+    
+    
+
+    .sectionHeading span,
+    ${sections.includes('Menu') ? '.menu h2 span,' : ''}
+    ${sections.includes('Popular') ? '.popular h2 span,' : ''}
+    ${sections.includes('Gallery') ? '.gallery h2 span,' : ''}
+    ${sections.includes('Order') ? '.order h2 span' : ''} {
+      padding: 0 1rem;
+      color: #f7ca3e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    html {
+      font-size: 62.5%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    html::-webkit-scrollbar {
+      width: 1.4rem;
+    }
+
+    html::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    html::-webkit-scrollbar-thumb {
+      background: #f7ca3e;
+    }
+
+    body {
+      max-width: 1200px;
+      margin: auto;
+      background-color: #ffffff;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Oswald', sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a,
+    button,
+    input[button],
+    input[submit] {
+      -webkit-transition: all 0.4s linear;
+      transition: all 0.4s linear;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    section {
+      padding: 3rem 1rem;
+    }
+
+
+
+    .buttonStyle {
+      padding: 0.5rem 3rem;
+      border: 0.2rem solid #f7ca3e;
+      border-radius: 50rem;
+      font-size: 2rem;
+      color: #000000;
+      cursor: pointer;
+      text-transform: capitalize;
+      background-color: transparent;
+      -webkit-transition: all 0.4s linear;
+      transition: all 0.4s linear;
+    }
+
+    .buttonStyle:hover {
+      color: #ffffff;
+      background-color: #f7ca3e;
+    }
+
+    .sectionHeading {
+      font-size: 4rem;
+      padding: 2rem;
+      font-weight: 700;
+      text-align: center;
+      text-transform: capitalize;
+      color: #000000;
+    }
+
+    .sectionHeading span {
+      padding: 0 1rem;
+      color: #f7ca3e;
+    }
+
+
+
       ${nav ? navbarDesign : ''}
       ${home ? homeDesign : ''}
       ${about ? aboutDesign : ''}
       ${menu ? menuDesign : ''}
       ${popular ? popularDesign : ''}
+      ${gallery ? galleryDesign : ''}
+      ${order ? orderDesign : ''}
+      ${footer ? footerDesign : ''}
+
+      ${responsive ? responsiveDesign : ''}
+
 
       </style>
     <body>
@@ -951,6 +1766,7 @@ function Index() {
         ${popular ? popularCode : ''}
         ${gallery ? galleryCode : ''}
         ${order ? orderCode : ''}
+        ${footer ? footerCode : ''}
 
 
        ${jsCode} 
@@ -1073,6 +1889,26 @@ function Index() {
             label='Order'
             value='Order'
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={sections.includes('Footer')}
+                onChange={handleSectionsChange}
+              />
+            }
+            label='Footer'
+            value='Footer'
+          />
+
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={() => {
+              setResponsive(!responsive);
+            }}>
+            {responsive ? 'Remove Responsiveness' : 'Add Responsiveness'}
+          </Button>
+
           <Button
             variant='contained'
             color='primary'
@@ -1138,10 +1974,12 @@ function Index() {
             return <Menu />;
           } else if (section === 'Popular') {
             return <Popular />;
-            // } else if (section === 'Gallery') {
-            //   return <Gallery />;
-            // } else if (section === 'Order') {
-            //   return <Order />;
+          } else if (section === 'Gallery') {
+            return <Gallery />;
+          } else if (section === 'Order') {
+            return <Order />;
+          } else if (section === 'Footer') {
+            return <Footer />;
           }
         })}
       </Box>

@@ -10,7 +10,7 @@ import {
   editMenuDesign,
 } from '../../redux/FoodSite01_redux/FS1_Slice';
 
-function Home() {
+function Menu() {
   const menuElements = useSelector((state) => state.FS1.menu);
   const menuDesign = useSelector((state) => state.FS1.menuDesign);
 
@@ -68,7 +68,7 @@ function Home() {
             fontWeight: 'bold',
             textTransform: 'uppercase',
           }}>
-          Home Customization
+          Menu Customization
         </h1>
 
         <div
@@ -301,4 +301,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Menu;

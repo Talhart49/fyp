@@ -29,6 +29,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import CreateIcon from '@mui/icons-material/Create';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 import './styles.css';
 import Input from '@mui/material/Input';
@@ -380,8 +381,22 @@ export default function PersistentDrawerRight() {
           </ListItem>
         </List>
         <Divider />
+        <ListItem key={'Upgrade to Premium'} disablePadding>
+          <ListItemButton
+            sx={{
+              marginTop: 1,
+            }}
+            onClick={() => {
+              navigate('/dashboard/Payments');
+            }}>
+            <ListItemIcon>
+              <CreditCardIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Upgrade to Premium'} />
+          </ListItemButton>
+        </ListItem>
         <List>
-          {['Feedbacks', 'Payments', 'Help Center'].map((text, index) => (
+          {['Feedbacks', 'Help Center'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <Link
