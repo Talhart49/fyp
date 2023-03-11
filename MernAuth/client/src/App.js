@@ -1,5 +1,4 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Main from './components/Main';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Landing from './components/Landing';
@@ -33,6 +32,11 @@ import ViewHTMLU from './components/ViewHTMLU';
 import PaymentsU from './components/PaymentU';
 import CardPayment from './components/PaymentU/CardPayment';
 
+import TemplatesU from './pages/TemplatesU';
+import FoodSite from './Templates/Foodsite01';
+import FS1 from './Templates/Foodsite01/FS1';
+import PortfolioWeb from './Templates/Portfolio01';
+import P01 from './Templates/Portfolio01/P01';
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -49,6 +53,12 @@ function App() {
       {user && (
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='/dashboard/Profile' element={<Profile />} />
+          <Route path='/dashboard/Templates' element={<TemplatesU />} />
+          <Route path='/dashboard/Templates/FoodSite' element={<FoodSite />} />
+          <Route
+            path='/dashboard/Templates/PortfolioWeb'
+            element={<PortfolioWeb />}
+          />
           <Route path='/dashboard/Payments' element={<PaymentsU />} />
           <Route path='/dashboard/Payments/Card' element={<CardPayment />} />
           <Route path='/dashboard/ViewHTML_U' element={<ViewHTMLU />}>
@@ -101,6 +111,8 @@ function App() {
           />
         </Route>
       )}
+      <Route path='/dashboard/Templates/FoodSite/FS1' element={<FS1 />} />
+      <Route path='/dashboard/Templates/PortfolioWeb/P01' element={<P01 />} />
     </Routes>
   );
 }

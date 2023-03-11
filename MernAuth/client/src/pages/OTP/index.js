@@ -112,7 +112,7 @@ const OTP = () => {
     }
   };
   return (
-    <div className='container'>
+    <div className='main_container'>
       <div className='main'>
         {!result ? (
           <div className='form_container-dis'>

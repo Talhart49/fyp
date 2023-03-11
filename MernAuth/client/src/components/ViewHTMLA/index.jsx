@@ -24,7 +24,7 @@ const TutorialContent = () => {
   }
 
   return (
-    <div className='main-container'>
+    <div className='main_container'>
       <div className='main-content' key={data._id}>
         <h2>{data.title}</h2>
         <p className='description'>{data.content}</p>

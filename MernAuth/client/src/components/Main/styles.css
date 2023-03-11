@@ -1,7 +1,6 @@
 .navbar {
   width: 100%;
   height: 70px;
-  background-color: #3bb19b;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -178,4 +177,24 @@
 .sidebarList .sidebar__item:hover {
   cursor: pointer;
   background-color: #ede7f6;
+}
+
+.below_nav h3 {
+  color: #ed21b7;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.below_nav h3:hover {
+  cursor: pointer;
+  color: #a2a2a2;
+}
+.below_nav p {
+  color: #fe4565;
+  font-size: 18px;
+}
+.below_nav p:hover {
+  cursor: pointer;
+  color: #5e35b1;
 }
