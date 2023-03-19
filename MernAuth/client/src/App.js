@@ -37,6 +37,12 @@ import FoodSite from './Templates/Foodsite01';
 import FS1 from './Templates/Foodsite01/FS1';
 import PortfolioWeb from './Templates/Portfolio01';
 import P01 from './Templates/Portfolio01/P01';
+import IBlog from './Templates/Blog01';
+import B01 from './Templates/Blog01/B01';
+
+import MyTemplate from './components/MyTemplates';
+
+import DashboardContent from './components/DashBoardContent';
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -52,6 +58,7 @@ function App() {
 
       {user && (
         <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='/dashboard/MainContent' element={<DashboardContent />} />
           <Route path='/dashboard/Profile' element={<Profile />} />
           <Route path='/dashboard/Templates' element={<TemplatesU />} />
           <Route path='/dashboard/Templates/FoodSite' element={<FoodSite />} />
@@ -59,6 +66,8 @@ function App() {
             path='/dashboard/Templates/PortfolioWeb'
             element={<PortfolioWeb />}
           />
+          <Route path='/dashboard/Templates/IBlog' element={<IBlog />} />
+          <Route path='/dashboard/MyTemplates' element={<MyTemplate />} />
           <Route path='/dashboard/Payments' element={<PaymentsU />} />
           <Route path='/dashboard/Payments/Card' element={<CardPayment />} />
           <Route path='/dashboard/ViewHTML_U' element={<ViewHTMLU />}>
@@ -113,6 +122,7 @@ function App() {
       )}
       <Route path='/dashboard/Templates/FoodSite/FS1' element={<FS1 />} />
       <Route path='/dashboard/Templates/PortfolioWeb/P01' element={<P01 />} />
+      <Route path='/dashboard/Templates/IBlog/B01' element={<B01 />} />
     </Routes>
   );
 }

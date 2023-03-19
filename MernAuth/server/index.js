@@ -19,6 +19,8 @@ const getJSRoutes = require('./routes/getJS');
 const stripes = require('./routes/stripe');
 const payment = require('./routes/payment');
 
+const usersTemplate = require('./routes/usersTemplate');
+
 //DB connection
 
 connection();
@@ -44,5 +46,6 @@ app.use('/api/getJSG', getJSRoutes);
 app.use('/api/stripe', stripes);
 app.use('/api/payment', payment);
 
+app.use('/api/usersTemplate', usersTemplate);
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('listening on port ' + port));

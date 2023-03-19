@@ -1,0 +1,18 @@
+.myTemplates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
+  margin: 20px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .myTemplates {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .myTemplates {
+    grid-template-columns: 1fr;
+  }
+}

@@ -45,13 +45,7 @@ function Order() {
   return (
     <div>
       <div
-        style={{
-          gap: '1rem',
-          width: '500px',
-          margin: '1rem',
-          padding: '1rem',
-          border: '1px solid #000',
-        }}>
+       className='specific_customization_container'>
         <h1
           style={{
             textAlign: 'center',
@@ -86,13 +80,7 @@ function Order() {
             <h3>Order Elements</h3>
             <form
               action=''
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1rem',
-                width: '100%',
-                margin: '0 auto',
-              }}>
+              className='Elements_form'>
               {Object.keys(orderElements).map((key) => {
                 return (
                   <TextField

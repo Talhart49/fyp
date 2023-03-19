@@ -23,13 +23,12 @@ const Templates = [
   },
   {
     id: 3,
-    name: 'Futuristic Portfolio',
-    category: 'eCommerce',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    name: 'iBlog',
+    category: 'Blog',
+    image: 'https://i.ibb.co/p3n7JGX/iblog.jpg',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
+      'A blog site with various sections for the user to read and interact with.',
+    link: '/dashboard/Templates/iBlog',
   },
 
   {

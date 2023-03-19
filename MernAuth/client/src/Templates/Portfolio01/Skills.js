@@ -36,14 +36,7 @@ function Home() {
 
   return (
     <div>
-      <div
-        style={{
-          gap: '1rem',
-          width: '500px',
-          margin: '1rem',
-          padding: '1rem',
-          border: '1px solid #000',
-        }}>
+      <div className='specific_customization_container'>
         <h1
           style={{
             textAlign: 'center',
@@ -76,15 +69,7 @@ function Home() {
               paddingRight: '1rem',
             }}>
             <h3>Skills Elements</h3>
-            <form
-              action=''
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1rem',
-                width: '100%',
-                margin: '0 auto',
-              }}>
+            <form action='' className='Elements_form'>
               {Object.keys(skillsElements).map((key) => {
                 return (
                   <TextField

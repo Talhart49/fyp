@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -29,6 +29,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import TextField from '@mui/material/TextField';
 
 import './styles.css';
 import Input from '@mui/material/Input';
@@ -41,7 +42,10 @@ import HtmlIcon from '@mui/icons-material/Html';
 import CssIcon from '@mui/icons-material/Css';
 import JavascriptIcon from '@mui/icons-material/Javascript';
 
+import { useDispatch, useSelector } from 'react-redux';
 import nav_bg from '../../images/marissa.jpg';
+
+import { provideRecommend } from '../../redux/Recommndaetion/Reccomend_Slice';
 
 const style = {
   position: 'absolute',
@@ -160,6 +164,35 @@ export default function PersistentDrawerRight() {
     });
   }, []);
 
+  const websites = useSelector((state) => state.Reccomend.Websites);
+
+  const [category, setCategory] = useState('');
+  const [recommendations, setRecommendations] = useState([]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/recommend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ category: category }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch recommendations');
+      }
+      const data = await response.json();
+      setRecommendations(data);
+      dispatch(provideRecommend(data));
+      console.log(websites);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const dispatch = useDispatch();
+
   return (
     <div
       style={{
@@ -195,7 +228,9 @@ export default function PersistentDrawerRight() {
                 fontFamily: 'Poppins',
                 fontWeight: 'bold',
               }}
-              component='div'>
+              component='div'
+              onClick={() => navigate('/dashboard/MainContent')}>
+              {' '}
               Templater
             </Typography>
 
@@ -212,9 +247,22 @@ export default function PersistentDrawerRight() {
                 id='input-with-icon-adornment'
                 startAdornment={
                   <InputAdornment position='start'>
-                    <SearchIcon />
+                    <SearchIcon
+                      onClick={handleSubmit}
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                    />
                   </InputAdornment>
                 }
+                placeholder='Search'
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSubmit();
+                  }
+                }}
               />
             </div>
 
@@ -370,7 +418,7 @@ export default function PersistentDrawerRight() {
                 sx={{
                   marginTop: 1,
                 }}
-                onClick={handleOpen}>
+                onClick={() => navigate('/dashboard/MyTemplates')}>
                 <ListItemIcon>
                   <DraftsIcon />
                 </ListItemIcon>
@@ -437,20 +485,6 @@ export default function PersistentDrawerRight() {
           </Box>
         </Modal>
       </Box>
-
-      <div
-        className='below_nav'
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: '100px',
-          marginInlineStart: '2rem',
-        }}>
-        <h3>Templates for you</h3>
-        <p>All design resources are fully customizable, reusable & scalable.</p>
-      </div>
     </div>
   );
 }

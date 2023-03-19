@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { finalCode } from '../../redux/Portfolio01_redux/P01_Slice';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { lucario } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Modal from '@mui/material/Modal';
 
 import Home from './Home';
 import About from './About';
@@ -9,6 +13,10 @@ import Skills from './Skills';
 import Portfolio from './Portfolio';
 import Services from './Services';
 import Contact from './Contact';
+import '../style.css';
+
+import axios from 'axios';
+
 import {
   Checkbox,
   Button,
@@ -16,9 +24,27 @@ import {
   FormGroup,
   Typography,
   Box,
-  Fab,
+  TextField,
 } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
+import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
 
 function Index() {
   const rootTheme = useSelector((state) => state.P01.rootTheme);
@@ -35,14 +61,23 @@ function Index() {
   const contactElements = useSelector((state) => state.P01.contact);
   const contactElemDesign = useSelector((state) => state.P01.contactDesign);
 
+  const [name, setName] = useState('');
+  const userData = localStorage.getItem('email');
+
   useEffect(() => {
-    console.log(homeElemDesign);
-  }, [homeElemDesign]);
+    axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
+      setName(res.data.fullName);
+      console.log(res.data.fullName);
+    });
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [completeCode, setCompleteCode] = useState();
+
+  const [htmlComments, setHtmlComments] = useState(false);
+  const [cssComments, setCssComments] = useState(false);
 
   const [home, setHome] = useState(false);
   const [about, setAbout] = useState(false);
@@ -882,6 +917,8 @@ function Index() {
   <!-- Contact Us Section END -->
 
   <!-- Footer -->
+  <!-- This code represents a section with an ID of "footer". Inside this section, there is a paragraph element that contains the copyright information and designer credit. -->
+
   <section id="footer">
     <p>&copy; ${contactElements.copyright}</p>
   </section>
@@ -992,6 +1029,16 @@ function Index() {
   `;
   let responsiveDesign = `
      /* MobileView */
+
+     /* 
+     This is a media query written in CSS. Specifically, it targets screens with a maximum width of 985 pixels.
+     
+     Media queries allow you to apply different styles to a web page depending on certain characteristics of the device or browser that's being used to view it, such as screen size, orientation, resolution, etc.
+     
+     In this case, the code inside the media query would be applied only to devices with screens that are 985 pixels wide or smaller. This can be useful for creating a responsive design that looks good and functions well on a variety of devices, from desktop computers to smartphones and tablets.
+     */
+
+     
      @media only screen and (max-width: 985px) {
        #home .home-cols .home-menu-col {
          display: flex;
@@ -1026,6 +1073,14 @@ function Index() {
          background-color: var(--bgColor);
        }
      }
+
+     /* This is a media query written in CSS. Specifically, it targets screens with a maximum width of 830 pixels.
+
+     Media queries allow you to apply different styles to a web page depending on certain characteristics of the device or browser that's being used to view it, such as screen size, orientation, resolution, etc.
+     
+     In this case, the code inside the media query would be applied only to devices with screens that are 830 pixels wide or smaller. This can be useful for creating a responsive design that looks good and functions well on a variety of devices, from desktop computers to smartphones and tablets. */
+  
+     
      @media only screen and (max-width: 830px) {
        #home::before {
          width: 0;
@@ -1057,6 +1112,14 @@ function Index() {
          width: 100%;
        }
      }
+
+     /* This is a media query written in CSS. Specifically, it targets screens with a maximum width of 950 pixels.
+
+     Media queries allow you to apply different styles to a web page depending on certain characteristics of the device or browser that's being used to view it, such as screen size, orientation, resolution, etc.
+     
+     In this case, the code inside the media query would be applied only to devices with screens that are 950 pixels wide or smaller. This can be useful for creating a responsive design that looks good and functions well on a variety of devices, from desktop computers to smartphones and tablets. */
+  
+     
      @media only screen and (max-width: 950px) {
        #about .about-cols {
          gap: 40px;
@@ -1067,11 +1130,22 @@ function Index() {
          padding: 0;
        }
      }
+
+     /* This is a media query written in CSS. Specifically, it targets screens with a maximum width of 400 pixels.
+
+     Media queries allow you to apply different styles to a web page depending on certain characteristics of the device or browser that's being used to view it, such as screen size, orientation, resolution, etc.
+     
+     In this case, the code inside the media query would be applied only to devices with screens that are 400 pixels wide or smaller. This can be useful for creating a responsive design that looks good and functions well on a variety of devices, from desktop computers to smartphones and tablets. */
+   
+     
      @media only screen and (max-width: 400px) {
        #about .about-cols .about-right-col {
          grid-template-columns: repeat(1, 1fr);
        }
      }
+
+     /* This is a media query written in CSS. Specifically, it targets screens with a maximum width of 400 pixels.
+ */
      
      @media only screen and (max-width: 400px) {
        #skill .skill-cols {
@@ -1080,6 +1154,17 @@ function Index() {
        }
      }
    
+     /* 
+     These are media queries in CSS. Media queries are used to apply different styles to a webpage based on the characteristics of the device or screen size.
+ 
+ In this particular code, there are two media queries that apply to the #portfolio .portfolio-grid element.
+ 
+ The first query applies when the screen size is less than or equal to 975px. In this case, the grid-template-columns property is set to repeat 2 columns with a width of 1fr, and the grid-gap property is set to 2rem. This will create a grid layout with two columns and a gap of 2rem between them.
+ 
+ The second media query applies when the screen size is less than or equal to 630px. In this case, the grid-template-columns property is set to repeat 1 column with a width of 1fr, and the grid-gap property is set to 2rem. This will create a grid layout with a single column and a gap of 2rem between the items.
+ 
+ So, essentially, these media queries are used to adjust the number of columns in the grid layout and the gap between the items based on the screen size.
+  */
 
      @media only screen and (max-width: 975px) {
        #portfolio .portfolio-grid {
@@ -1094,7 +1179,9 @@ function Index() {
        }
      }
   
-
+     /* This is a media query that targets screens with a maximum width of 850 pixels. 
+     It sets the width of the input and textarea elements inside the form in the bottom column of the #contact section to 100% when the screen width is below 850 pixels. This is likely to ensure that the form fields take up the full width of the screen on smaller devices to improve user experience. */
+ 
      @media only screen and (max-width: 850px) {
        #contact .contct-cols .con-bottom-col form input,
        #contact .contct-cols .con-bottom-col form textarea {
@@ -1102,6 +1189,262 @@ function Index() {
        }
      }
     `;
+
+  let globalCssComments = `
+  /* 
+ This CSS code sets some default styles for all elements on the page.
+margin: 0 removes all margins on the elements, so there is no extra space around them.
+padding: 0 removes all padding on the elements, so there is no extra space inside them.
+box-sizing: border-box changes the way the width and height of elements are calculated, so that the padding and border are included in the total size of the element, instead of being added on top of it. This makes it easier to work with the layout of the page.
+scroll-behavior: smooth adds smooth scrolling behavior to the page when the user clicks on links that navigate to different parts of the page. Instead of jumping to the target section, the page will smoothly scroll to it.
+
+    */
+  `;
+
+  let themeCssComments = `
+  /* Global Variables
+      in this section we will define all the global variables
+      which will be respnmsidlbe to edit the whole theme of the webstie
+      */
+  `;
+
+  let homeCssComments = `
+  /* 
+  This is a CSS code for the styling of a homepage.
+The #home selector sets the background color and position of the home section.
+The #home::before pseudo-element creates a colored section on the left side of the screen.
+The .container class sets the padding of the content area.
+The .home-cols class sets the layout of the columns within the home section.
+The .home-img-col class styles the image column, adding a black background and grayscale filter which is removed on hover.
+The .home-info-col class styles the information column, setting the font and color of the heading and paragraph text.
+The .home-menu-col class styles the menu column, setting the layout and color of the menu items.
+The .menu-item class styles the individual menu items, adding a hover effect and setting the color and size of the menu icons. The active menu item is also styled differently.
+Overall, this code creates a clean and modern layout for a homepage with a colored sidebar and stylish menu.
+Here are all the CSS classes and their details from the provided code:
+#home: This class sets the background color and position of the element with ID "home".
+#home::before: This pseudo-class styles a pseudo-element that is inserted before the element with ID "home". It sets the width, height, background color, position, top, left, and border radius of the element.
+.container: This class sets padding for the container element.
+#home .home-cols: This class targets the child elements of the element with ID "home". It sets display, justify-content, align-items, gap, and position properties for the child elements.
+#home .home-cols .home-img-col img: This class targets the image element inside the child element with class "home-img-col". It sets the background color, border radius, filter, and transition properties for the image.
+#home .home-cols .home-img-col img:hover: This class targets the same image element on hover, and sets the filter property to grayscale(0) to remove the grayscale filter.
+#home .home-cols .home-info-col: This class targets the child element with class "home-info-col" and sets the padding-right property.
+#home .home-cols .home-info-col h1: This class targets the heading element inside the child element with class "home-info-col". It sets the color, font family, font size, and font weight of the heading.
+#home .home-cols .home-info-col h1 span: This class targets the span element inside the heading element and sets its color.
+#home .home-cols .home-info-col p: This class targets the paragraph element inside the child element with class "home-info-col". It sets the color, font family, font size, letter spacing, font weight, and margin-top properties of the paragraph.
+#home .home-cols .home-info-col a: This class targets the anchor element inside the child element with class "home-info-col". It sets the display, margin-top, text decoration, color, font family, font size, font weight, padding, width, border, border radius, position, and transition properties of the anchor.
+#home .home-cols .home-info-col a:hover: This class targets the same anchor element on hover, and sets the background color to the theme color.
+#home .home-cols .home-info-col a i: This class targets the icon element inside the anchor element and sets its position, background color, padding, border radius, and border properties.
+#home .home-cols .home-menu-col .menu-item: This class targets the child element with class "menu-item" inside the child element with class "home-menu-col". It sets the margin and position properties of the element.
+#home .home-cols .home-menu-col .menu-item span: This class targets the span element inside the child element with class "menu-item" and sets its background color, color, font family, font weight, font size, padding, width, text align, position, top, left, border radius, opacity, and transition properties.
+#home .home-cols .home-menu-col .menu-item:hover span: This class targets the same span element on hover and sets its opacity to 1.
+#home .home-cols .home-menu-col .menu-item a: This class targets the anchor element inside the child element with class "menu-item" and sets the text decoration, background color, color, font size, height, width, border radius, display, line height, and transition properties.
+  */
+
+
+  /* Animations */
+
+  /* Animations used hover, transition, opacity as well before property and filter property
+  
+  The opacity property can be used to make elements gradually disappear, giving the impression of an animation.
+
+This property is used to gradually fade in/out the span element inside .menu-item when hovering over it. The CSS transition property is also used to control the speed of this effect.
+
+Transitions are used to create smooth transitions between different states of an element, such as when a user hovers over an element or when an element is clicked. In the provided code, transitions are used to create smooth transitions when the user hovers over an image, when the user hovers over a link, and when the user hovers over a menu item.
+
+Transitions are set using the transition property, which specifies the property or properties to which the transition should be applied, the duration of the transition, the timing function to be used, and an optional delay. Filter property of the image should be transitioned over a duration of 1 second.
+  */
+ `;
+
+  let aboutCssComments = `
+  /*
+  This is a CSS code that styles the "about" section of a webpage. Here is a breakdown of the different CSS rules used:
+
+#about: This selects the element with the ID of "about". It sets the background color, adds some padding, and positions the element relatively.
+#about::after: This uses a pseudo-element to create a horizontal line below the "about" section. It sets the width, height, and position of the element, as well as the background color of the line.
+#about h1: This styles the main heading of the "about" section. It sets the font family, color, text alignment, font size, text transform, letter spacing, and adds a text shadow effect.
+#about h1 span: This styles the span element inside the main heading. It sets the color to a different theme color.
+#about .about-cols: This selects the element with the class of "about-cols". It styles the display, alignment, and gap between the flex items, as well as adds some margin to the top.
+#about .about-cols .about-left-col: This selects the element with the class of "about-left-col" within the "about-cols" element. It sets the flex basis to 50%.
+#about .about-cols .about-left-col h2: This styles the subheading within the left column. It sets the font family, color, text transform, font size, font weight, and margin.
+#about .about-cols .about-left-col p: This styles the paragraph within the left column. It sets the font family, color, font size, letter spacing, font weight, and margin.
+#about .about-cols .about-left-col a: This styles the link within the left column. It sets the display, text decoration, color, border, padding, font family, font size, font weight, letter spacing, margin, border radius, and background color.
+#about .about-cols .about-left-col a:hover i: This selects the icon element within the link and applies a transform effect when hovered over.
+#about .about-cols .about-left-col a i: This styles the icon element within the link. It sets the background color, padding, border radius, margin, and adds a transition effect.
+#about .about-cols .about-right-col: This selects the element with the class of "about-right-col" within the "about-cols" element. It sets the flex basis to 50%, and styles the display, grid template columns, grid gap, and padding.
+#about .about-cols .about-right-col .about-box: This selects the element with the class of "about-box" within the right column. It sets the border, height, border radius, and padding, as well as a transition effect.
+#about .about-cols .about-right-col .about-box h2: This styles the heading within the "about-box". It sets the font size, font family, color, and font weight.
+#about .about-cols .about-right-col .about-box p: This styles the paragraph within the "about-box". It sets the font family, color, font size, text transform, and letter spacing.
+#about .about-cols .about-right-col .about-box:hover: This applies a hover effect to the "about-box" element. It sets the border, transform, and box shadow properties.
+
+
+
+/*Animations  */
+
+  /* 
+here are several CSS properties used in this code that give animation effects, such as:
+after: what will happen after certain trigger.
+scroll-behavior: smooth;: This property smoothens the scrolling behavior of the page.
+text-shadow: This property creates a shadow effect behind text, which moves as the user scrolls.
+transition: This property defines the transition effect when a property changes its value.
+transform: This property allows elements to be translated, rotated, scaled, and skewed in various ways, which can create animations. For example, transform: translateX(5px); used in #about .about-cols .about-left-col a:hover i causes the element to move 5 pixels to the right when the mouse hovers over it.
+:hover pseudo-class: This is not a property, but a selector that targets an element when the mouse pointer is over it. It is used in several places in this code, such as #about .about-cols .about-left-col a:hover i and #about .about-cols .about-right-col .about-box:hover, to trigger animation effects when the user hovers over the element.
+*/
+`;
+
+  let skillsCssComments = `
+
+ /* This is a CSS code for styling the skills section of a web page. It includes:
+ #skill - This selects the element with the ID "skill" and applies styles to it. In this code, it sets the background-color, padding, and position properties.
+#skill::after - This is a pseudo-element that adds content after the #skill element. It is used to create a horizontal line below the #skill element. It sets the width, height, background-color, position, bottom, and left properties.
+.sub-title - This selects all elements with the class "sub-title" and applies styles to them. It sets the text-align, font-family, font-size, font-weight, color, text-shadow, and text-transform properties.
+.sub-title span - This selects all <span> elements that are children of elements with the class "sub-title" and applies styles to them. In this code, it sets the color property.
+#skill .skill-cols - This selects all elements with the class "skill-cols" that are descendants of the #skill element and applies styles to them. It sets the display, grid-template-columns, grid-gap, and margin-top properties.
+#skill .skill-cols .skill-item .skill-name-per - This selects all elements with the class "skill-name-per" that are descendants of elements with the class "skill-item" that are descendants of elements with the class "skill-cols" that are descendants of the #skill element and applies styles to them. It sets the display, align-items, and justify-content properties.
+#skill .skill-cols .skill-item .skill-name-per h2 - This selects all <h2> elements that are children of elements with the class "skill-name-per" that are descendants of elements with the class "skill-item" that are descendants of elements with the class "skill-cols" that are descendants of the #skill element and applies styles to them. It sets the color, font-family, font-weight, font-style, and font-size properties.
+#skill .skill-cols .skill-item .skill-outer-bar - This selects all elements with the class "skill-outer-bar" that are descendants of elements with the class "skill-item" that are descendants of elements with the class "skill-cols" that are descendants of the #skill element and applies styles to them. It sets the width, height, background-color, and margin-top properties.
+#skill .skill-cols .skill-item .skill-outer-bar .skill-inner-bar - This selects all elements with the class "skill-inner-bar" that are children of elements with the class "skill-outer-bar" that are descendants of elements with the class "skill-item" that are descendants of elements with the class "skill-cols" that are descendants of the #skill element and applies styles to them. It sets the background-color and height properties.
+The purpose of the styles applied to these classes is to create a styled section of the webpage that displays a set of skills and their respective percentages. The styles used help to create a clean and organized layout with an emphasis on typography, color, and spacing.
+    */
+    `;
+
+  let portfolioCssComments = `
+    /* This CSS code is defining the styles for a portfolio section on a webpage. Here is a summary of what each selector is doing:
+
+    #portfolio: Sets the background color and padding of the portfolio section, and positions it relative to its parent element.
+    #portfolio::after: Creates a horizontal line under the portfolio section using a pseudo-element. Sets the width, height, background color, and position.
+    #portfolio p: Defines the style for a paragraph of text in the portfolio section, including font family, weight, color, size, letter spacing, and alignment.
+    #portfolio .portfolio-grid: Creates a grid layout for the portfolio items using the CSS Grid property. Sets the number of columns, the gap between the columns, and the top margin.
+    #portfolio .portfolio-grid .portfolio-item: Defines the style for each portfolio item, including the border radius.
+    #portfolio .portfolio-grid .portfolio-item .port-img-box img: Sets the size and border radius of the portfolio images.
+    #portfolio .portfolio-grid .portfolio-item .port-img-info: Defines the style for the overlay that appears when a user hovers over a portfolio item, including its size, background color, border radius, and position. Sets the display to flex so that the child elements are aligned within the overlay.
+    #portfolio .portfolio-grid .portfolio-item:hover .port-img-info: Changes the opacity and transform properties of the overlay when a user hovers over a portfolio item, making it visible and scaling it up.
+    #portfolio .portfolio-grid .portfolio-item .port-img-info h2: Defines the style for the overlay title text, including the font family, size, weight, and color.
+    #portfolio .portfolio-grid .portfolio-item .port-img-info a: Defines the style for the overlay link button, including the background color, font color, size, padding, and border radius.
+    
+    
+     */
+    
+        /* Portfolio animation
+     The following classes give animation effects:
+    
+    #portfolio .portfolio-grid .portfolio-item .port-img-info: This class is used to animate the portfolio item information box. The properties opacity, transition, and transform are used to create a fade-in effect and scaling effect on hover.
+    
+    #portfolio .portfolio-grid .portfolio-item:hover .port-img-info: This class is used to change the opacity and transform properties when the portfolio item is hovered over, which creates the fade-in and scaling effect mentioned above.
+    
+    These classes are used to create animation effects on the portfolio items when they are hovered over by the user.
+    
+     */
+    `;
+  let serviceCssComments = `
+  /* This is CSS code for styling the services section of a webpage. Here is a breakdown of the styles being applied:
+
+  #service sets the background color of the section to a variable called "--bgColor", sets padding, and makes the position relative.
+  #service::after uses the ::after pseudo-element to create a horizontal line below the section. It sets the content to an empty string, sets the width to 30% of the parent element, sets the height to 1px, sets the background color to lightslategray, positions it absolutely at the bottom of the section, and centers it horizontally using "left: 35%".
+  .services-grid sets up a CSS grid with auto-filled columns that are at least 300px wide but can expand to fill the available space. It also sets the grid gap and adds some top margin to create spacing between the services.
+  .service-item sets up the styling for each service item in the grid. It centers the content vertically and horizontally using flexbox, sets the padding, adds a box-shadow, and sets a border-radius of 7px. It also sets up some transitions for hover effects.
+  .service-item i targets the icon element within each service item. It sets the background color to a variable called "--themeColor", makes it a circle with a width and height of 60px, sets the text color to white, and adds some margin and border-radius.
+  .service-item h2 styles the heading for each service item, setting the font family, size, color, and weight.
+  .service-item p styles the paragraph element for each service item, setting the font family, size, color, and weight.
+  .service-item:hover creates a hover effect for the service item, changing the background color to the variable "--themeColor".
+  .service-item:hover i creates a hover effect for the icon, changing the background color to white and the text color to the variable "--themeColor". */
+   
+  `;
+  let contactCssComments = `
+  /* --- Contact Section Start --- */
+  /* This CSS code seems to be styling a contact section on a webpage.
+The #contact selector styles the overall section by setting a background color, padding, and position.
+The .contct-cols selector adds margin to the top of the contact columns, while .con-top-col styles the top part of the contact section by using a grid display with auto-fill columns and a gap between them. .con-item styles each item within this grid display with a centered text-align, padding, box-shadow, border-radius, and transition effect.
+The .con-item i selector styles the icon within each con-item by setting a background-color, color, width, height, font-size, and border-radius.
+The .con-item h2 and .con-item p selectors style the text content within each con-item by setting the font-family, font-size, font-weight, letter-spacing, color, and font-style.
+The .con-bottom-col form selector styles the bottom part of the contact section by using a flex display with column direction, align-items, and gap between elements. input and textarea elements within this form have width, font-family, font-size, letter-spacing, font-weight, color, background-color, border, padding, border-radius, outline, and transition effects. Lastly, there is a hover effect for the submit button.
+*/
+
+  /* Animation
+#contact .contct-cols .con-top-col .con-item: This class has a transition property that defines the duration and effect of the transition when an item is hovered over.
+
+#contact .contct-cols .con-bottom-col form input[type='submit']:hover: This class has a hover effect that changes the background color, cursor, and border color when the submit button is hovered over.
+*/
+`;
+  let footerCssComments = `
+  /* This CSS code defines the styling for the footer section of a website. The #footer selector targets the footer element by its ID attribute.
+
+The text-align: center property centers the content of the footer horizontally.
+
+The background-color: var(--themeColor) property sets the background color of the footer to a custom variable defined elsewhere in the CSS.
+
+The padding:  space between the content of the footer and its border.
+
+The #footer p selector targets all p elements inside the footer. The following properties are applied to these p elements:
+
+font-family: var(--hFont) sets the font family to a custom variable defined elsewhere in the CSS.
+ */
+  `;
+
+  let homeHtmlComments = `
+  <!-- This code represents the HTML markup for the home section of a website. It includes a container with three columns:
+
+  home-img-col - This column contains an image of the website's owner or a relevant image.
+  home-info-col - This column contains a heading, a paragraph of text, and a button to download the owner's CV.
+  home-menu-col - This column contains a menu with links to various sections of the website, including Home, About Me, My Work, My Services, and Contact Me. Each link is represented by a menu-item div containing a span element with the link name and an anchor tag (a) with an icon indicating the link destination.
+  The id attribute is used to give a unique identifier to the section, and the class attribute is used to define the styles of the columns and menu items using CSS. -->
+     `;
+
+  let aboutHtmlComments = `
+     <!-- This is a section of an HTML code for an About Me page. It starts with a section tag with an id of "about". Inside the section, there is a div with a class of "container" that holds the content of the section.
+
+The section starts with an h1 tag that says "About me" with a span tag containing the text. Below that, there is a div with a class of "about-cols" that contains two columns of content.
+
+The left column has an h2 tag  and two paragraphs of Lorem Ipsum text. At the bottom, there is an a tag with a link to "Hire Me" and an icon of a right angle.
+
+The right column has four div tags with a class of "about-box". Each div contains an h2 tag with a number and a p tag with a short text. The numbers and texts as well. -->
+  
+`;
+
+  let skillsHtmlComments = `
+<!-- This is a section of a webpage that displays the skills of a web developer. It contains a title "my Skills" and a sub-title "sub-title". The section is divided into two columns. The left column contains a list of skills, and the right column contains the percentage of proficiency in each skill. Each skill is displayed in a separate box. The box contains the skill name and the percentage of proficiency. The percentage is displayed as a progress bar with a percentage value. Each skill is enclosed in a div with a styling class skill-item. -->
+ `;
+
+  let portfolioHtmlComments = `
+  <!-- This is a section of HTML code for a portfolio section on a website. It includes a container with a heading and a paragraph describing the work showcased in the portfolio. The portfolio is displayed using a grid layout with six portfolio items, each consisting of an image and a link to view the project. The images are sourced from external URLs using the "img" tag and the links are created using the "a" tag. The portfolio items are enclosed within "div" tags with the class "portfolio-item".
+  As for tags used:
+section: defines a section in a web page.
+div: defines a container that is used to group other HTML elements together.
+h3: defines a heading level 3.
+span: defines a small piece of text within a larger text, typically used for styling purposes.
+p: defines a paragraph.
+img: displays an image on a web page.
+a: defines a hyperlink.
+i: defines an icon or image without semantic meaning.
+class: specifies one or more class names for an HTML element. The class attribute is used to connect the element to a style in a CSS file.
+href: specifies the URL of the page the link goes to.
+  -->
+  `;
+  let serviceHtmlComments = `
+  <!-- This is HTML code for a section that displays different services:
+
+The section has an ID of "service".
+The section is contained within a div with a class of "container".
+The section has a heading with a class of "sub-title" and the text "My Services", with "My" enclosed in a span element.
+The section contains a div with a class of "services-grid".
+Within the "services-grid" div, there are three "service-item" divs.
+Each "service-item" div contains an icon (using the Font Awesome icon library), a heading with the name of the service, and a paragraph with a brief description of the service. 
+-->
+     `;
+
+  let contactHtmlComments = `
+  <!-- 
+
+  This is a section with the ID "contact" that contains a container div with a sub-title "Contact me".
+
+Inside the container, there are two columns represented by divs with classes "con-top-col" and "con-bottom-col".
+
+The "con-top-col" div contains three contact items, each represented by a div with class "con-item". Each "con-item" contains an icon from the FontAwesome icon library, a heading (Email, Phone, Address), and text content (email address, phone number, address).
+
+The "con-bottom-col" div contains a form with input fields for name, email, subject, and message, and a submit button.
+   -->
+
+
+   `;
 
   const [sections, setSections] = useState([]);
   const [extend, setExtend] = useState([]);
@@ -1142,13 +1485,22 @@ function Index() {
         <title>Personal Portfolio Website</title>
     
         <style>
-          
+
+      ${cssComments ? globalCssComments : ''}
+      ${cssComments ? themeCssComments : ''}
+      ${cssComments && home ? homeCssComments : ''}
       ${home ? homeDesign : ''}
+      ${cssComments && about ? aboutCssComments : ''}
       ${about ? aboutDesign : ''}
+      ${cssComments && skills ? skillsCssComments : ''}
       ${skills ? skillsDesign : ''}
+      ${cssComments && portfolio ? portfolioCssComments : ''}
       ${portfolio ? portfolioDesign : ''}
+      ${cssComments && service ? serviceCssComments : ''}
       ${service ? serviceDesign : ''}
+      ${cssComments && contact ? contactCssComments : ''}
       ${contact ? contactDesign : ''}
+      ${cssComments && contact ? footerCssComments : ''}
 
       ${responsive ? responsiveDesign : ''}
 
@@ -1158,12 +1510,19 @@ function Index() {
     
       <body>
 
+        ${htmlComments && home ? homeHtmlComments : ''}
         ${home ? homeCode : ''}
+        ${htmlComments && about ? aboutHtmlComments : ''}
         ${about ? aboutCode : ''}
+        ${htmlComments && skills ? skillsHtmlComments : ''}
         ${skills ? skillsCode : ''}
+        ${htmlComments && portfolio ? portfolioHtmlComments : ''}
         ${portfolio ? portfolioCode : ''}
+        ${htmlComments && service ? serviceHtmlComments : ''}
         ${service ? serviceCode : ''}
+        ${htmlComments && contact ? contactHtmlComments : ''}
         ${contact ? contactCode : ''}
+
 
 
         
@@ -1189,103 +1548,143 @@ function Index() {
     }
   };
 
+  const [buttonsOpen, setButtonsOpen] = useState(false);
+  const [generate, setGenerate] = useState(false);
+
+  const [description, setDescription] = useState('');
+
+  const saveCode = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/usersTemplate',
+        {
+          authorName: name,
+          templateName: 'PortfolioWeb Variation',
+          templateCode: completeCode,
+          templateDescription: description,
+        }
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
-    <React.Fragment>
-      <Fab
-        color='secondary'
-        aria-label='add'
-        sx={{
-          height: 100,
-          position: 'absolute',
-          bottom: '1rem',
-          alignSelf: 'flex-end',
-          zIndex: 100,
-          width: 100,
-        }}>
-        <Link to='/dashboard/Templates/PortfolioWeb/P01'>
-          <h4>Preview</h4>
-        </Link>
-      </Fab>
-      <FormControl
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 2,
-        }}>
-        <FormGroup
-          sx={{
-            border: '1px solid',
-            marginTop: 10,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'left',
-            justifyContent: 'center',
-            padding: 2,
-            width: 300,
-            '& > :not(style)': { m: 1 },
-          }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={sections.includes('Home')}
-                onChange={handleSectionsChange}
-              />
-            }
-            label='Home'
-            value='Home'
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={sections.includes('About')}
-                onChange={handleSectionsChange}
-              />
-            }
-            label='About'
-            value='About'
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={sections.includes('Skills')}
-                onChange={handleSectionsChange}
-              />
-            }
-            label='Skills'
-            value='Skills'
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={sections.includes('Portfolio')}
-                onChange={handleSectionsChange}
-              />
-            }
-            label='Portfolio'
-            value='Portfolio'
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={sections.includes('Services')}
-                onChange={handleSectionsChange}
-              />
-            }
-            label='Services'
-            value='Services'
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={sections.includes('Contact')}
-                onChange={handleSectionsChange}
-              />
-            }
-            label='Contact'
-            value='Contact'
-          />
+    <div className='templateCreation'>
+      <div class='Preview_wrapper'>
+        <div class='link_wrapper'>
+          <a
+            onClick={() => {
+              navigate('/dashboard/Templates/PortfolioWeb/P01');
+            }}>
+            Preview
+          </a>
+          <div class='Preview_icon'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 268.832 268.832'>
+              <path d='M265.17 125.577l-80-80c-4.88-4.88-12.796-4.88-17.677 0-4.882 4.882-4.882 12.796 0 17.678l58.66 58.66H12.5c-6.903 0-12.5 5.598-12.5 12.5 0 6.903 5.597 12.5 12.5 12.5h213.654l-58.66 58.662c-4.88 4.882-4.88 12.796 0 17.678 2.44 2.44 5.64 3.66 8.84 3.66s6.398-1.22 8.84-3.66l79.997-80c4.883-4.882 4.883-12.796 0-17.678z' />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div className='formControl_sections'>
+        <div className='formControl_sections_header'>
+          <h3>Sections</h3>
+          <p>Select the sections you want to include in your website</p>
+        </div>
+        <FormGroup className='formGroup_sections'>
+          <div className='formControl_sections_home'>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('Home')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='Home'
+              value='Home'
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('About')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='About'
+              value='About'
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('Skills')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='Skills'
+              value='Skills'
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('Portfolio')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='Portfolio'
+              value='Portfolio'
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('Services')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='Services'
+              value='Services'
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('Contact')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='Contact'
+              value='Contact'
+            />
+          </div>
+
+          <div className='design_selection_buttons'>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => {
+                setHtmlComments(!htmlComments);
+              }}>
+              {htmlComments
+                ? 'Remove HTML Documentation'
+                : 'Add HTML Documentation'}
+            </Button>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => {
+                setCssComments(!cssComments);
+              }}>
+              {cssComments
+                ? 'Remove CSS Documentation'
+                : 'Add CSS Documentation'}
+            </Button>
+          </div>
 
           <Button
             variant='contained'
@@ -1300,74 +1699,162 @@ function Index() {
             variant='contained'
             color='primary'
             onClick={() => {
+              setAbout(false);
+              setHome(false);
+              setSkills(false);
+              setPortfolio(false);
+              setContact(false);
               sectionsCode(sections);
+              setGenerate(true);
             }}>
             Generate
           </Button>
         </FormGroup>
-      </FormControl>
+      </div>
 
-      <Box
-        sx={{
-          marginTop: 10,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Typography variant='h4' sx={{ textAlign: 'center' }}>
-          Sections Customizations
-        </Typography>
+      {sections.length > 0 ? (
+        <Box className='customSection'>
+          <h1>Sections Customizations</h1>
 
-        {sections.map((section) => {
-          return (
-            <Box
-              sx={{
-                marginTop: 2,
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                border: '1px solid',
-                borderRadius: 3,
-                width: 300,
-                marginBottom: 2,
+          {sections.map((section) => {
+            return (
+              <Box className='section_rows'>
+                <h3
+                  style={{
+                    textAlign: 'center',
+                    marginLeft: 10,
+                  }}>
+                  {section}
+                </h3>
+
+                <Button
+                  onClick={() => {
+                    handleCustomeSection(section);
+                  }}>
+                  <UnfoldLessIcon />
+                </Button>
+              </Box>
+            );
+          })}
+
+          {extend.map((section) => {
+            if (section === 'Home') {
+              return <Home />;
+            } else if (section === 'About') {
+              return <About />;
+            } else if (section === 'Skills') {
+              return <Skills />;
+            } else if (section === 'Portfolio') {
+              return <Portfolio />;
+            } else if (section === 'Services') {
+              return <Services />;
+            } else if (section === 'Contact') {
+              return <Contact />;
+            }
+          })}
+        </Box>
+      ) : (
+        ''
+      )}
+      {generate ? (
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          <h1>Generated Code</h1>
+          <div
+            style={{
+              width: '50%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <button
+              style={{
+                width: '40%',
+                maxWidth: '200px',
+                height: '50px',
+                margin: 'auto',
+                marginBottom: '20px',
+                border: 'none',
+                borderRadius: '5px',
+                backgroundColor: '#1565C0',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
               }}>
-              <h3
-                style={{
-                  textAlign: 'center',
-                  marginLeft: 10,
-                }}>
-                {section}
-              </h3>
-
+              <CopyToClipboard text={completeCode}>
+                <span>Copy to clipboard</span>
+              </CopyToClipboard>
+            </button>
+            <button
+              onClick={handleOpen}
+              style={{
+                width: '40%',
+                maxWidth: '200px',
+                height: '50px',
+                margin: 'auto',
+                marginBottom: '20px',
+                border: 'none',
+                borderRadius: '5px',
+                backgroundColor: '#1565C0',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+              }}>
+              Save Template
+            </button>
+          </div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='modal-modal-title'
+            aria-describedby='modal-modal-description'>
+            <Box sx={style}>
+              <Typography id='modal-modal-title' variant='h6' component='h2'>
+                Please Enter Template Description
+              </Typography>
+              <TextField
+                multiline
+                rows={3}
+                id='outlined-basic'
+                label='Template Description'
+                variant='outlined'
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+              />
               <Button
+                style={{ marginTop: 10 }}
+                variant='contained'
+                color='primary'
                 onClick={() => {
-                  handleCustomeSection(section);
+                  saveCode();
+                  handleClose();
                 }}>
-                Go
+                Save
               </Button>
             </Box>
-          );
-        })}
-
-        {extend.map((section) => {
-          if (section === 'Home') {
-            return <Home />;
-          } else if (section === 'About') {
-            return <About />;
-          } else if (section === 'Skills') {
-            return <Skills />;
-          } else if (section === 'Portfolio') {
-            return <Portfolio />;
-          } else if (section === 'Services') {
-            return <Services />;
-          } else if (section === 'Contact') {
-            return <Contact />;
-          }
-        })}
-      </Box>
-    </React.Fragment>
+          </Modal>
+          <div
+            style={{
+              width: '75%',
+              margin: 'auto',
+              boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+            }}>
+            <SyntaxHighlighter language='html' style={lucario}>
+              {completeCode}
+            </SyntaxHighlighter>
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
+    </div>
   );
 }
 
