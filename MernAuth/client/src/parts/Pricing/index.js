@@ -20,7 +20,7 @@ const Pricing = ({
 
   const buttonLink = () => {
     if (headerText === 'free') {
-      return '/dashboard/ViewHTML_U';
+      return '/dashboard/MainContent';
     } else if (headerText === 'Monthly') {
       return '/dashboard/Payments/Card';
     } else if (headerText === 'yearly') {

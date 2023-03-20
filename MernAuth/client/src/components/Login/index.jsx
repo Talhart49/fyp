@@ -40,7 +40,7 @@ const Login = () => {
         console.log('Block', res.block);
         navigate('/Admin_Dashboard/AdminMainContent');
       } else {
-        navigate('/dashboard');
+        navigate('/dashboard/MainContent');
       }
     } catch (error) {
       if (

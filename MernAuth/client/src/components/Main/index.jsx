@@ -157,12 +157,45 @@ export default function PersistentDrawerRight() {
     setDown(!down);
   };
 
+  const location = window.location.pathname;
+  const [heading, setHeading] = React.useState('');
+  const [paragraph, setParagraph] = React.useState('');
+
+  const setDetails = () => {
+    if (location === '/dashboard/MainContent') {
+      setHeading('Welcome to the Dashboard');
+      setParagraph(
+        'Here you can see all the customized Templates, you just need to copy the code and use it as you like.'
+      );
+    } else if (location === '/dashboard/ViewHtml_U') {
+      setHeading('');
+      setParagraph('');
+    } else if (location === '/dashboard/Templates') {
+      setHeading('Templates For You');
+      setParagraph(
+        'All design resources are fully customizable and easy to use. You can use them for your personal or commercial projects.'
+      );
+    } else if (location === '/dashboard/Payments') {
+      setHeading('Select Payment Plan');
+      setParagraph(
+        'You can choose from these payment plans and get Benefits of our services.'
+      );
+    } else if (location === '/dashboard/Payments/Card') {
+      setHeading('');
+      setParagraph('');
+    } else if (location === '/dashboard/MyTemplates') {
+      setHeading('My Templates');
+      setParagraph('Here you can see all your customized Templates');
+    }
+  };
   React.useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setData(res.data);
       console.log(res.data);
+      console.log(location);
     });
-  }, []);
+    setDetails();
+  }, [location]);
 
   const websites = useSelector((state) => state.Reccomend.Websites);
 
@@ -196,13 +229,19 @@ export default function PersistentDrawerRight() {
   return (
     <div
       style={{
-        backgroundImage: `url(${nav_bg})`,
+        backgroundImage:
+          location !== '/dashboard/ViewHtml_U' ? `url(${nav_bg})` : '',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
 
         width: '100%',
-        height: '380px',
+        height:
+          location !== '/dashboard/Payments/Card' &&
+          location !== '/dashboard/profile' &&
+          location !== '/dashboard/ViewHtml_U/Headings'
+            ? '380px'
+            : '0',
       }}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -485,6 +524,36 @@ export default function PersistentDrawerRight() {
           </Box>
         </Modal>
       </Box>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '70px',
+        }}>
+        <h1
+          style={{
+            fontSize: '30px',
+            fontWeight: 'bold',
+            color: '#eb1a71',
+            textAlign: 'center',
+          }}>
+          {heading}
+        </h1>
+        <p
+          style={{
+            width: '60%',
+            maxWidth: '450px',
+            textAlign: 'center',
+            marginTop: '20px',
+            marginBottom: '20px',
+            fontSize: '20px',
+            color: '#ee9e3c',
+          }}>
+          {paragraph}
+        </p>
+      </div>
     </div>
   );
 }

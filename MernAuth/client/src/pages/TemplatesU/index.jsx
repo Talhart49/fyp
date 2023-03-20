@@ -30,68 +30,6 @@ const Templates = [
       'A blog site with various sections for the user to read and interact with.',
     link: '/dashboard/Templates/iBlog',
   },
-
-  {
-    id: 4,
-    name: 'Futuristic Portfolio',
-    category: 'eCommerce',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
-  },
-  {
-    id: 5,
-    name: 'Futuristic Portfolio',
-    category: 'eCommerce',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
-  },
-  {
-    id: 6,
-    name: 'Futuristic Portfolio',
-    category: 'eCommerce',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
-  },
-
-  {
-    id: 7,
-    name: 'Futuristic Portfolio',
-    category: 'Blog',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
-  },
-  {
-    id: 8,
-    name: 'Futuristic Portfolio',
-    category: 'Blog',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
-  },
-  {
-    id: 9,
-    name: 'Futuristic Portfolio',
-    category: 'Portfolio',
-    image:
-      'https://images.pexels.com/photos/1815257/pexels-photo-1815257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia',
-    link: 'https://www.google.com',
-  },
 ];
 
 function Index() {

@@ -8,8 +8,11 @@ import {
 import './index.css';
 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm() {
+  const navigate = useNavigate();
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -119,6 +122,9 @@ export default function CheckoutForm() {
         /> */}
         <PaymentElement id='payment-element' options={paymentElementOptions} />
         <button
+          onClick={() => {
+            navigate('/dashboard/MainContent');
+          }}
           disabled={isLoading || !stripe || !elements}
           id='submit'
           className='payment_button'>

@@ -57,21 +57,33 @@ function Index() {
 
   return (
     <div>
-      {Websites && <h2>Reccomended Templates</h2>}
-      {Websites &&
-        Websites.map((key) => {
-          return (
-            <div className='template-card'>
-              <div className='card'>
-                <h3>
-                  <a target='_blank' rel='noreferrer' href={key}>
-                    {key}
-                  </a>
-                </h3>
+      {Websites && (
+        <h2
+          style={{
+            textAlign: 'center',
+            marginTop: '20px',
+            marginBottom: '80px',
+            fontSize: '1.9rem',
+          }}>
+          Reccomended Templates
+        </h2>
+      )}
+      <div className='myTemplates'>
+        {Websites &&
+          Websites.map((key) => {
+            return (
+              <div className='template-card'>
+                <div className='card'>
+                  <h3>
+                    <a target='_blank' rel='noreferrer' href={key}>
+                      {key}
+                    </a>
+                  </h3>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
       <h2
         onMouseEnter={displayTemplates}
         style={{
