@@ -282,27 +282,31 @@ export default function PersistentDrawerRight() {
                 }}
               />
 
-              <Input
-                id='input-with-icon-adornment'
-                startAdornment={
-                  <InputAdornment position='start'>
-                    <SearchIcon
-                      onClick={handleSubmit}
-                      sx={{
-                        cursor: 'pointer',
-                      }}
-                    />
-                  </InputAdornment>
-                }
-                placeholder='Search'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    handleSubmit();
+              {location === '/dashboard/MainContent' ? (
+                <Input
+                  id='input-with-icon-adornment'
+                  startAdornment={
+                    <InputAdornment position='start'>
+                      <SearchIcon
+                        onClick={handleSubmit}
+                        sx={{
+                          cursor: 'pointer',
+                        }}
+                      />
+                    </InputAdornment>
                   }
-                }}
-              />
+                  placeholder='Search'
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSubmit();
+                    }
+                  }}
+                />
+              ) : (
+                ''
+              )}
             </div>
 
             <div className='nav-right'>
