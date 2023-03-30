@@ -14,6 +14,7 @@ import Portfolio from './Portfolio';
 import Services from './Services';
 import Contact from './Contact';
 import '../style.css';
+import Feedback from '../../parts/Feedback/Index';
 
 import axios from 'axios';
 
@@ -1791,6 +1792,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
                 <span>Copy to clipboard</span>
               </CopyToClipboard>
             </button>
+
             <button
               onClick={handleOpen}
               style={{
@@ -1819,6 +1821,10 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
                 Please Enter Template Description
               </Typography>
               <TextField
+                sx={{
+                  width: '100%',
+                  marginTop: 3,
+                }}
                 multiline
                 rows={3}
                 id='outlined-basic'
@@ -1828,16 +1834,29 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
                   setDescription(e.target.value);
                 }}
               />
-              <Button
-                style={{ marginTop: 10 }}
-                variant='contained'
-                color='primary'
-                onClick={() => {
-                  saveCode();
-                  handleClose();
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
-                Save
-              </Button>
+                <Button
+                  style={{ marginTop: 10 }}
+                  variant='contained'
+                  color='primary'
+                  onClick={() => {
+                    saveCode();
+                    handleClose();
+                  }}>
+                  Save
+                </Button>
+                <Feedback
+                  style={{ marginTop: 10 }}
+                  email={userData}
+                  template='Futuristic Portfolio'
+                />
+              </div>
             </Box>
           </Modal>
           <div

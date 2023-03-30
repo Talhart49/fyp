@@ -10,6 +10,7 @@ import Contact from './Contact';
 import Footer from './Footer';
 import RecommendedBlogs from './RecommendedBlogs';
 
+import Feedback from '../../parts/Feedback/Index';
 import '../style.css';
 
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -1128,6 +1129,7 @@ function Index() {
                 <span>Copy to clipboard</span>
               </CopyToClipboard>
             </button>
+
             <button
               style={{
                 width: '40%',
@@ -1158,6 +1160,7 @@ function Index() {
                 Please Enter Template Description
               </Typography>
               <TextField
+                sx={{ width: '100%', marginTop: 3 }}
                 multiline
                 rows={3}
                 id='outlined-basic'
@@ -1167,16 +1170,29 @@ function Index() {
                   setDescription(e.target.value);
                 }}
               />
-              <Button
-                style={{ marginTop: 10 }}
-                variant='contained'
-                color='primary'
-                onClick={() => {
-                  saveCode();
-                  handleClose();
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
-                Save
-              </Button>
+                <Button
+                  style={{ marginTop: 10 }}
+                  variant='contained'
+                  color='primary'
+                  onClick={() => {
+                    saveCode();
+                    handleClose();
+                  }}>
+                  Save
+                </Button>
+                <Feedback
+                  style={{ marginTop: 10 }}
+                  email={userData}
+                  template='iBlog'
+                />
+              </div>
             </Box>
           </Modal>
           <div

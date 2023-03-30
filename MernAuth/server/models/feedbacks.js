@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const feedbackSchema = new mongoose.Schema({
-  userName: { type: String, required: true },
+  userEmail: { type: String, required: true },
   Template: { type: String, required: true },
-  feedback: { type: String, required: true },
+  feedback: { type: String, default: 'No feedback' },
   rating: { type: Number, required: true },
   date: { type: Date, default: Date.now },
 });
 
-const TemplateSchema = mongoose.model('TemplateSchema', templateSchema);
+const FeedbackSchema = mongoose.model('FeedbackSchema', feedbackSchema);
 
 module.exports = {
-  TemplateSchema,
+  FeedbackSchema,
 };

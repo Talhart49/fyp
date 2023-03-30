@@ -12,6 +12,8 @@ import Order from './Order';
 import Footer from './Footer';
 import '../style.css';
 
+import Feedback from '../../parts/Feedback/Index';
+
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { lucario } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -2896,6 +2898,7 @@ Overall, this footer section provides visitors with important information about
                 <span>Copy to clipboard</span>
               </CopyToClipboard>
             </button>
+
             <button
               style={{
                 width: '40%',
@@ -2926,6 +2929,7 @@ Overall, this footer section provides visitors with important information about
                 Please Enter Template Description
               </Typography>
               <TextField
+                sx={{ width: '100%', marginTop: 3 }}
                 multiline
                 rows={3}
                 id='outlined-basic'
@@ -2935,16 +2939,29 @@ Overall, this footer section provides visitors with important information about
                   setDescription(e.target.value);
                 }}
               />
-              <Button
-                style={{ marginTop: 10 }}
-                variant='contained'
-                color='primary'
-                onClick={() => {
-                  saveCode();
-                  handleClose();
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
-                Save
-              </Button>
+                <Button
+                  style={{ marginTop: 10 }}
+                  variant='contained'
+                  color='primary'
+                  onClick={() => {
+                    saveCode();
+                    handleClose();
+                  }}>
+                  Save
+                </Button>
+                <Feedback
+                  style={{ marginTop: 10 }}
+                  email={userData}
+                  template='FoodSite'
+                />
+              </div>
             </Box>
           </Modal>
           <div

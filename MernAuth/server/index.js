@@ -21,6 +21,7 @@ const payment = require('./routes/payment');
 
 const usersTemplate = require('./routes/usersTemplate');
 
+const feedback = require('./routes/feedback');
 //DB connection
 
 connection();
@@ -47,5 +48,8 @@ app.use('/api/stripe', stripes);
 app.use('/api/payment', payment);
 
 app.use('/api/usersTemplate', usersTemplate);
+
+app.use('/api/feedback', feedback);
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('listening on port ' + port));
