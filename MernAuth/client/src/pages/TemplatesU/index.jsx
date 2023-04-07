@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './index.css';
 import Template from '../../parts/TemplateCard';
+import axios from 'axios';
 
 const Templates = [
   {
@@ -14,7 +15,7 @@ const Templates = [
   },
   {
     id: 2,
-    name: 'Food Website',
+    name: 'FoodSite',
     category: 'eCommerce',
     image: 'https://i.ibb.co/qd9587J/FoodSite.jpg',
     description:
@@ -35,9 +36,7 @@ const Templates = [
 function Index() {
   const [templates, setTemplates] = React.useState(Templates);
 
-  useEffect(() => {
-    console.log(templates);
-  }, [templates]);
+  useEffect(() => {}, []);
 
   return (
     <div>
