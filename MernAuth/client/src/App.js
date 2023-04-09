@@ -43,6 +43,9 @@ import B01 from './Templates/Blog01/B01';
 import MyTemplate from './components/MyTemplates';
 
 import DashboardContent from './components/DashBoardContent';
+
+import Preview from './pages/PreviewTemplates';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -123,6 +126,7 @@ function App() {
       <Route path='/dashboard/Templates/FoodSite/FS1' element={<FS1 />} />
       <Route path='/dashboard/Templates/PortfolioWeb/P01' element={<P01 />} />
       <Route path='/dashboard/Templates/IBlog/B01' element={<B01 />} />
+      <Route path='/Preview' element={<Preview />} />
     </Routes>
   );
 }

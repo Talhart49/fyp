@@ -5,14 +5,17 @@ import FoodSiteImg from '../../images/FoodSite.jpg';
 import iBlog from '../../images/iblog.jpg';
 import axios from 'axios';
 import { Button, TextField } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { provideCode } from '../../redux/Recommndaetion/Reccomend_Slice';
 
 function Index() {
   const userEmail = localStorage.getItem('email');
+  const dispatch = useDispatch();
 
   const Websites = useSelector((state) => state.Reccomend.Websites);
 
@@ -125,6 +128,19 @@ function Index() {
                       <CopyToClipboard text={key.templateCode}>
                         <span>Copy to clipboard</span>
                       </CopyToClipboard>
+                    </Button>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      size='small'
+                      style={{ marginRight: '10px' }}
+                      onClick={() => {
+                        dispatch(provideCode(key.templateCode));
+                        navigate('/Preview');
+                      }}
+                      component={Link}
+                      to='/Preview'>
+                      Preview
                     </Button>
                   </div>
                 </div>
