@@ -11,6 +11,7 @@ const UserTemplate = new mongoose.Schema({
   templateCode: { type: String, required: true },
   templateStatus: { type: String, required: true, default: 'private' },
   dateCreated: { type: Date, default: Date.now },
+  Count: { type: Number, default: 0 },
 });
 
 const TemplateSchema = mongoose.model('UserTemplate', UserTemplate);

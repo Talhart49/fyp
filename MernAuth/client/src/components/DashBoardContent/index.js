@@ -21,6 +21,7 @@ function Index() {
 
   const [img, setImg] = useState('../../images/PortfolioWeb.jpg');
   const [templates, setTemplates] = useState([]);
+  const [trending, setTrending] = useState([]);
 
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -44,19 +45,28 @@ function Index() {
     console.log(res.data);
   };
 
-  //   const handlePublic = (e) => {
-  //     fetch(`http://localhost:8080/api/usersTemplate/${e}`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ templateStatus: 'public' }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //       });
-  //   };
+  const handleTrending = async (id) => {
+    await axios
+      .put('http://localhost:8080/api/usersTemplate/' + id)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getTrending = async () => {
+    await axios
+      .get('http://localhost:8080/api/usersTemplate/t/ending')
+      .then((res) => {
+        setTrending(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -87,6 +97,70 @@ function Index() {
             );
           })}
       </div>
+      <h2
+        onMouseEnter={getTrending}
+        style={{
+          textAlign: 'center',
+          marginTop: '20px',
+          marginBottom: '80px',
+          fontSize: '1.9rem',
+        }}>
+        Trending Templates
+      </h2>
+
+      <div className='myTemplates'>
+        {trending.map((key) => {
+          return (
+            <div>
+              <div className='template-card'>
+                <div className='card' onMouseEnter={() => {}}>
+                  <div className='imgbox'>
+                    <img src={handleImage(key.templateName)} />
+                  </div>
+
+                  <div class='content'>
+                    <h2>{key.templateName}</h2>
+                    <p>{key.templateDescription}</p>
+                    <p
+                      style={{
+                        textAlign: 'right',
+                        marginTop: '20px',
+                        marginBottom: '20px',
+                        fontSize: '1.2rem',
+                      }}>
+                      {moment(key.dateCreated).fromNow()}...
+                    </p>
+
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      size='small'
+                      style={{ marginRight: '10px' }}>
+                      <CopyToClipboard text={key.templateCode}>
+                        <span>Copy to clipboard</span>
+                      </CopyToClipboard>
+                    </Button>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      size='small'
+                      style={{ marginRight: '10px' }}
+                      onClick={() => {
+                        dispatch(provideCode(key.templateCode));
+                        navigate('/Preview');
+                      }}
+                      component={Link}
+                      to='/Preview'>
+                      Preview
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
       <h2
         onMouseEnter={displayTemplates}
         style={{
@@ -136,10 +210,12 @@ function Index() {
                       style={{ marginRight: '10px' }}
                       onClick={() => {
                         dispatch(provideCode(key.templateCode));
-                        navigate('/Preview');
+                        // navigate('/Preview');
+                        handleTrending(key._id);
                       }}
                       component={Link}
-                      to='/Preview'>
+                      // to='/Preview'
+                    >
                       Preview
                     </Button>
                   </div>

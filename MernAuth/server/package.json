@@ -24,6 +24,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.19",
+    "pageres": "^7.1.0",
     "stripe": "^11.13.0"
   }
 }

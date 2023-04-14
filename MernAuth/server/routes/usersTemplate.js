@@ -45,4 +45,39 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    await TemplateSchema.findOneAndDelete({ _id: req.params.id });
+    res.status(200).send({ message: 'Template deleted successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Error deleting template' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  try {
+    await TemplateSchema.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { Count: 1 } }
+    );
+    res.status(200).send({ message: 'Template updated successfullyy' });
+  } catch (error) {
+    res.status(500).send({ message: 'Error updating template' });
+  }
+});
+
+router.get('/t/ending', async (req, res) => {
+  try {
+    const template = await TemplateSchema.find({
+      templateStatus: 'public',
+    })
+      .sort({ Count: -1 })
+      .limit(3);
+
+    res.status(200).send(template);
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting template' });
+  }
+});
+
 module.exports = router;
