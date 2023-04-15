@@ -1,4 +1,10 @@
 const router = require('express').Router();
+
+const fs = require('fs');
+
+import('pageres');
+
+// const Pageres = require('pageres');
 const { TemplateSchema } = require('../models/usersTemplate');
 
 router.post('/', async (req, res) => {
@@ -79,5 +85,21 @@ router.get('/t/ending', async (req, res) => {
     res.status(500).send({ message: 'Error getting template' });
   }
 });
+
+router.get('/s/creenshot', async (req, res) => {
+  const url = req.body.url; // Assumes URL is passed as a query parameter
+  const pageres = new Pageres({ delay: 2 })
+    .src(url, ['1280x800'], { crop: true })
+    .dest(__dirname);
+  await pageres.run();
+  const screenshot = fs.readFileSync(`${__dirname}/${getFileName(url)}`);
+  res.setHeader('Content-Type', 'image/png');
+  res.send(screenshot);
+});
+
+function getFileName(url) {
+  const fileName = url.replace(/[/:.]/g, '!').replace(/^!/, '');
+  return `${fileName}!1280x800.png`;
+}
 
 module.exports = router;

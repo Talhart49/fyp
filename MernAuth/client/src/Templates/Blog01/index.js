@@ -893,6 +893,23 @@ function Index() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [screenshot, setScreenshot] = useState(null);
+
+  const takeScreenshot = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:8080/api/usersTemplate//s/creenshot',
+        {
+          url: 'http://localhost:3000//dashboard/Templates/IBlog/B01',
+        }
+      );
+      setScreenshot(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='main_container_code'>
       <div class='Preview_wrapper'>
@@ -1184,6 +1201,7 @@ function Index() {
                   onClick={() => {
                     saveCode();
                     handleClose();
+                    takeScreenshot();
                   }}>
                   Save
                 </Button>
