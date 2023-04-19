@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -46,6 +48,18 @@ import DashboardContent from './components/DashBoardContent';
 
 import Preview from './pages/PreviewTemplates';
 
+import NDashboard from './components/NAdminDashboard';
+import DashboardS from './scenes/dashboard';
+import Users from './scenes/users';
+import Invoices from './scenes/invoices';
+import Contacts from './scenes/contacts';
+import Bar from './scenes/bar';
+import Form from './scenes/form';
+import Line from './scenes/line';
+import Pie from './scenes/pie';
+import FAQ from './scenes/faq';
+import Geography from './scenes/geography';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -86,6 +100,22 @@ function App() {
         </Route>
       )}
       <Route path='/OTP' element={<OTP />} />
+
+      {user && (
+        <Route path='/dashboardAdmin' element={<NDashboard />}>
+          <Route path='/dashboardAdmin/MainContent' element={<DashboardS />} />
+          <Route path='/dashboardAdmin/Users' element={<Users />} />
+          <Route path='/dashboardAdmin/Invoices' element={<Invoices />} />
+          <Route path='/dashboardAdmin/Contacts' element={<Contacts />} />
+          <Route path='/dashboardAdmin/Bar' element={<Bar />} />
+          <Route path='/dashboardAdmin/Form' element={<Form />} />
+          <Route path='/dashboardAdmin/Line' element={<Line />} />
+          <Route path='/dashboardAdmin/Pie' element={<Pie />} />
+          <Route path='/dashboardAdmin/FAQ' element={<FAQ />} />
+          <Route path='/dashboardAdmin/Geography' element={<Geography />} />
+        </Route>
+      )}
+
       {user && (
         <Route path='/Admin_Dashboard' element={<AdminDashboard />}>
           <Route
