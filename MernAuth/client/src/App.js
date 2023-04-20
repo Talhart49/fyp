@@ -52,12 +52,12 @@ import NDashboard from './components/NAdminDashboard';
 import DashboardS from './scenes/dashboard';
 import Users from './scenes/users';
 import Invoices from './scenes/invoices';
-import Contacts from './scenes/contacts';
+import Templates from './scenes/allTemplates';
 import Bar from './scenes/bar';
 import Form from './scenes/form';
 import Line from './scenes/line';
 import Pie from './scenes/pie';
-import FAQ from './scenes/faq';
+import Feedback from './scenes/feedback';
 import Geography from './scenes/geography';
 
 function App() {
@@ -106,12 +106,12 @@ function App() {
           <Route path='/dashboardAdmin/MainContent' element={<DashboardS />} />
           <Route path='/dashboardAdmin/Users' element={<Users />} />
           <Route path='/dashboardAdmin/Invoices' element={<Invoices />} />
-          <Route path='/dashboardAdmin/Contacts' element={<Contacts />} />
+          <Route path='/dashboardAdmin/Templates' element={<Templates />} />
           <Route path='/dashboardAdmin/Bar' element={<Bar />} />
           <Route path='/dashboardAdmin/Form' element={<Form />} />
           <Route path='/dashboardAdmin/Line' element={<Line />} />
           <Route path='/dashboardAdmin/Pie' element={<Pie />} />
-          <Route path='/dashboardAdmin/FAQ' element={<FAQ />} />
+          <Route path='/dashboardAdmin/Feedback' element={<Feedback />} />
           <Route path='/dashboardAdmin/Geography' element={<Geography />} />
         </Route>
       )}

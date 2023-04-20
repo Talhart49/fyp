@@ -31,4 +31,13 @@ router.get('/:Template', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const feedbacks = await FeedbackSchema.find();
+    res.status(200).json({ feedbacks });
+  } catch (err) {
+    res.status(500).json({ message: 'fff' });
+  }
+});
+
 module.exports = router;

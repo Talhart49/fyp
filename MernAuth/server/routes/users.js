@@ -176,4 +176,13 @@ router.post('/match-otp/:otp/:email', async (req, res) => {
   }
 });
 
+router.get('/get-user/:email', async (req, res) => {
+  try {
+    const name = await User.findOne({ email: req.params.email });
+    res.status(200).send({ message: 'User found', name: name.fullName });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;

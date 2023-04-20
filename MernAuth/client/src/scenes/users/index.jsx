@@ -1,12 +1,7 @@
 import React from 'react';
 
 import { Box, Typography, useTheme } from '@mui/material';
-import {
-  DataGrid,
-  GridToolbarContainer,
-  GridToolbarFilterButton,
-  GridToolbar,
-} from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
 import { mockDataTeam } from '../../data/mockData';
 
@@ -77,16 +72,6 @@ const columns = [
   },
 ];
 
-const CustomToolbar = ({ setFilterButtonEl }) => (
-  <GridToolbarContainer>
-    <GridToolbarFilterButton ref={setFilterButtonEl} />
-  </GridToolbarContainer>
-);
-
-CustomToolbar.propTypes = {
-  setFilterButtonEl: PropTypes.func.isRequired,
-};
-
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -98,9 +83,9 @@ const Team = () => {
   };
   const handleClose = () => setOpen(false);
 
-  const [filterButtonEl, setFilterButtonEl] = React.useState(null);
   const [data, setData] = React.useState();
   const [modata, setModata] = React.useState([]);
+
   React.useEffect(() => {
     axios.get(`http://localhost:8080/api/admin/`).then((res) => {
       setData(res.data);
@@ -158,7 +143,7 @@ const Team = () => {
 
   return (
     <Box m='20px'>
-      <Header title='TEAM' subtitle='Managing the Team Members' />
+      <Header title='USERS' subtitle='Managing the Users' />
       <Box
         m='40px 0 0 0'
         height='75vh'
@@ -197,6 +182,7 @@ const Team = () => {
           onCellClick={handleOpen}
           rowsPerPageOptions={[7]}
           components={{ Toolbar: GridToolbar }}
+          sx={{ fontSize: 16, width: '90%', margin: '0 auto' }}
         />
       </Box>
 

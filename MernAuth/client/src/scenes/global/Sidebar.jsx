@@ -134,8 +134,8 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title='Contacts Information'
-              to='/dashboardAdmin/contacts'
+              title='Templates'
+              to='/dashboardAdmin/Templates'
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -163,8 +163,8 @@ const Sidebar = () => {
             />
 
             <Item
-              title='FAQ Page'
-              to='/dashboardAdmin/faq'
+              title='Feedbacks'
+              to='/dashboardAdmin/feedback'
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

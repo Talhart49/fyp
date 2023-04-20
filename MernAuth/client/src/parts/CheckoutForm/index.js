@@ -66,8 +66,9 @@ export default function CheckoutForm() {
     const error = await stripe.confirmPayment({
       elements,
       confirmParams: {
+        return_url: 'http://localhost:3000/dashboard/MainContent', // Make sure to change this to your payment completion page
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000/dashboardContent',
+
         fetch_data_from_email: axios
           .get(
             `http://localhost:8080/api/auth/${localStorage.getItem('email')}`
@@ -122,9 +123,7 @@ export default function CheckoutForm() {
         /> */}
         <PaymentElement id='payment-element' options={paymentElementOptions} />
         <button
-          onClick={() => {
-            navigate('/dashboard/MainContent');
-          }}
+          onClick={() => {}}
           disabled={isLoading || !stripe || !elements}
           id='submit'
           className='payment_button'>
