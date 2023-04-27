@@ -17,7 +17,12 @@ import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+import HtmlIcon from '@mui/icons-material/Html';
+import CssIcon from '@mui/icons-material/Css';
+import JavascriptIcon from '@mui/icons-material/Javascript';
+import SchoolIcon from '@mui/icons-material/School';
+
+const Item = ({ title, to, icon, selected, setSelected, open }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -154,10 +159,33 @@ const Sidebar = () => {
               sx={{ m: '15px 0 5px 20px' }}>
               Pages
             </Typography>
-            <Item
-              title='Profile Form'
+
+            {/* <Item
+              title='Guides'
               to='/dashboardAdmin/form'
-              icon={<PersonOutlinedIcon />}
+              icon={<SchoolIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+
+            <Item
+              title='HTML'
+              to='/dashboardAdmin/html'
+              icon={<HtmlIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title='CSS'
+              to='/dashboardAdmin/css'
+              icon={<CssIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title='Javascript'
+              to='/dashboardAdmin/js'
+              icon={<JavascriptIcon />}
               selected={selected}
               setSelected={setSelected}
             />

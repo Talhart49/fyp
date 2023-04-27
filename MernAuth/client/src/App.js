@@ -15,9 +15,9 @@ import HTMLGuidesA from './components/HTMLGuidesA';
 import CSSGuidesA from './components/CSSGuidesA';
 import JSGuidesA from './components/JSGuidesA';
 
-import AddHTML from './components/AddHTML';
-import AddCSS from './components/AddCSS';
-import AddJS from './components/AddJS';
+// import AddHTML from './components/AddHTML';
+// import AddCSS from './components/AddCSS';
+// import AddJS from './components/AddJS';
 
 import UpdateHTMLG from './components/UpdateHTMLG';
 import UpdateCSSG from './components/UpdateCSSG';
@@ -59,6 +59,18 @@ import Line from './scenes/line';
 import Pie from './scenes/pie';
 import Feedback from './scenes/feedback';
 import Geography from './scenes/geography';
+
+import HTMLGuides from './scenes/HTMLGuides';
+import CSSGuides from './scenes/CSSGuides';
+import JSGuides from './scenes/JSGuides';
+
+import AddHTML from './scenes/AddHTML';
+import AddCSS from './scenes/AddCSS';
+import AddJS from './scenes/AddJS';
+
+import UpdateHTML from './scenes/UpdateHTML';
+import UpdateCSS from './scenes/UpdateCSS';
+import UpdateJS from './scenes/UpdateJS';
 
 function App() {
   const user = localStorage.getItem('token');
@@ -113,6 +125,18 @@ function App() {
           <Route path='/dashboardAdmin/Pie' element={<Pie />} />
           <Route path='/dashboardAdmin/Feedback' element={<Feedback />} />
           <Route path='/dashboardAdmin/Geography' element={<Geography />} />
+
+          <Route path='/dashboardAdmin/html' element={<HTMLGuides />} />
+          <Route path='/dashboardAdmin/css' element={<CSSGuides />} />
+          <Route path='/dashboardAdmin/js' element={<JSGuides />} />
+
+          <Route path='/dashboardAdmin/Add_HTML' element={<AddHTML />} />
+          <Route path='/dashboardAdmin/Add_CSS' element={<AddCSS />} />
+          <Route path='/dashboardAdmin/Add_JS' element={<AddJS />} />
+
+          <Route path='/dashboardAdmin/Update_HTML' element={<UpdateHTML />} />
+          <Route path='/dashboardAdmin/Update_CSS' element={<UpdateCSS />} />
+          <Route path='/dashboardAdmin/Update_JS' element={<UpdateJS />} />
         </Route>
       )}
 
