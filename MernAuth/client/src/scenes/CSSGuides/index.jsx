@@ -72,12 +72,12 @@ const RenderViewButton = (params) => {
           color='primary'
           size='small'
           style={{ marginLeft: 16 }}
-          //   onClick={() => {
-          //     localStorage.setItem('title', params.row.title);
+          onClick={() => {
+            localStorage.setItem('title', params.row.title);
+            localStorage.setItem('guideCat', 'getCSSG');
 
-          //     navigate('/Admin_Dashboard/View_CSS');
-          //   }}
-        >
+            navigate('/dashboardAdmin/View_CSS');
+          }}>
           View
         </Button>
       </strong>

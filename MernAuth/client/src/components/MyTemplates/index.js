@@ -28,6 +28,8 @@ function Index() {
     } catch (error) {
       console.log(error);
     }
+
+    displayTemplates();
   }, [userEmail]);
 
   const handleImage = (e) => {
@@ -43,7 +45,7 @@ function Index() {
   const displayTemplates = () => {
     try {
       axios
-        .get(`http://localhost:8080/api/usersTemplate/${name}`)
+        .get(`http://localhost:8080/api/usersTemplate/${userEmail}`)
         .then((res) => {
           setTemplates(res.data);
           console.log(res.data);
@@ -70,24 +72,22 @@ function Index() {
   return (
     <div>
       <h2
+        className='THeading'
         style={{
           textAlign: 'center',
           marginTop: '20px',
           marginBottom: '80px',
           fontSize: '1.9rem',
           cursor: 'pointer',
-        }}
-        onClick={() => {
-          displayTemplates();
         }}>
         My Templates
       </h2>
-      <div className='myTemplates'>
+      <div className='myTemplatess'>
         {templates.map((key) => {
           return (
             <div>
               <div className='template-card'>
-                <div className='card' onMouseEnter={() => {}}>
+                <div className='card'>
                   <div className='imgbox'>
                     <img src={handleImage(key.templateName)} />
                   </div>

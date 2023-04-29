@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const fs = require('fs');
 
-import('pageres');
+// import('pageres');
 
 // const Pageres = require('pageres');
 const { TemplateSchema } = require('../models/usersTemplate');
@@ -16,10 +16,10 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/:name', async (req, res) => {
+router.get('/:email', async (req, res) => {
   try {
     const template = await TemplateSchema.find({
-      authorName: req.params.name,
+      authorEmail: req.params.email,
     });
     res.status(200).send(template);
   } catch (error) {
@@ -86,20 +86,20 @@ router.get('/t/ending', async (req, res) => {
   }
 });
 
-router.get('/s/creenshot', async (req, res) => {
-  const url = req.body.url; // Assumes URL is passed as a query parameter
-  const pageres = new Pageres({ delay: 2 })
-    .src(url, ['1280x800'], { crop: true })
-    .dest(__dirname);
-  await pageres.run();
-  const screenshot = fs.readFileSync(`${__dirname}/${getFileName(url)}`);
-  res.setHeader('Content-Type', 'image/png');
-  res.send(screenshot);
-});
+// router.get('/s/creenshot', async (req, res) => {
+//   const url = req.body.url; // Assumes URL is passed as a query parameter
+//   const pageres = new Pageres({ delay: 2 })
+//     .src(url, ['1280x800'], { crop: true })
+//     .dest(__dirname);
+//   await pageres.run();
+//   const screenshot = fs.readFileSync(`${__dirname}/${getFileName(url)}`);
+//   res.setHeader('Content-Type', 'image/png');
+//   res.send(screenshot);
+// });
 
-function getFileName(url) {
-  const fileName = url.replace(/[/:.]/g, '!').replace(/^!/, '');
-  return `${fileName}!1280x800.png`;
-}
+// function getFileName(url) {
+//   const fileName = url.replace(/[/:.]/g, '!').replace(/^!/, '');
+//   return `${fileName}!1280x800.png`;
+// }
 
 module.exports = router;

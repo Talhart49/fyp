@@ -1,6 +1,9 @@
 body {
 }
-
+.main_container_code {
+  position: relative;
+  z-index: 1;
+}
 .Preview_wrapper {
   position: fixed;
   top: 90%;

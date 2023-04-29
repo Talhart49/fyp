@@ -62,6 +62,8 @@ const Modall = () => {
 };
 
 const RenderViewButton = (params) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <strong>
@@ -69,7 +71,13 @@ const RenderViewButton = (params) => {
           variant='contained'
           color='primary'
           size='small'
-          style={{ marginLeft: 16 }}>
+          style={{ marginLeft: 16 }}
+          onClick={() => {
+            localStorage.setItem('title', params.row.title);
+            localStorage.setItem('guideCat', 'getJSG');
+
+            navigate('/dashboardAdmin/View_JS');
+          }}>
           View
         </Button>
       </strong>

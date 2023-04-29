@@ -13,6 +13,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { provideCode } from '../../redux/Recommndaetion/Reccomend_Slice';
 
+import { useTheme } from '@mui/material';
+import { tokens } from '../../theme';
+
+// import ParticlesBackground from '../ParticlesBackground';
+
+import ParticlesBackground from '../../Particles';
+
 function Index() {
   const userEmail = localStorage.getItem('email');
   const dispatch = useDispatch();
@@ -27,7 +34,10 @@ function Index() {
   const [date, setDate] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    displayTemplates();
+    getTrending();
+  }, []);
 
   const handleImage = (e) => {
     if (e == 'FoodSite Variation') {
@@ -68,6 +78,8 @@ function Index() {
       });
   };
 
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
     <div>
       {Websites && (
@@ -97,16 +109,7 @@ function Index() {
             );
           })}
       </div>
-      <h2
-        onMouseEnter={getTrending}
-        style={{
-          textAlign: 'center',
-          marginTop: '20px',
-          marginBottom: '80px',
-          fontSize: '1.9rem',
-        }}>
-        Trending Templates
-      </h2>
+      <h2 className='THeading'>Trending Templates</h2>
 
       <div className='myTemplates'>
         {trending.map((key) => {
@@ -161,16 +164,7 @@ function Index() {
         })}
       </div>
 
-      <h2
-        onMouseEnter={displayTemplates}
-        style={{
-          textAlign: 'center',
-          marginTop: '20px',
-          marginBottom: '80px',
-          fontSize: '1.9rem',
-        }}>
-        Public Templates
-      </h2>
+      <h2 className='THeading'>Public Templates</h2>
       <div className='myTemplates'>
         {templates.map((key) => {
           return (

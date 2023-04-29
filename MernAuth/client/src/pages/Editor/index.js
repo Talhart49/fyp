@@ -1,9 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './index.css';
 import axios from 'axios';
+import { tokens } from '../../theme';
+import { Box, useTheme } from '@mui/material';
+import Header from '../../components/Header';
 
 function Editor() {
   const title = localStorage.getItem('title');
+  const guideCat = localStorage.getItem('guideCat');
+
   // let title = window.location.href.split('/')[4];
   const [data, setData] = useState({});
 
@@ -12,7 +17,7 @@ function Editor() {
   const firstRef = useRef();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/getHTMLG/${title}`).then((res) => {
+    axios.get(`http://localhost:8080/api/${guideCat}/${title}`).then((res) => {
       setData(res.data);
       console.log(res.data);
     });
@@ -34,10 +39,33 @@ function Editor() {
     });
   }, []);
 
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
   return (
-    <>
-      <div class='main-editor'>
-        <div class='editor-first' ref={firstRef} contentEditable='true'>
+    <Box m='20px'>
+      <Header
+        title='Online Code Editor'
+        subtitle='You can run your examples live here'
+      />
+
+      <div
+        class='main-editor'
+        style={{
+          backgroundColor: 'transparent',
+          color: colors.redAccent[900],
+          margin: '0 20px',
+        }}>
+        <div
+          class='editor-first'
+          style={{
+            backgroundColor: colors.greenAccent[600],
+            color: colors.grey[900],
+            fontSize: '1.2rem',
+            fontWeight: 'bold',
+          }}
+          ref={firstRef}
+          contentEditable='true'>
           {data.example ? (
             data.example.split(',').map((ex) => {
               return <p>{ex}</p>;
@@ -51,7 +79,7 @@ function Editor() {
       <button class='editor-btn' ref={btnRef}>
         Run
       </button>
-    </>
+    </Box>
   );
 }
 

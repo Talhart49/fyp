@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -43,9 +40,13 @@ import CssIcon from '@mui/icons-material/Css';
 import JavascriptIcon from '@mui/icons-material/Javascript';
 
 import { useDispatch, useSelector } from 'react-redux';
-import nav_bg from '../../images/marissa.jpg';
 
 import { provideRecommend } from '../../redux/Recommndaetion/Reccomend_Slice';
+
+import { Box, IconButton, Typography } from '@mui/material';
+import { tokens } from '../../theme';
+
+import logoo from '../../images/logoo.png';
 
 const style = {
   position: 'absolute',
@@ -226,11 +227,12 @@ export default function PersistentDrawerRight() {
 
   const dispatch = useDispatch();
 
+  const colors = tokens(theme.palette.mode);
+
   return (
     <div
       style={{
-        backgroundImage:
-          location !== '/dashboard/ViewHtml_U' ? `url(${nav_bg})` : '',
+        backgroundImage: location !== '/dashboard/ViewHtml_U' ? `url()` : '',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -254,59 +256,71 @@ export default function PersistentDrawerRight() {
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
-
               backgroundColor: 'transparent',
             }}>
-            <Typography
-              variant='h5'
-              noWrap
-              sx={{
-                flexGrow: 1,
-                color: '#000',
-                cursor: 'pointer',
-                fontFamily: 'Poppins',
-                fontWeight: 'bold',
-              }}
-              component='div'
-              onClick={() => navigate('/dashboard/MainContent')}>
-              {' '}
-              Templater
-            </Typography>
-
-            <div className='nav-left-left'>
-              <AiOutlineMenu
-                className='burger_menu'
-                onClick={handleDrawerOpen}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+              }}>
+              <img
+                onClick={() => navigate('/dashboard/MainContent')}
+                src={logoo}
+                alt='logo'
                 style={{
-                  ...(open && { display: 'none' }),
+                  width: '220px',
+                  height: '80px',
+                  cursor: 'pointer',
+                  padding: '0',
                 }}
               />
 
-              {location === '/dashboard/MainContent' ? (
-                <Input
-                  id='input-with-icon-adornment'
-                  startAdornment={
-                    <InputAdornment position='start'>
-                      <SearchIcon
-                        onClick={handleSubmit}
-                        sx={{
-                          cursor: 'pointer',
-                        }}
-                      />
-                    </InputAdornment>
-                  }
-                  placeholder='Search'
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      handleSubmit();
-                    }
+              <div
+                className='nav-left-left'
+                style={{
+                  justifyContent: 'end',
+                }}>
+                <AiOutlineMenu
+                  className='burger_menu'
+                  onClick={handleDrawerOpen}
+                  style={{
+                    ...(open && { display: 'none' }),
+                    color: `${colors.redAccent[400]}`,
+                    backgroundColor: 'transparent',
                   }}
                 />
-              ) : (
-                ''
-              )}
+
+                {location === '/dashboard/MainContent' ? (
+                  <Input
+                    id='input-with-icon-adornment'
+                    sx={{
+                      color: `${colors.redAccent[600]}`,
+                    }}
+                    startAdornment={
+                      <InputAdornment position='start'>
+                        <SearchIcon
+                          onClick={handleSubmit}
+                          sx={{
+                            cursor: 'pointer',
+                            color: `${colors.redAccent[400]}`,
+                          }}
+                        />
+                      </InputAdornment>
+                    }
+                    placeholder='Search'
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSubmit();
+                      }
+                    }}
+                  />
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
 
             <div className='nav-right'>
@@ -325,11 +339,15 @@ export default function PersistentDrawerRight() {
           open={open}>
           <DrawerHeader />
         </Main>
+
         <Drawer
           sx={{
             width: drawerWidth,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
+              backgroundColor: `${colors.primary[600]}`,
+              color: `${colors.grey[900]}`,
+              height: '100%',
               width: drawerWidth,
             },
           }}
@@ -339,9 +357,17 @@ export default function PersistentDrawerRight() {
           <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? (
-                <ChevronLeftIcon />
+                <ChevronLeftIcon
+                  sx={{
+                    color: `${colors.grey[900]}`,
+                  }}
+                />
               ) : (
-                <ChevronRightIcon />
+                <ChevronRightIcon
+                  sx={{
+                    color: `${colors.grey[900]}`,
+                  }}
+                />
               )}
             </IconButton>
 
@@ -351,7 +377,7 @@ export default function PersistentDrawerRight() {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: '100px',
+                marginTop: '10px',
                 marginInlineStart: '2rem',
               }}>
               <Tooltip title='Edit Profile' placement='right-end'>
@@ -382,6 +408,7 @@ export default function PersistentDrawerRight() {
 
           <Divider />
           <List
+          className='list'
             sx={{
               width: '100%',
               marginTop: 4,
@@ -394,7 +421,11 @@ export default function PersistentDrawerRight() {
                 }}
                 onClick={handleDropDown}>
                 <ListItemIcon>
-                  <SchoolIcon />
+                  <SchoolIcon
+                    sx={{
+                      color: `${colors.grey[900]}`,
+                    }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary={'Learn to Code'} />
               </ListItemButton>
@@ -409,7 +440,11 @@ export default function PersistentDrawerRight() {
                     }}
                     onClick={handlehtml}>
                     <ListItemIcon>
-                      <HtmlIcon />
+                      <HtmlIcon
+                        sx={{
+                          color: `${colors.grey[900]}`,
+                        }}
+                      />
                     </ListItemIcon>
                     <ListItemText primary={'Learn HTML'} />
                   </ListItemButton>
@@ -422,7 +457,11 @@ export default function PersistentDrawerRight() {
                     }}
                     onClick={handlecss}>
                     <ListItemIcon>
-                      <CssIcon />
+                      <CssIcon
+                        sx={{
+                          color: `${colors.grey[900]}`,
+                        }}
+                      />
                     </ListItemIcon>
                     <ListItemText primary={'Learn CSS'} />
                   </ListItemButton>
@@ -435,7 +474,11 @@ export default function PersistentDrawerRight() {
                     }}
                     onClick={handlejs}>
                     <ListItemIcon>
-                      <JavascriptIcon />
+                      <JavascriptIcon
+                        sx={{
+                          color: `${colors.grey[900]}`,
+                        }}
+                      />
                     </ListItemIcon>
                     <ListItemText primary={'Learn JS'} />
                   </ListItemButton>
@@ -450,7 +493,11 @@ export default function PersistentDrawerRight() {
                 }}
                 onClick={() => navigate('/dashboard/Templates')}>
                 <ListItemIcon>
-                  <CreateIcon />
+                  <CreateIcon
+                    sx={{
+                      color: `${colors.grey[900]}`,
+                    }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary={'Create Template'} />
               </ListItemButton>
@@ -463,7 +510,11 @@ export default function PersistentDrawerRight() {
                 }}
                 onClick={() => navigate('/dashboard/MyTemplates')}>
                 <ListItemIcon>
-                  <DraftsIcon />
+                  <DraftsIcon
+                    sx={{
+                      color: `${colors.grey[900]}`,
+                    }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary={'My Templates'} />
               </ListItemButton>
@@ -479,7 +530,11 @@ export default function PersistentDrawerRight() {
                 navigate('/dashboard/Payments');
               }}>
               <ListItemIcon>
-                <CreditCardIcon />
+                <CreditCardIcon
+                  sx={{
+                    color: `${colors.grey[900]}`,
+                  }}
+                />
               </ListItemIcon>
               <ListItemText primary={'Upgrade to Premium'} />
             </ListItemButton>
@@ -493,10 +548,23 @@ export default function PersistentDrawerRight() {
                     style={{
                       textDecoration: 'none',
                       display: 'flex',
-                      color: 'black',
+
+                      color: `${colors.grey[900]}`,
                     }}>
                     <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                      {index % 2 === 0 ? (
+                        <InboxIcon
+                          sx={{
+                            color: `${colors.grey[900]}`,
+                          }}
+                        />
+                      ) : (
+                        <MailIcon
+                          sx={{
+                            color: `${colors.grey[900]}`,
+                          }}
+                        />
+                      )}
                     </ListItemIcon>
                     <ListItemText primary={text} />
                   </Link>
@@ -507,6 +575,7 @@ export default function PersistentDrawerRight() {
               <LogoutIcon
                 sx={{
                   marginRight: 4,
+                  color: `${colors.grey[900]}`,
                 }}
               />
               <ListItemText primary={'Logout'} />
@@ -540,8 +609,10 @@ export default function PersistentDrawerRight() {
           style={{
             fontSize: '30px',
             fontWeight: 'bold',
-            color: '#eb1a71',
+            color: '#fff',
             textAlign: 'center',
+            fontFamily: 'Abril Fatface',
+            letterSpacing: '1px',
           }}>
           {heading}
         </h1>
@@ -553,7 +624,9 @@ export default function PersistentDrawerRight() {
             marginTop: '20px',
             marginBottom: '20px',
             fontSize: '20px',
-            color: '#ee9e3c',
+            color: '#3da58a',
+            fontFamily: 'Abril Fatface',
+            letterSpacing: '1px',
           }}>
           {paragraph}
         </p>

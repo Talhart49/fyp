@@ -1560,6 +1560,8 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
         'http://localhost:8080/api/usersTemplate',
         {
           authorName: name,
+          authorEmail: userData,
+
           templateName: 'PortfolioWeb Variation',
           templateCode: completeCode,
           templateDescription: description,
@@ -1576,7 +1578,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
   const handleClose = () => setOpen(false);
 
   return (
-    <div className='templateCreation'>
+    <div className='templateCreation main_container_code'>
       <div class='Preview_wrapper'>
         <div class='link_wrapper'>
           <a
@@ -1765,7 +1767,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-          <h1>Generated Code</h1>
+          <h1 className='THeading'>Generated Code</h1>
           <div
             style={{
               width: '50%',

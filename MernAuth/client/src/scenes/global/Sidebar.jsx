@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { tokens } from '../../theme';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -21,6 +21,8 @@ import HtmlIcon from '@mui/icons-material/Html';
 import CssIcon from '@mui/icons-material/Css';
 import JavascriptIcon from '@mui/icons-material/Javascript';
 import SchoolIcon from '@mui/icons-material/School';
+
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Item = ({ title, to, icon, selected, setSelected, open }) => {
   const theme = useTheme();
@@ -44,6 +46,14 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState('Dashboard');
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    navigate('/login');
+  };
 
   return (
     <Box
@@ -105,8 +115,7 @@ const Sidebar = () => {
                 <Typography
                   variant='h2'
                   color={colors.grey[100]}
-                  fontWeight='bold'
-                  sx={{ m: '10px 0 0 0' }}>
+                  fontWeight='bold'>
                   Rana Talha
                 </Typography>
                 <Typography variant='h5' color={colors.greenAccent[500]}>
@@ -152,12 +161,19 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title='Feedbacks'
+              to='/dashboardAdmin/feedback'
+              icon={<HelpOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography
               variant='h6'
               color={colors.grey[300]}
               sx={{ m: '15px 0 5px 20px' }}>
-              Pages
+              Guides
             </Typography>
 
             {/* <Item
@@ -190,19 +206,11 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Item
-              title='Feedbacks'
-              to='/dashboardAdmin/feedback'
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
             <Typography
               variant='h6'
               color={colors.grey[300]}
               sx={{ m: '15px 0 5px 20px' }}>
-              Charts
+              Statistics
             </Typography>
             <Item
               title='Bar Chart'
@@ -225,14 +233,23 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title='Geography Chart'
               to='/dashboardAdmin/geography'
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
+
+          <MenuItem
+            style={{
+              color: colors.grey[100],
+            }}
+            onClick={handleLogout}
+            icon={<LogoutIcon />}>
+            <Typography>Logout</Typography>
+          </MenuItem>
         </Menu>
       </ProSidebar>
     </Box>

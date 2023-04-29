@@ -66,8 +66,9 @@ const RenderViewButton = (params) => {
         <Button
           onClick={() => {
             localStorage.setItem('title', params.row.title);
+            localStorage.setItem('guideCat', 'getHTMLG');
 
-            navigate('/Admin_Dashboard/View_HTML');
+            navigate('/dashboardAdmin/View_HTML');
           }}
           variant='contained'
           color='primary'

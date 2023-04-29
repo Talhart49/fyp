@@ -801,6 +801,7 @@ function Index() {
         'http://localhost:8080/api/usersTemplate',
         {
           authorName: name,
+          authorEmail: userData,
           templateName: 'iBlog Variation',
           templateCode: completeCode,
           templateDescription: description,
@@ -1119,7 +1120,7 @@ function Index() {
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-          <h1>Generated Code</h1>
+          <h1 className='THeading'>Generated Code</h1>
           <div
             style={{
               width: '50%',
@@ -1201,7 +1202,7 @@ function Index() {
                   onClick={() => {
                     saveCode();
                     handleClose();
-                    takeScreenshot();
+                    // takeScreenshot();
                   }}>
                   Save
                 </Button>

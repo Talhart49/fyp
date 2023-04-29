@@ -41,10 +41,11 @@ function Index() {
   return (
     <div>
       <div className='categories'>
-        <h2>Categories</h2>
+        <h2 className='THeading'>Categories</h2>
         <ul>
           <li>
             <a
+            
               href='#'
               onClick={() => {
                 setTemplates(Templates);

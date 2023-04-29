@@ -72,6 +72,10 @@ import UpdateHTML from './scenes/UpdateHTML';
 import UpdateCSS from './scenes/UpdateCSS';
 import UpdateJS from './scenes/UpdateJS';
 
+import ViewHTML from './scenes/ViewHTML';
+import ViewCSS from './scenes/ViewCSS';
+import ViewJS from './scenes/ViewJS';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -137,6 +141,14 @@ function App() {
           <Route path='/dashboardAdmin/Update_HTML' element={<UpdateHTML />} />
           <Route path='/dashboardAdmin/Update_CSS' element={<UpdateCSS />} />
           <Route path='/dashboardAdmin/Update_JS' element={<UpdateJS />} />
+
+          <Route path='/dashboardAdmin/View_HTML' element={<ViewHTML />} />
+          <Route path='/dashboardAdmin/View_CSS' element={<ViewCSS />} />
+          <Route path='/dashboardAdmin/View_JS' element={<ViewJS />} />
+
+          <Route path='/dashboardAdmin/View_HTML/Editor' element={<Editor />} />
+          <Route path='/dashboardAdmin/View_CSS/Editor' element={<Editor />} />
+          <Route path='/dashboardAdmin/View_JS/Editor' element={<Editor />} />
         </Route>
       )}
 

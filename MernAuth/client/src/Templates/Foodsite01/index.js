@@ -2269,6 +2269,7 @@ Overall, this footer section provides visitors with important information about
         'http://localhost:8080/api/usersTemplate',
         {
           authorName: name,
+          authorEmail: userData,
           templateName: 'FoodSite Variation',
           templateCode: completeCode,
           templateDescription: description,
@@ -2871,7 +2872,7 @@ Overall, this footer section provides visitors with important information about
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-          <h1>Generated Code</h1>
+          <h1 className='THeading'>Generated Code</h1>
           <div
             style={{
               width: '50%',

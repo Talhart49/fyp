@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const UserTemplate = new mongoose.Schema({
   authorName: { type: String, required: true },
+  authorEmail: { type: String, required: true },
   templateName: { type: String, required: true },
   templateDescription: {
     type: String,

@@ -1,18 +1,20 @@
-.myTemplates {
+.myTemplatess {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
   margin: 20px 0;
+  position: relative;
+  z-index: 1;
 }
 
-@media screen and (max-width: 1200px) {
-  .myTemplates {
+@media screen and (max-width: 1600px) {
+  .myTemplatess {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and (max-width: 900px) {
-  .myTemplates {
+@media screen and (max-width: 1050px) {
+  .myTemplatess {
     grid-template-columns: 1fr;
   }
 }
