@@ -2,12 +2,14 @@ import React, { useRef, useEffect, useState } from 'react';
 import './index.css';
 import axios from 'axios';
 import { tokens } from '../../theme';
-import { Box, useTheme } from '@mui/material';
 import Header from '../../components/Header';
+import { Typography, Box, useTheme } from '@mui/material';
 
 function Editor() {
   const title = localStorage.getItem('title');
   const guideCat = localStorage.getItem('guideCat');
+  console.log('ff', guideCat);
+  console.log('gg', title);
 
   // let title = window.location.href.split('/')[4];
   const [data, setData] = useState({});
@@ -44,10 +46,19 @@ function Editor() {
 
   return (
     <Box m='20px'>
-      <Header
-        title='Online Code Editor'
-        subtitle='You can run your examples live here'
-      />
+      <Box mb='30px'>
+        <Typography
+          variant='h2'
+          color={colors.grey[900]}
+          fontWeight='bold'
+          fontSize='1.9rem'
+          sx={{ m: '45px 0 5px 0' }}>
+          Online Code Editor
+        </Typography>
+        <Typography variant='h6' color={colors.greenAccent[400]}>
+          Write your code here and see the output in the right side
+        </Typography>
+      </Box>
 
       <div
         class='main-editor'
@@ -60,7 +71,7 @@ function Editor() {
           class='editor-first'
           style={{
             backgroundColor: colors.greenAccent[600],
-            color: colors.grey[900],
+            color: colors.grey[100],
             fontSize: '1.2rem',
             fontWeight: 'bold',
           }}

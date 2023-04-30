@@ -30,6 +30,8 @@ import ContentHTML from './parts/ContentHTML';
 import Editor from './pages/Editor';
 
 import ViewHTMLU from './components/ViewHTMLU';
+import ViewCSSU from './components/ViewCSSU';
+import ViewJSU from './components/ViewJSU';
 
 import PaymentsU from './components/PaymentU';
 import CardPayment from './components/PaymentU/CardPayment';
@@ -110,6 +112,26 @@ function App() {
             />
             <Route
               path='/dashboard/ViewHTML_U/:title/Editor'
+              element={<Editor />}
+            />
+          </Route>
+          <Route path='/dashboard/ViewCSS_U' element={<ViewCSSU />}>
+            <Route
+              path='/dashboard/ViewCSS_U/:title'
+              element={<ContentHTML />}
+            />
+            <Route
+              path='/dashboard/ViewCSS_U/:title/Editor'
+              element={<Editor />}
+            />
+          </Route>
+          <Route path='/dashboard/ViewJS_U' element={<ViewJSU />}>
+            <Route
+              path='/dashboard/ViewJS_U/:title'
+              element={<ContentHTML />}
+            />
+            <Route
+              path='/dashboard/ViewJS_U/:title/Editor'
               element={<Editor />}
             />
           </Route>

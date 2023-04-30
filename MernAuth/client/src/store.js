@@ -4,6 +4,7 @@ import P01_Reducer from './redux/Portfolio01_redux/P01_Slice';
 import Reccomend_Reducer from './redux/Recommndaetion/Reccomend_Slice';
 import B01_Reducer from './redux/Blog01_redux/Blog01_Slice';
 import PW_Reducer from './redux/PortfolioWeb_redux/PW_slice';
+import Guide_Slice from './redux/GuideSlice';
 const store = configureStore({
   reducer: {
     FS1: FS1_Reducer,
@@ -11,6 +12,7 @@ const store = configureStore({
     Reccomend: Reccomend_Reducer,
     B01: B01_Reducer,
     PW: PW_Reducer,
+    Guide: Guide_Slice,
   },
 });
 

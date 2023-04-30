@@ -75,7 +75,6 @@ const RenderViewButton = (params) => {
           onClick={() => {
             localStorage.setItem('title', params.row.title);
             localStorage.setItem('guideCat', 'getCSSG');
-
             navigate('/dashboardAdmin/View_CSS');
           }}>
           View

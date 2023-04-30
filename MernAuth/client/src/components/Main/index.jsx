@@ -47,6 +47,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { tokens } from '../../theme';
 
 import logoo from '../../images/logoo.png';
+import { setLanguage } from '../../redux/GuideSlice';
 
 const style = {
   position: 'absolute',
@@ -143,18 +144,24 @@ export default function PersistentDrawerRight() {
     setDown(!down);
   };
 
-  const handlehtml = () => {
+  const Handlehtml = () => {
+    dispatch(setLanguage('getHTMLG'));
+    localStorage.setItem('guideCat', 'getHTMLG');
     navigate('/dashboard/ViewHtml_U');
     setDown(!down);
   };
 
-  const handlecss = () => {
-    navigate('/dashboard/ViewHtml_U');
+  const Handlecss = () => {
+    dispatch(setLanguage('getCSSG'));
+    localStorage.setItem('guideCat', 'getCSSG');
+    navigate('/dashboard/ViewCSS_U');
     setDown(!down);
   };
 
-  const handlejs = () => {
-    navigate('/dashboard/ViewHtml_U');
+  const Handlejs = () => {
+    dispatch(setLanguage('getJSG'));
+    localStorage.setItem('guideCat', 'getJSG');
+    navigate('/dashboard/ViewJS_U');
     setDown(!down);
   };
 
@@ -230,21 +237,7 @@ export default function PersistentDrawerRight() {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <div
-      style={{
-        backgroundImage: location !== '/dashboard/ViewHtml_U' ? `url()` : '',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-
-        width: '100%',
-        height:
-          location !== '/dashboard/Payments/Card' &&
-          location !== '/dashboard/profile' &&
-          location !== '/dashboard/ViewHtml_U/Headings'
-            ? '380px'
-            : '0',
-      }}>
+    <div>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar
@@ -408,7 +401,7 @@ export default function PersistentDrawerRight() {
 
           <Divider />
           <List
-          className='list'
+            className='list'
             sx={{
               width: '100%',
               marginTop: 4,
@@ -438,7 +431,7 @@ export default function PersistentDrawerRight() {
                     sx={{
                       marginTop: 1,
                     }}
-                    onClick={handlehtml}>
+                    onClick={Handlehtml}>
                     <ListItemIcon>
                       <HtmlIcon
                         sx={{
@@ -455,7 +448,7 @@ export default function PersistentDrawerRight() {
                     sx={{
                       marginTop: 1,
                     }}
-                    onClick={handlecss}>
+                    onClick={Handlecss}>
                     <ListItemIcon>
                       <CssIcon
                         sx={{
@@ -472,7 +465,7 @@ export default function PersistentDrawerRight() {
                     sx={{
                       marginTop: 1,
                     }}
-                    onClick={handlejs}>
+                    onClick={Handlejs}>
                     <ListItemIcon>
                       <JavascriptIcon
                         sx={{
@@ -604,6 +597,10 @@ export default function PersistentDrawerRight() {
           justifyContent: 'center',
           alignItems: 'center',
           marginTop: '70px',
+
+          display: `${
+            location.startsWith('/dashboard/View') ? 'none' : 'flex'
+          }`,
         }}>
         <h1
           style={{
