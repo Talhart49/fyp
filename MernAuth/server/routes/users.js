@@ -96,13 +96,13 @@ router.post('/resetPassword/:email', async (req, res) => {
   }
 });
 
-router.post('/editDP', async (req, res) => {
+router.post('/editDP/:email', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.params.email });
     if (!user) {
       return res.status(404).send({ message: 'User not found' });
     }
-    user.dp = req.body.dp;
+    user.image = req.body.dp;
     await user.save();
     res.status(200).send({ message: 'Profile picture updated successfully' });
   } catch (error) {

@@ -2653,6 +2653,17 @@ Overall, this footer section provides visitors with important information about
   };
   const [generate, setGenerate] = useState(false);
 
+  const SETCODE = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/newCode/`, {
+        code: completeCode,
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -2953,6 +2964,7 @@ Overall, this footer section provides visitors with important information about
                   color='primary'
                   onClick={() => {
                     saveCode();
+                    SETCODE();
                     handleClose();
                   }}>
                   Save

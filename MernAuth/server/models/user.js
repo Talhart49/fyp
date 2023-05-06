@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   status: { type: String, default: 'Normal' },
   block: { type: String, default: '0' },
+  image: { type: String },
 });
 
 userSchema.methods.generateAuthToken = function () {

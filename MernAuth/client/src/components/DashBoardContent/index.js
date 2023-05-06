@@ -204,12 +204,11 @@ function Index() {
                       style={{ marginRight: '10px' }}
                       onClick={() => {
                         dispatch(provideCode(key.templateCode));
-                        // navigate('/Preview');
+                        navigate('/Preview');
                         handleTrending(key._id);
                       }}
                       component={Link}
-                      // to='/Preview'
-                    >
+                      to='/Preview'>
                       Preview
                     </Button>
                   </div>

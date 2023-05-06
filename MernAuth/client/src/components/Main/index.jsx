@@ -194,6 +194,9 @@ export default function PersistentDrawerRight() {
     } else if (location === '/dashboard/MyTemplates') {
       setHeading('My Templates');
       setParagraph('Here you can see all your customized Templates');
+    } else if (location === '/dashboard/profile') {
+      setHeading('');
+      setParagraph('');
     }
   };
   React.useEffect(() => {

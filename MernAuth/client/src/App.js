@@ -78,6 +78,8 @@ import ViewHTML from './scenes/ViewHTML';
 import ViewCSS from './scenes/ViewCSS';
 import ViewJS from './scenes/ViewJS';
 
+import Display from './pages/Display';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -90,6 +92,7 @@ function App() {
         exact
         element={<Navigate replace to='/dashboard' />}
       />
+      <Route path='/display' exact element={<Display />} />
 
       {user && (
         <Route path='/dashboard' element={<Dashboard />}>

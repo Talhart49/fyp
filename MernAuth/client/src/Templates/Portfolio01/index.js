@@ -1557,16 +1557,27 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
   const saveCode = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/usersTemplate',
+        `http://localhost:8080/api/usersTemplate/`,
         {
+          link: 'http://localhost:3000/display',
           authorName: name,
           authorEmail: userData,
-
           templateName: 'PortfolioWeb Variation',
           templateCode: completeCode,
           templateDescription: description,
         }
       );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const SETCODE = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/newCode/`, {
+        code: completeCode,
+      });
       console.log(response.data);
     } catch (err) {
       console.log(err);
@@ -1849,6 +1860,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
                   color='primary'
                   onClick={() => {
                     saveCode();
+                    SETCODE();
                     handleClose();
                   }}>
                   Save

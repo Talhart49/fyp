@@ -6,7 +6,7 @@ const FS1 = (props) => {
 
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: finalCode }} />
+      <div id='preview' dangerouslySetInnerHTML={{ __html: finalCode }} />
     </div>
   );
 };

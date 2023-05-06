@@ -142,6 +142,40 @@ const Profile = () => {
     });
   };
 
+  const [image, setImage] = useState('');
+
+  const convertToBase64 = (e) => {
+    console.log(e);
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      console.log(reader.result);
+      setImage(reader.result);
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+  };
+
+  const editDp = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:8080/api/users/editDp/${userData}`;
+      const { data: res } = await axios.post(url, { dp: image });
+      window.location.reload();
+      console.log(res.message);
+    } catch (error) {
+      console.log(error.response.data.message);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
+
   return (
     <div className='main_profile'>
       <div className='profile_container'>
@@ -150,14 +184,15 @@ const Profile = () => {
         </div>
         <div className='Edit-dp'>
           <img
-            src='https://www.w3schools.com/howto/img_avatar.png'
+            src={image ? image : data.image}
             alt='Avatar'
             className='avatar'
           />
           <div className='Edit-dp-btn'>
-            <input type='file' />
-            <button className='btn'>Upload Picture</button>
-            <p>Acceptable formats: .jpg and .png, Max size: 2MB</p>
+            <input accept='image/*' type='file' onChange={convertToBase64} />
+            <button className='btn' onClick={editDp}>
+              Upload Picture
+            </button>
           </div>
         </div>
 

@@ -2,14 +2,36 @@ const router = require('express').Router();
 
 const fs = require('fs');
 
-// import('pageres');
+const puppeteer = require('puppeteer');
 
-// const Pageres = require('pageres');
 const { TemplateSchema } = require('../models/usersTemplate');
 
 router.post('/', async (req, res) => {
   try {
-    const template = await new TemplateSchema(req.body).save();
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    const options = {
+      path: 'example.jpg',
+      omitBackground: true,
+    };
+    await page.setViewport({ width: 1920, height: 1000 });
+
+    // Navigate to the URL with parameters
+    await page.goto('http://localhost:3000/display');
+
+    // Wait for 2 seconds to allow the page to render
+
+    await page.screenshot(options);
+    await browser.close();
+
+    const screenshotData = fs.readFileSync('example.jpg', 'base64');
+
+    const template = await new TemplateSchema({
+      ...req.body,
+      image: screenshotData,
+    }).save();
+    fs.unlinkSync('example.jpg');
+
     res.status(201).send({ message: 'Template created successfully' });
   } catch (error) {
     res.status(500).send({ message: 'Error creating template' });
@@ -86,20 +108,15 @@ router.get('/t/ending', async (req, res) => {
   }
 });
 
-// router.get('/s/creenshot', async (req, res) => {
-//   const url = req.body.url; // Assumes URL is passed as a query parameter
-//   const pageres = new Pageres({ delay: 2 })
-//     .src(url, ['1280x800'], { crop: true })
-//     .dest(__dirname);
-//   await pageres.run();
-//   const screenshot = fs.readFileSync(`${__dirname}/${getFileName(url)}`);
-//   res.setHeader('Content-Type', 'image/png');
-//   res.send(screenshot);
-// });
+router.post('/takeScreenshot', async (req, res) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(req.body.url);
+  await page.screenshot({ path: 'example.png' });
+  await browser.close();
+  const screenshot = fs.readFileSync('example.png', 'base64');
 
-// function getFileName(url) {
-//   const fileName = url.replace(/[/:.]/g, '!').replace(/^!/, '');
-//   return `${fileName}!1280x800.png`;
-// }
+  //convert screenshot to base64
+});
 
 module.exports = router;
