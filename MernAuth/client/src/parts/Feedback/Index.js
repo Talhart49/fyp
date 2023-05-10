@@ -215,6 +215,7 @@ export default function BasicModal({ email, template }) {
               }}
               onClick={() => {
                 handleSubmit();
+                handleClose();
               }}>
               Submit
             </Button>

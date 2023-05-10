@@ -40,11 +40,13 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  borderRadius: '10px',
+  height: '50vh',
+  overflow: 'scroll',
 };
 
 function Index() {
@@ -1553,6 +1555,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
   const [generate, setGenerate] = useState(false);
 
   const [description, setDescription] = useState('');
+  const [Tname, setTName] = useState('');
 
   const saveCode = async () => {
     try {
@@ -1562,7 +1565,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
           link: 'http://localhost:3000/display',
           authorName: name,
           authorEmail: userData,
-          templateName: 'PortfolioWeb Variation',
+          templateName: Tname,
           templateCode: completeCode,
           templateDescription: description,
         }
@@ -1830,47 +1833,67 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
             aria-labelledby='modal-modal-title'
             aria-describedby='modal-modal-description'>
             <Box sx={style}>
-              <Typography id='modal-modal-title' variant='h6' component='h2'>
-                Please Enter Template Description
-              </Typography>
-              <TextField
-                sx={{
-                  width: '100%',
-                  marginTop: 3,
-                }}
-                multiline
-                rows={3}
-                id='outlined-basic'
-                label='Template Description'
-                variant='outlined'
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+              <form
+                onSubmit={() => {
+                  saveCode();
+                  SETCODE();
+                  handleClose();
                 }}>
-                <Button
-                  style={{ marginTop: 10 }}
-                  variant='contained'
-                  color='primary'
-                  onClick={() => {
-                    saveCode();
-                    SETCODE();
-                    handleClose();
-                  }}>
-                  Save
-                </Button>
-                <Feedback
-                  style={{ marginTop: 10 }}
-                  email={userData}
-                  template='Futuristic Portfolio'
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Template Name
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
+                  }}
+                  id='outlined-basic'
+                  label='Template Name'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setTName(e.target.value);
+                  }}
                 />
-              </div>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Please Enter Template Description
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
+                  }}
+                  multiline
+                  rows={3}
+                  id='outlined-basic'
+                  label='Template Description'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                />
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <button
+                    type='submit'
+                    style={{ marginTop: 10 }}
+                    className='Save_btn_primary'>
+                    Save
+                  </button>
+                  <Feedback
+                    style={{ marginTop: 10 }}
+                    email={userData}
+                    template={Tname}
+                  />
+                </div>
+              </form>
             </Box>
           </Modal>
           <div

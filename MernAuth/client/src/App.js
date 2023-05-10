@@ -33,6 +33,8 @@ import ViewHTMLU from './components/ViewHTMLU';
 import ViewCSSU from './components/ViewCSSU';
 import ViewJSU from './components/ViewJSU';
 
+import FeedbacksU from './components/FeedbacksU';
+
 import PaymentsU from './components/PaymentU';
 import CardPayment from './components/PaymentU/CardPayment';
 
@@ -107,6 +109,7 @@ function App() {
           <Route path='/dashboard/Templates/IBlog' element={<IBlog />} />
           <Route path='/dashboard/MyTemplates' element={<MyTemplate />} />
           <Route path='/dashboard/Payments' element={<PaymentsU />} />
+          <Route path='/dashboard/Feedbacks' element={<FeedbacksU />} />
           <Route path='/dashboard/Payments/Card' element={<CardPayment />} />
           <Route path='/dashboard/ViewHTML_U' element={<ViewHTMLU />}>
             <Route

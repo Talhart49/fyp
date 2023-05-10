@@ -13,8 +13,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Avatar from '@mui/material/Avatar';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -32,8 +30,8 @@ import './styles.css';
 import Input from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
-import { FaUserAstronaut } from 'react-icons/fa';
-import { AiOutlineSetting, AiOutlineMenu } from 'react-icons/ai';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 import HtmlIcon from '@mui/icons-material/Html';
 import CssIcon from '@mui/icons-material/Css';
@@ -197,6 +195,9 @@ export default function PersistentDrawerRight() {
     } else if (location === '/dashboard/profile') {
       setHeading('');
       setParagraph('');
+    } else if (location === '/dashboard/Feedbacks') {
+      setHeading('View Feedbacks');
+      setParagraph('You can Manage all of yours Feedback here.');
     }
   };
   React.useEffect(() => {
@@ -319,12 +320,7 @@ export default function PersistentDrawerRight() {
               </div>
             </div>
 
-            <div className='nav-right'>
-              {/* <button className='nav-right-btn'>
-              <FaUserAstronaut className='user' />
-              <AiOutlineSetting className='setting' />
-            </button> */}
-            </div>
+            <div className='nav-right'></div>
           </Toolbar>
         </AppBar>
         <Main
@@ -382,7 +378,7 @@ export default function PersistentDrawerRight() {
                   style={{ textDecoration: 'none', color: 'black' }}>
                   <Avatar
                     alt={data.fullName}
-                    src={data.dp}
+                    src={data.image}
                     sx={{
                       width: 56,
                       height: 56,
@@ -536,37 +532,29 @@ export default function PersistentDrawerRight() {
             </ListItemButton>
           </ListItem>
           <List>
-            {['Feedbacks', 'Help Center'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <Link
-                    to={`/${text}`}
-                    style={{
-                      textDecoration: 'none',
-                      display: 'flex',
+            <ListItem key='Feedbacks' disablePadding>
+              <ListItemButton>
+                <Link
+                  to={`/dashboard/Feedbacks`}
+                  style={{
+                    textDecoration: 'none',
+                    display: 'flex',
 
-                      color: `${colors.grey[900]}`,
-                    }}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? (
-                        <InboxIcon
-                          sx={{
-                            color: `${colors.grey[900]}`,
-                          }}
-                        />
-                      ) : (
-                        <MailIcon
-                          sx={{
-                            color: `${colors.grey[900]}`,
-                          }}
-                        />
-                      )}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </Link>
-                </ListItemButton>
-              </ListItem>
-            ))}
+                    color: `${colors.grey[900]}`,
+                  }}>
+                  <ListItemIcon>
+                    <FeedbackIcon
+                      sx={{
+                        color: `${colors.grey[900]}`,
+                        marginTop: 0.7,
+                      }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary='Feedbacks' />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+
             <ListItemButton onClick={handleLogout}>
               <LogoutIcon
                 sx={{

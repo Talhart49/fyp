@@ -227,3 +227,18 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
+
+.Save_btn_primary {
+  background: #1769ba;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 0.9;
+}
+
+.Save_btn_primary:hover {
+  background: #1067be;
+}

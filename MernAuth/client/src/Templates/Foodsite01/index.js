@@ -46,11 +46,13 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  borderRadius: '10px',
+  height: '50vh',
+  overflow: 'scroll',
 };
 
 function Index() {
@@ -2263,6 +2265,8 @@ Overall, this footer section provides visitors with important information about
     }
   };
 
+  const [Tname, setTname] = useState('');
+
   const saveCode = async () => {
     try {
       const response = await axios.post(
@@ -2270,7 +2274,7 @@ Overall, this footer section provides visitors with important information about
         {
           authorName: name,
           authorEmail: userData,
-          templateName: 'FoodSite Variation',
+          templateName: Tname,
           templateCode: completeCode,
           templateDescription: description,
         }
@@ -2278,6 +2282,7 @@ Overall, this footer section provides visitors with important information about
       console.log(response.data);
     } catch (err) {
       console.log(err);
+      console.log('hh');
     }
   };
 
@@ -2663,7 +2668,7 @@ Overall, this footer section provides visitors with important information about
       console.log(err);
     }
   };
-  
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -2937,44 +2942,72 @@ Overall, this footer section provides visitors with important information about
             aria-labelledby='modal-modal-title'
             aria-describedby='modal-modal-description'>
             <Box sx={style}>
-              <Typography id='modal-modal-title' variant='h6' component='h2'>
-                Please Enter Template Description
-              </Typography>
-              <TextField
-                sx={{ width: '100%', marginTop: 3 }}
-                multiline
-                rows={3}
-                id='outlined-basic'
-                label='Template Description'
-                variant='outlined'
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              />
-              <div
+              <form
                 style={{
                   display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
+                  flexDirection: 'column',
                   alignItems: 'center',
+                }}
+                onSubmit={() => {
+                  saveCode();
+                  SETCODE();
+                  handleClose();
                 }}>
-                <Button
-                  style={{ marginTop: 10 }}
-                  variant='contained'
-                  color='primary'
-                  onClick={() => {
-                    saveCode();
-                    SETCODE();
-                    handleClose();
-                  }}>
-                  Save
-                </Button>
-                <Feedback
-                  style={{ marginTop: 10 }}
-                  email={userData}
-                  template='FoodSite'
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Template Name
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
+                  }}
+                  id='outlined-basic'
+                  label='Template Name'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setTname(e.target.value);
+                  }}
                 />
-              </div>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Please Enter Template Description
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
+                  }}
+                  multiline
+                  rows={3}
+                  id='outlined-basic'
+                  label='Template Description'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                />
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <button
+                    className='Save_btn_primary'
+                    type='submit'
+                    style={{ marginTop: 10 }}>
+                    Save
+                  </button>
+                  <Feedback
+                    style={{ marginTop: 10 }}
+                    email={userData}
+                    template={Tname}
+                  />
+                </div>
+              </form>
             </Box>
           </Modal>
           <div
