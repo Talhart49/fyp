@@ -32,16 +32,6 @@ function Index() {
     displayTemplates();
   }, [userEmail]);
 
-  const handleImage = (e) => {
-    if (e == 'FoodSite Variation') {
-      return FoodSiteImg;
-    } else if (e == 'PortfolioWeb Variation') {
-      return portfolioImg;
-    } else if (e == 'iBlog Variation') {
-      return iBlog;
-    }
-  };
-
   const displayTemplates = () => {
     try {
       axios

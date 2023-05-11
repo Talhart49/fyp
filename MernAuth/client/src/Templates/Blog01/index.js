@@ -76,11 +76,18 @@ function Index() {
   const [name, setName] = useState('');
   const userData = localStorage.getItem('email');
 
+  const [ttemps, setTtemps] = useState(0);
+  const [status, setStatus] = useState('');
+
   useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setName(res.data.fullName);
+      setTotalTemp(res.data.totalTemplates);
+      setStatus(res.data.status);
       console.log(res.data.fullName);
     });
+
+    timeSinceFirstTemplate();
   }, []);
 
   const dispatch = useDispatch();
@@ -903,6 +910,62 @@ function Index() {
     }
   };
 
+  const totalTemplate = async () => {
+    try {
+      const response = await axios.post(`
+      http://localhost:8080/api/users/totalTemplates/${userData}`);
+      console.log('faf', response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const [totalTemp, setTotalTemp] = useState(-99);
+  const firstTemplate = async () => {
+    if (totalTemp == 0) {
+      try {
+        const response = await axios.post(
+          `http://localhost:8080/api/users/firstTemplate/${userData}`
+        );
+
+        console.log('fafdd', response);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log('faf;ldd', totalTemp);
+    }
+
+    totalTemplate();
+  };
+
+  const [timeSinceFirst, setTimeSinceFirst] = useState(0);
+
+  const timeSinceFirstTemplate = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/users/timeSince/${userData}`
+      );
+      setTimeSinceFirst(response.data.daysElapsed);
+      console.log('faf', response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkIfCanSave = () => {
+    console.log('totalTemp:', totalTemp);
+    console.log('timeSinceFirst:', timeSinceFirst);
+    if (status == 'Normal' && totalTemp > 2 && timeSinceFirst < 30) {
+      console.log('you cannot save');
+      setOpenPayment(true);
+    } else {
+      handleOpen();
+    }
+  };
+
+  const [openPayment, setOpenPayment] = useState(false);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -1159,7 +1222,7 @@ function Index() {
                 fontSize: '1.2rem',
               }}
               onClick={() => {
-                handleOpen();
+                checkIfCanSave();
               }}>
               Save Template
             </button>
@@ -1172,6 +1235,7 @@ function Index() {
             <Box sx={style}>
               <form
                 onSubmit={() => {
+                  firstTemplate();
                   saveCode();
                   SETCODE();
                   handleClose();
@@ -1247,6 +1311,30 @@ function Index() {
       ) : (
         ''
       )}
+
+      <div>
+        <Modal
+          open={openPayment}
+          onClose={() => {
+            setOpenPayment(false);
+          }}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'>
+          <Box sx={style}>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Your Free Trail has Expired Please Upgrade to Premium
+            </Typography>
+            <Button
+              variant='contained'
+              onClick={() => {
+                navigate('/dashboard/Payments');
+                setOpenPayment(false);
+              }}>
+              Upgrade
+            </Button>
+          </Box>
+        </Modal>
+      </div>
     </div>
   );
 }

@@ -118,7 +118,7 @@ function Index() {
               <div className='template-card'>
                 <div className='card' onMouseEnter={() => {}}>
                   <div className='imgbox'>
-                    <img src={handleImage(key.templateName)} />
+                    <img src={`data:image/png;base64,${key.image}`} />{' '}
                   </div>
 
                   <div class='content'>
@@ -172,7 +172,7 @@ function Index() {
               <div className='template-card'>
                 <div className='card' onMouseEnter={() => {}}>
                   <div className='imgbox'>
-                    <img src={handleImage(key.templateName)} />
+                    <img src={`data:image/png;base64,${key.image}`} />{' '}
                   </div>
 
                   <div class='content'>

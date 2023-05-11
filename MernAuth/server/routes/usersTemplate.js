@@ -43,6 +43,7 @@ router.get('/:email', async (req, res) => {
     const template = await TemplateSchema.find({
       authorEmail: req.params.email,
     });
+
     res.status(200).send(template);
   } catch (error) {
     res.status(500).send({ message: 'Error getting template' });

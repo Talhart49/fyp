@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   status: { type: String, default: 'Normal' },
   block: { type: String, default: '0' },
   image: { type: String },
+  firstTemplate: { type: Date },
+  totalTemplates: { type: Number, default: 0 },
 });
 
 userSchema.methods.generateAuthToken = function () {

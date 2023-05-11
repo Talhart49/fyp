@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, InputLabel, Select, MenuItem, Button } from '@mui/material';
+import { TextField, InputLabel, Button } from '@mui/material';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -74,9 +74,7 @@ function Home() {
               paddingRight: '1rem',
             }}>
             <h3>Services Elements</h3>
-            <form
-              action=''
-              className='Elements_form'>
+            <form action='' className='Elements_form'>
               {Object.keys(serviceElements).map((key) => {
                 return (
                   <TextField

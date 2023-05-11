@@ -185,4 +185,44 @@ router.get('/get-user/:email', async (req, res) => {
   }
 });
 
+router.post('/firstTemplate/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    user.firstTemplate = Date.now();
+    await user.save();
+    res.status(200).send({ message: 'First template updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/totalTemplates/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    user.totalTemplates = user.totalTemplates + 1;
+    await user.save();
+    res.send({ message: 'Total templates updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.get('/timeSince/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+
+    const currentTime = Date.now();
+    const timeElapsed = currentTime - user.firstTemplate.getTime(); // Assuming firstTemplate is a Date object
+
+    const daysElapsed = Math.floor(timeElapsed / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+    res.send({ daysElapsed });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
