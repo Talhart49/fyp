@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Button, IconButton, Typography, useTheme } from '@mui/material';
 import { tokens } from '../../theme';
 import { mockTransactions } from '../../data/mockData';
@@ -13,30 +14,74 @@ import BarChart from '../../components/BarChart';
 import StatBox from '../../components/StatBox';
 import ProgressCircle from '../../components/ProgressCircle';
 
+import WebAssetIcon from '@mui/icons-material/WebAsset';
+import WebStoriesIcon from '@mui/icons-material/WebStories';
+import PaymentsIcon from '@mui/icons-material/Payments';
+
+import axios from 'axios';
+
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [templatesCount, setTemplatesCount] = useState();
+  const [templatePercent, setTemplatePercent] = useState();
+  const [totalTemplatesCount, setTotalTemplatesCount] = useState();
+  const [totalTemplatePercent, setTotalTemplatePercent] = useState();
+
+  const [totalUsers, setTotalUsers] = useState();
+  const [totalPremiumUsers, setTotalPremiumUsers] = useState();
+
+  const [recentPayments, setRecentPayments] = useState();
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/usersTemplate/').then((res) => {
+      setTotalTemplatesCount(res.data.length);
+    });
+
+    axios
+      .get('http://localhost:8080/api/usersTemplate/templates/total')
+      .then((res) => {
+        setTemplatesCount(res.data.length);
+      });
+
+    axios
+      .get('http://localhost:8080/api/usersTemplate/templates/IncreasePercent')
+      .then((res) => {
+        setTemplatePercent(res.data.percentageIncrease);
+      });
+
+    axios
+      .get(
+        'http://localhost:8080/api/usersTemplate/templates/totalIncreasePercent'
+      )
+      .then((res) => {
+        setTotalTemplatePercent(res.data.percentageIncrease);
+      });
+
+    axios.get('http://localhost:8080/api/users/totalUsers').then((res) => {
+      setTotalUsers(res.data.length);
+      console.log(res.data);
+    });
+
+    axios
+      .get('http://localhost:8080/api/users/totalPremiumUsers/find')
+      .then((res) => {
+        setTotalPremiumUsers(res.data.length);
+        console.log(res.data);
+      });
+
+    axios.get('http://localhost:8080/api/payment/recent').then((res) => {
+      setRecentPayments(res.data);
+      console.log(res.data);
+    });
+  }, []);
 
   return (
     <Box m='20px'>
       {/* HEADER */}
       <Box display='flex' justifyContent='space-between' alignItems='center'>
         <Header title='DASHBOARD' subtitle='Welcome to your dashboard' />
-
-        {/* <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box> */}
       </Box>
 
       {/* GRID & CHARTS */}
@@ -53,12 +98,16 @@ const Dashboard = () => {
           alignItems='center'
           justifyContent='center'>
           <StatBox
-            title='12,361'
-            subtitle='Emails Sent'
-            progress='0.75'
-            increase='+14%'
+            title={totalTemplatesCount}
+            subtitle='Total Templates created'
+            progress={(100 % totalTemplatesCount) / 100}
+            increase={
+              totalTemplatePercent === null
+                ? totalTemplatesCount + '%'
+                : totalTemplatePercent + '%'
+            }
             icon={
-              <EmailIcon
+              <WebAssetIcon
                 sx={{ color: colors.greenAccent[600], fontSize: '26px' }}
               />
             }
@@ -71,12 +120,17 @@ const Dashboard = () => {
           alignItems='center'
           justifyContent='center'>
           <StatBox
-            title='431,225'
-            subtitle='Sales Obtained'
-            progress='0.50'
-            increase='+21%'
+            title={templatesCount}
+            subtitle='
+            public Templates'
+            progress={(100 % templatesCount) / 100}
+            increase={
+              templatePercent === null
+                ? templatesCount + '%'
+                : templatePercent + '%'
+            }
             icon={
-              <PointOfSaleIcon
+              <WebStoriesIcon
                 sx={{ color: colors.greenAccent[600], fontSize: '26px' }}
               />
             }
@@ -89,10 +143,9 @@ const Dashboard = () => {
           alignItems='center'
           justifyContent='center'>
           <StatBox
-            title='32,441'
-            subtitle='New Clients'
-            progress='0.30'
-            increase='+5%'
+            title={totalUsers}
+            subtitle='Total Users'
+            progress={(100 % totalUsers) / 100}
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: '26px' }}
@@ -107,12 +160,11 @@ const Dashboard = () => {
           alignItems='center'
           justifyContent='center'>
           <StatBox
-            title='1,325,134'
-            subtitle='Traffic Received'
-            progress='0.80'
-            increase='+43%'
+            title={totalPremiumUsers}
+            subtitle='Total Premium Users'
+            progress={(100 % totalPremiumUsers) / 100}
             icon={
-              <TrafficIcon
+              <PaymentsIcon
                 sx={{ color: colors.greenAccent[600], fontSize: '26px' }}
               />
             }
@@ -172,34 +224,38 @@ const Dashboard = () => {
               Recent Transactions
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
-            <Box
-              key={`${transaction.txId}-${i}`}
-              display='flex'
-              justifyContent='space-between'
-              alignItems='center'
-              borderBottom={`4px solid ${colors.primary[500]}`}
-              p='15px'>
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant='h5'
-                  fontWeight='600'>
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+          {recentPayments &&
+            recentPayments.map((transaction, i) => (
               <Box
-                backgroundColor={colors.greenAccent[500]}
-                p='5px 10px'
-                borderRadius='4px'>
-                ${transaction.cost}
+                key={`${transaction.txId}-${i}`}
+                display='flex'
+                justifyContent='space-between'
+                alignItems='center'
+                borderBottom={`4px solid ${colors.primary[500]}`}
+                p='15px'>
+                <Box>
+                  <Typography
+                    color={colors.greenAccent[500]}
+                    variant='h5'
+                    fontWeight='600'>
+                    {transaction.txId}
+                  </Typography>
+                  <Typography color={colors.grey[100]}>
+                    {transaction.name}
+                  </Typography>
+                </Box>
+                <Box color={colors.grey[100]}>
+                  {' '}
+                  {new Date(transaction.date).toLocaleDateString()}
+                </Box>
+                <Box
+                  backgroundColor={colors.greenAccent[500]}
+                  p='5px 10px'
+                  borderRadius='4px'>
+                  ${transaction.price}
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))}
         </Box>
 
         {/* ROW 3 */}

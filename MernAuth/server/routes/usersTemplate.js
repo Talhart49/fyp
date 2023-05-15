@@ -65,12 +65,106 @@ router.post('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    const template = await TemplateSchema.find();
+
+    res.status(200).send(template);
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting template' });
+  }
+});
+
+router.get('/templates/total', async (req, res) => {
+  try {
     const template = await TemplateSchema.find({
       templateStatus: 'public',
     });
     res.status(200).send(template);
   } catch (error) {
-    res.status(500).send({ message: 'Error getting template' });
+    res.status(500).send({ message: 'Error getting templates' });
+  }
+});
+
+router.get('/templates/totalIncreasePercent', async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // Get the current month (0-indexed)
+
+    const previousMonthDate = new Date();
+    previousMonthDate.setMonth(currentMonth - 1); // Set the date to the previous month
+
+    const templatesCurrentMonth = await TemplateSchema.find({
+      templateStatus: 'public',
+      dateCreated: {
+        $gte: new Date(currentDate.getFullYear(), currentMonth, 1),
+        $lt: new Date(currentDate.getFullYear(), currentMonth + 1, 1),
+      },
+    }).countDocuments();
+
+    const templatesPreviousMonth = await TemplateSchema.find({
+      templateStatus: 'public',
+      dateCreated: {
+        $gte: new Date(
+          previousMonthDate.getFullYear(),
+          previousMonthDate.getMonth(),
+          1
+        ),
+        $lt: new Date(currentDate.getFullYear(), currentMonth, 1),
+      },
+    }).countDocuments();
+
+    const percentageIncrease =
+      ((templatesCurrentMonth - templatesPreviousMonth) /
+        templatesPreviousMonth) *
+      100;
+
+    if (percentageIncrease == null) {
+      res.status(200).send({ templatesCurrentMonth });
+    } else {
+      res.status(200).send({ percentageIncrease });
+    }
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting templates' });
+  }
+});
+
+router.get('/templates/IncreasePercent', async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // Get the current month (0-indexed)
+
+    const previousMonthDate = new Date();
+    previousMonthDate.setMonth(currentMonth - 1); // Set the date to the previous month
+
+    const templatesCurrentMonth = await TemplateSchema.find({
+      dateCreated: {
+        $gte: new Date(currentDate.getFullYear(), currentMonth, 1),
+        $lt: new Date(currentDate.getFullYear(), currentMonth + 1, 1),
+      },
+    }).countDocuments();
+
+    const templatesPreviousMonth = await TemplateSchema.find({
+      dateCreated: {
+        $gte: new Date(
+          previousMonthDate.getFullYear(),
+          previousMonthDate.getMonth(),
+          1
+        ),
+        $lt: new Date(currentDate.getFullYear(), currentMonth, 1),
+      },
+    }).countDocuments();
+
+    const percentageIncrease =
+      ((templatesCurrentMonth - templatesPreviousMonth) /
+        templatesPreviousMonth) *
+      100;
+
+    if (percentageIncrease == null) {
+      res.status(200).send({ templatesCurrentMonth });
+    } else {
+      res.status(200).send({ percentageIncrease });
+    }
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting templates' });
   }
 });
 

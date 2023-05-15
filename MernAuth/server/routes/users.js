@@ -225,4 +225,39 @@ router.get('/timeSince/:email', async (req, res) => {
   }
 });
 
+router.put('/setStatus', async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      {
+        email: req.body.email,
+      },
+      {
+        status: req.body.status,
+      }
+    );
+    res.status(200).send({ message: 'Status updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+router.get('/totalUsers', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.get('/totalPremiumUsers/find', async (req, res) => {
+  try {
+    const users = await User.find({
+      status: { $in: ['Premium', 'Pro'] },
+    });
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
