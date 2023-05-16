@@ -29,25 +29,38 @@ function Index() {
   const [img, setImg] = useState('../../images/PortfolioWeb.jpg');
   const [templates, setTemplates] = useState([]);
   const [trending, setTrending] = useState([]);
+  const [recommended, setRecommended] = useState([]);
 
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchData = async () => {
+      const base_url = 'http://localhost:8080/api/usersTemplate/recommended/';
+
+      try {
+        // Iterate over the IDs and send HTTP requests
+        const fetchRequests = Websites.map(async (id) => {
+          const url = base_url + id;
+          const response = await axios.get(url);
+          return response.data[0];
+        });
+
+        // Wait for all requests to complete
+        const requestResults = await Promise.all(fetchRequests);
+        setRecommended(requestResults);
+        console.log(requestResults);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+
     displayTemplates();
     getTrending();
-  }, []);
-
-  const handleImage = (e) => {
-    if (e == 'FoodSite Variation') {
-      return FoodSiteImg;
-    } else if (e == 'PortfolioWeb Variation') {
-      return portfolioImg;
-    } else if (e == 'iBlog Variation') {
-      return iBlog;
-    }
-  };
+  }, [Websites]);
 
   const displayTemplates = async () => {
     const res = await axios.get('http://localhost:8080/api/usersTemplate');
@@ -82,28 +95,57 @@ function Index() {
   const colors = tokens(theme.palette.mode);
   return (
     <div>
-      {Websites && (
-        <h2
-          style={{
-            textAlign: 'center',
-            marginTop: '20px',
-            marginBottom: '80px',
-            fontSize: '1.9rem',
-          }}>
-          Reccomended Templates
-        </h2>
+      {recommended.length > 0 && (
+        <h2 className='THeading'>Reccomended Templates</h2>
       )}
       <div className='myTemplates'>
-        {Websites &&
-          Websites.map((key) => {
+        {recommended &&
+          recommended.map((key) => {
             return (
-              <div className='template-card'>
-                <div className='card'>
-                  <h3>
-                    <a target='_blank' rel='noreferrer' href={key}>
-                      {key}
-                    </a>
-                  </h3>
+              <div>
+                <div className='template-card'>
+                  <div className='card' onMouseEnter={() => {}}>
+                    <div className='imgbox'>
+                      <img src={`data:image/png;base64,${key.image}`} />{' '}
+                    </div>
+
+                    <div class='content'>
+                      <h2>{key.templateName}</h2>
+                      <p>{key.templateDescription}</p>
+                      <p
+                        style={{
+                          textAlign: 'right',
+                          marginTop: '20px',
+                          marginBottom: '20px',
+                          fontSize: '1.2rem',
+                        }}>
+                        {moment(key.dateCreated).fromNow()}...
+                      </p>
+
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        size='small'
+                        style={{ marginRight: '10px' }}>
+                        <CopyToClipboard text={key.templateCode}>
+                          <span>Copy to clipboard</span>
+                        </CopyToClipboard>
+                      </Button>
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        size='small'
+                        style={{ marginRight: '10px' }}
+                        onClick={() => {
+                          dispatch(provideCode(key.templateCode));
+                          navigate('/Preview');
+                        }}
+                        component={Link}
+                        to='/Preview'>
+                        Preview
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             );

@@ -63,6 +63,18 @@ router.post('/:id', async (req, res) => {
   }
 });
 
+router.get('/recommended/:id', async (req, res) => {
+  try {
+    const template = await TemplateSchema.find({
+      _id: req.params.id,
+    });
+
+    res.status(200).send(template);
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting template' });
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
     const template = await TemplateSchema.find();
