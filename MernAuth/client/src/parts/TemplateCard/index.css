@@ -81,3 +81,20 @@
   color: #d9f2ff;
   text-decoration: none;
 }
+
+.templatess {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 auto;
+}
+@media screen and (max-width: 1880px) {
+  .templatess {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 1450px) {
+  .templatess {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

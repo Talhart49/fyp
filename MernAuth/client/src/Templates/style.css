@@ -1,6 +1,9 @@
 body {
 }
-
+.main_container_code {
+  position: relative;
+  z-index: 1;
+}
 .Preview_wrapper {
   position: fixed;
   top: 90%;
@@ -223,4 +226,19 @@ body {
   margin: 0 auto;
   border-radius: 0.5rem;
   padding: 0.5rem;
+}
+
+.Save_btn_primary {
+  background: #1769ba;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 0.9;
+}
+
+.Save_btn_primary:hover {
+  background: #1067be;
 }

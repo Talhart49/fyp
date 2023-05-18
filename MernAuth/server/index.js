@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+app.set('view engine', 'ejs');
 const cors = require('cors');
 const connection = require('./db');
 
@@ -22,6 +23,8 @@ const payment = require('./routes/payment');
 const usersTemplate = require('./routes/usersTemplate');
 
 const feedback = require('./routes/feedback');
+
+const code = require('./routes/code');
 //DB connection
 
 connection();
@@ -50,6 +53,7 @@ app.use('/api/payment', payment);
 app.use('/api/usersTemplate', usersTemplate);
 
 app.use('/api/feedback', feedback);
+app.use('/api/newCode', code);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('listening on port ' + port));

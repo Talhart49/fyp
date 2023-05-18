@@ -45,13 +45,14 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  borderRadius: '10px',
+  height: '50vh',
+  overflow: 'scroll',
 };
-
 function Index() {
   const navElements = useSelector((state) => state.B01.navbar);
   const aboutElements = useSelector((state) => state.B01.about);
@@ -75,11 +76,18 @@ function Index() {
   const [name, setName] = useState('');
   const userData = localStorage.getItem('email');
 
+  const [ttemps, setTtemps] = useState(0);
+  const [status, setStatus] = useState('');
+
   useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setName(res.data.fullName);
+      setTotalTemp(res.data.totalTemplates);
+      setStatus(res.data.status);
       console.log(res.data.fullName);
     });
+
+    timeSinceFirstTemplate();
   }, []);
 
   const dispatch = useDispatch();
@@ -794,6 +802,7 @@ function Index() {
       setSections((prev) => prev.filter((item) => item !== value));
     }
   };
+  const [Tname, setTName] = useState('');
 
   const saveCode = async () => {
     try {
@@ -801,7 +810,8 @@ function Index() {
         'http://localhost:8080/api/usersTemplate',
         {
           authorName: name,
-          templateName: 'iBlog Variation',
+          authorEmail: userData,
+          templateName: Tname,
           templateCode: completeCode,
           templateDescription: description,
         }
@@ -888,6 +898,73 @@ function Index() {
     }
   };
   const [generate, setGenerate] = useState(false);
+
+  const SETCODE = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/newCode/`, {
+        code: completeCode,
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const totalTemplate = async () => {
+    try {
+      const response = await axios.post(`
+      http://localhost:8080/api/users/totalTemplates/${userData}`);
+      console.log('faf', response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const [totalTemp, setTotalTemp] = useState(-99);
+  const firstTemplate = async () => {
+    if (totalTemp == 0) {
+      try {
+        const response = await axios.post(
+          `http://localhost:8080/api/users/firstTemplate/${userData}`
+        );
+
+        console.log('fafdd', response);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log('faf;ldd', totalTemp);
+    }
+
+    totalTemplate();
+  };
+
+  const [timeSinceFirst, setTimeSinceFirst] = useState(0);
+
+  const timeSinceFirstTemplate = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/users/timeSince/${userData}`
+      );
+      setTimeSinceFirst(response.data.daysElapsed);
+      console.log('faf', response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkIfCanSave = () => {
+    console.log('totalTemp:', totalTemp);
+    console.log('timeSinceFirst:', timeSinceFirst);
+    if (status == 'Normal' && totalTemp > 2 && timeSinceFirst < 30) {
+      console.log('you cannot save');
+      setOpenPayment(true);
+    } else {
+      handleOpen();
+    }
+  };
+
+  const [openPayment, setOpenPayment] = useState(false);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -1102,7 +1179,7 @@ function Index() {
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-          <h1>Generated Code</h1>
+          <h1 className='THeading'>Generated Code</h1>
           <div
             style={{
               width: '50%',
@@ -1145,7 +1222,7 @@ function Index() {
                 fontSize: '1.2rem',
               }}
               onClick={() => {
-                handleOpen();
+                checkIfCanSave();
               }}>
               Save Template
             </button>
@@ -1156,43 +1233,68 @@ function Index() {
             aria-labelledby='modal-modal-title'
             aria-describedby='modal-modal-description'>
             <Box sx={style}>
-              <Typography id='modal-modal-title' variant='h6' component='h2'>
-                Please Enter Template Description
-              </Typography>
-              <TextField
-                sx={{ width: '100%', marginTop: 3 }}
-                multiline
-                rows={3}
-                id='outlined-basic'
-                label='Template Description'
-                variant='outlined'
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+              <form
+                onSubmit={() => {
+                  firstTemplate();
+                  saveCode();
+                  SETCODE();
+                  handleClose();
                 }}>
-                <Button
-                  style={{ marginTop: 10 }}
-                  variant='contained'
-                  color='primary'
-                  onClick={() => {
-                    saveCode();
-                    handleClose();
-                  }}>
-                  Save
-                </Button>
-                <Feedback
-                  style={{ marginTop: 10 }}
-                  email={userData}
-                  template='iBlog'
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Template Name
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
+                  }}
+                  id='outlined-basic'
+                  label='Template Name'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setTName(e.target.value);
+                  }}
                 />
-              </div>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Please Enter Template Description
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
+                  }}
+                  multiline
+                  rows={3}
+                  id='outlined-basic'
+                  label='Template Description'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                />
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <button
+                    type='submit'
+                    style={{ marginTop: 10 }}
+                    className='Save_btn_primary'>
+                    Save
+                  </button>
+                  <Feedback
+                    style={{ marginTop: 10 }}
+                    email={userData}
+                    template={Tname}
+                  />
+                </div>
+              </form>
             </Box>
           </Modal>
           <div
@@ -1209,6 +1311,30 @@ function Index() {
       ) : (
         ''
       )}
+
+      <div>
+        <Modal
+          open={openPayment}
+          onClose={() => {
+            setOpenPayment(false);
+          }}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'>
+          <Box sx={style}>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Your Free Trail has Expired Please Upgrade to Premium
+            </Typography>
+            <Button
+              variant='contained'
+              onClick={() => {
+                navigate('/dashboard/Payments');
+                setOpenPayment(false);
+              }}>
+              Upgrade
+            </Button>
+          </Box>
+        </Modal>
+      </div>
     </div>
   );
 }

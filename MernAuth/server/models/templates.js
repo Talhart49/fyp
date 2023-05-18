@@ -7,6 +7,7 @@ const templateSchema = new mongoose.Schema({
   TemplateDocument: { type: String },
   TemplateRating: { type: String, required: true, default: 0 },
   TemplateTags: { type: String, required: true, default: 'none' },
+  Count: { type: String, default: 0 },
 });
 
 const TemplateSchema = mongoose.model('TemplateSchema', templateSchema);

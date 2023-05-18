@@ -66,7 +66,7 @@ export default function BasicModal({ email, template }) {
         }}
         variant='contained'
         onClick={handleOpen}>
-        Open modal
+        Give Feedback
       </Button>
       <Modal
         open={open}
@@ -215,6 +215,7 @@ export default function BasicModal({ email, template }) {
               }}
               onClick={() => {
                 handleSubmit();
+                handleClose();
               }}>
               Submit
             </Button>

@@ -9,6 +9,46 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import styled from 'styled-components';
+
+const WhiteBorderTextField = styled(TextField)`
+  & label.Mui-focused {
+    color: #fff;
+  }
+  & label {
+    color: #fff;
+  }
+  & .MuiOutlinedInput-root {
+    color: #fff;
+    fieldset {
+      border-color: #fff;
+    }
+  }
+`;
+
+const WhiteBorderOutlinedInput = styled(OutlinedInput)`
+  fieldset {
+    border-color: #fff;
+  }
+  label {
+    color: #fff;
+  }
+  & label.Mui-focused {
+    color: #3da58a;
+  }
+
+  & .MuiOutlinedInput-input {
+    color: #fff;
+  }
+  &.Mui-focused fieldset {
+    border-color: #3da58a;
+  }
+
+  input {
+    color: white;
+    border-color: white;
+  }
+`;
 
 const Profile = () => {
   const userData = localStorage.getItem('email');
@@ -102,31 +142,66 @@ const Profile = () => {
     });
   };
 
+  const [image, setImage] = useState('');
+
+  const convertToBase64 = (e) => {
+    console.log(e);
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      console.log(reader.result);
+      setImage(reader.result);
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+  };
+
+  const editDp = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:8080/api/users/editDp/${userData}`;
+      const { data: res } = await axios.post(url, { dp: image });
+      window.location.reload();
+      console.log(res.message);
+    } catch (error) {
+      console.log(error.response.data.message);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
+
   return (
-    <div className='main-profile'>
-      <div className='main_container'>
+    <div className='main_profile'>
+      <div className='profile_container'>
         <div className='header'>
           <h1>Edit Profile</h1>
         </div>
         <div className='Edit-dp'>
           <img
-            src='https://www.w3schools.com/howto/img_avatar.png'
+            src={image ? image : data.image}
             alt='Avatar'
             className='avatar'
           />
           <div className='Edit-dp-btn'>
-            <input type='file' />
-            <button className='btn'>Upload Picture</button>
-            <p>Acceptable formats: .jpg and .png, Max size: 2MB</p>
+            <input accept='image/*' type='file' onChange={convertToBase64} />
+            <button className='btn' onClick={editDp}>
+              Upload Picture
+            </button>
           </div>
         </div>
 
         <div className='information'>
-          <h2>
+          <h2 className='ph1'>
             <b>Personal Information</b>
           </h2>
           <form className='form' onSubmit={handleSubmit}>
-            <TextField
+            <WhiteBorderTextField
               id='outlined-basic'
               label='Full Name'
               variant='outlined'
@@ -141,7 +216,7 @@ const Profile = () => {
               error={error}
               InputLabelProps={{ shrink: true }}
             />
-            <TextField
+            <WhiteBorderTextField
               id='outlined-basic'
               label='Phone Number'
               variant='outlined'
@@ -156,7 +231,7 @@ const Profile = () => {
               error={error}
               InputLabelProps={{ shrink: true }}
             />
-            <TextField
+            <WhiteBorderTextField
               id='outlined-basic'
               label='Email'
               variant='outlined'
@@ -180,17 +255,24 @@ const Profile = () => {
           </form>
         </div>
         <div className='change-password'>
-          <h2>
+          <h2 className='ph1'>
             <b>Change Password</b>
           </h2>
           <form className='form' onSubmit={changePassword}>
             <FormControl
-              sx={{ m: 1, width: '40%', marginBottom: '20px' }}
+              sx={{
+                m: 1,
+                width: '40%',
+                marginBottom: '20px',
+                color: 'white',
+              }}
               variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>
+              <InputLabel
+                htmlFor='outlined-adornment-password'
+                style={{ color: 'white' }}>
                 Old Password
               </InputLabel>
-              <OutlinedInput
+              <WhiteBorderOutlinedInput
                 id='outlined-adornment-password'
                 type={values.showPassword1 ? 'text' : 'password'}
                 value={Pass.oldPassword}
@@ -201,6 +283,7 @@ const Profile = () => {
                 endAdornment={
                   <InputAdornment position='end'>
                     <IconButton
+                      style={{ color: 'white' }}
                       aria-label='toggle password visibility'
                       onClick={handleClickShowPassword1}
                       edge='end'>
@@ -218,10 +301,12 @@ const Profile = () => {
             <FormControl
               sx={{ m: 1, width: '40%', marginBottom: '20px' }}
               variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>
+              <InputLabel
+                htmlFor='outlined-adornment-password'
+                style={{ color: 'white' }}>
                 Password
               </InputLabel>
-              <OutlinedInput
+              <WhiteBorderOutlinedInput
                 id='outlined-adornment-password'
                 type={values.showPassword2 ? 'text' : 'password'}
                 value={Pass.newPassword}
@@ -232,6 +317,7 @@ const Profile = () => {
                 endAdornment={
                   <InputAdornment position='end'>
                     <IconButton
+                      style={{ color: 'white' }}
                       aria-label='toggle password visibility'
                       onClick={handleClickShowPassword2}
                       edge='end'>
@@ -249,10 +335,12 @@ const Profile = () => {
             <FormControl
               sx={{ m: 1, width: '40%', marginBottom: '20px' }}
               variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>
+              <InputLabel
+                htmlFor='outlined-adornment-password'
+                style={{ color: 'white' }}>
                 Confirm Password
               </InputLabel>
-              <OutlinedInput
+              <WhiteBorderOutlinedInput
                 id='outlined-adornment-password'
                 type={values.showPassword3 ? 'text' : 'password'}
                 value={Pass.confirmPassword}
@@ -263,6 +351,7 @@ const Profile = () => {
                 endAdornment={
                   <InputAdornment position='end'>
                     <IconButton
+                      style={{ color: 'white' }}
                       aria-label='toggle password visibility'
                       onClick={handleClickShowPassword3}
                       edge='end'>

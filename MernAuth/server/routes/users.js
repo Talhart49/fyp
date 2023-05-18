@@ -96,13 +96,13 @@ router.post('/resetPassword/:email', async (req, res) => {
   }
 });
 
-router.post('/editDP', async (req, res) => {
+router.post('/editDP/:email', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.params.email });
     if (!user) {
       return res.status(404).send({ message: 'User not found' });
     }
-    user.dp = req.body.dp;
+    user.image = req.body.dp;
     await user.save();
     res.status(200).send({ message: 'Profile picture updated successfully' });
   } catch (error) {
@@ -171,6 +171,90 @@ router.post('/match-otp/:otp/:email', async (req, res) => {
       return res.status(401).send({ message: 'OTP expired' });
     }
     res.status(200).send({ message: 'OTP verified successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.get('/get-user/:email', async (req, res) => {
+  try {
+    const name = await User.findOne({ email: req.params.email });
+    res.status(200).send({ message: 'User found', name: name.fullName });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/firstTemplate/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    user.firstTemplate = Date.now();
+    await user.save();
+    res.status(200).send({ message: 'First template updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/totalTemplates/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    user.totalTemplates = user.totalTemplates + 1;
+    await user.save();
+    res.send({ message: 'Total templates updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.get('/timeSince/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+
+    const currentTime = Date.now();
+    const timeElapsed = currentTime - user.firstTemplate.getTime(); // Assuming firstTemplate is a Date object
+
+    const daysElapsed = Math.floor(timeElapsed / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+    res.send({ daysElapsed });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.put('/setStatus', async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      {
+        email: req.body.email,
+      },
+      {
+        status: req.body.status,
+      }
+    );
+    res.status(200).send({ message: 'Status updated successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+router.get('/totalUsers', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+router.get('/totalPremiumUsers/find', async (req, res) => {
+  try {
+    const users = await User.find({
+      status: { $in: ['Premium', 'Pro'] },
+    });
+    res.status(200).send(users);
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error' });
   }

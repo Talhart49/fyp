@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -13,9 +15,9 @@ import HTMLGuidesA from './components/HTMLGuidesA';
 import CSSGuidesA from './components/CSSGuidesA';
 import JSGuidesA from './components/JSGuidesA';
 
-import AddHTML from './components/AddHTML';
-import AddCSS from './components/AddCSS';
-import AddJS from './components/AddJS';
+// import AddHTML from './components/AddHTML';
+// import AddCSS from './components/AddCSS';
+// import AddJS from './components/AddJS';
 
 import UpdateHTMLG from './components/UpdateHTMLG';
 import UpdateCSSG from './components/UpdateCSSG';
@@ -28,6 +30,10 @@ import ContentHTML from './parts/ContentHTML';
 import Editor from './pages/Editor';
 
 import ViewHTMLU from './components/ViewHTMLU';
+import ViewCSSU from './components/ViewCSSU';
+import ViewJSU from './components/ViewJSU';
+
+import FeedbacksU from './components/FeedbacksU';
 
 import PaymentsU from './components/PaymentU';
 import CardPayment from './components/PaymentU/CardPayment';
@@ -43,6 +49,39 @@ import B01 from './Templates/Blog01/B01';
 import MyTemplate from './components/MyTemplates';
 
 import DashboardContent from './components/DashBoardContent';
+
+import Preview from './pages/PreviewTemplates';
+
+import NDashboard from './components/NAdminDashboard';
+import DashboardS from './scenes/dashboard';
+import Users from './scenes/users';
+import Invoices from './scenes/invoices';
+import Templates from './scenes/allTemplates';
+import Bar from './scenes/bar';
+import Form from './scenes/form';
+import Line from './scenes/line';
+import Pie from './scenes/pie';
+import Feedback from './scenes/feedback';
+import Geography from './scenes/geography';
+
+import HTMLGuides from './scenes/HTMLGuides';
+import CSSGuides from './scenes/CSSGuides';
+import JSGuides from './scenes/JSGuides';
+
+import AddHTML from './scenes/AddHTML';
+import AddCSS from './scenes/AddCSS';
+import AddJS from './scenes/AddJS';
+
+import UpdateHTML from './scenes/UpdateHTML';
+import UpdateCSS from './scenes/UpdateCSS';
+import UpdateJS from './scenes/UpdateJS';
+
+import ViewHTML from './scenes/ViewHTML';
+import ViewCSS from './scenes/ViewCSS';
+import ViewJS from './scenes/ViewJS';
+
+import Display from './pages/Display';
+
 function App() {
   const user = localStorage.getItem('token');
   return (
@@ -55,6 +94,7 @@ function App() {
         exact
         element={<Navigate replace to='/dashboard' />}
       />
+      <Route path='/display' exact element={<Display />} />
 
       {user && (
         <Route path='/dashboard' element={<Dashboard />}>
@@ -69,6 +109,7 @@ function App() {
           <Route path='/dashboard/Templates/IBlog' element={<IBlog />} />
           <Route path='/dashboard/MyTemplates' element={<MyTemplate />} />
           <Route path='/dashboard/Payments' element={<PaymentsU />} />
+          <Route path='/dashboard/Feedbacks' element={<FeedbacksU />} />
           <Route path='/dashboard/Payments/Card' element={<CardPayment />} />
           <Route path='/dashboard/ViewHTML_U' element={<ViewHTMLU />}>
             <Route
@@ -80,9 +121,65 @@ function App() {
               element={<Editor />}
             />
           </Route>
+          <Route path='/dashboard/ViewCSS_U' element={<ViewCSSU />}>
+            <Route
+              path='/dashboard/ViewCSS_U/:title'
+              element={<ContentHTML />}
+            />
+            <Route
+              path='/dashboard/ViewCSS_U/:title/Editor'
+              element={<Editor />}
+            />
+          </Route>
+          <Route path='/dashboard/ViewJS_U' element={<ViewJSU />}>
+            <Route
+              path='/dashboard/ViewJS_U/:title'
+              element={<ContentHTML />}
+            />
+            <Route
+              path='/dashboard/ViewJS_U/:title/Editor'
+              element={<Editor />}
+            />
+          </Route>
         </Route>
       )}
       <Route path='/OTP' element={<OTP />} />
+
+      {user && (
+        <Route path='/dashboardAdmin' element={<NDashboard />}>
+          <Route path='/dashboardAdmin/MainContent' element={<DashboardS />} />
+          <Route path='/dashboardAdmin/Users' element={<Users />} />
+          <Route path='/dashboardAdmin/Invoices' element={<Invoices />} />
+          <Route path='/dashboardAdmin/Templates' element={<Templates />} />
+          <Route path='/dashboardAdmin/Bar' element={<Bar />} />
+          <Route path='/dashboardAdmin/Form' element={<Form />} />
+          <Route path='/dashboardAdmin/Line' element={<Line />} />
+          <Route path='/dashboardAdmin/Pie' element={<Pie />} />
+          <Route path='/dashboardAdmin/Feedback' element={<Feedback />} />
+          <Route path='/dashboardAdmin/Geography' element={<Geography />} />
+
+          <Route path='/dashboardAdmin/html' element={<HTMLGuides />} />
+          <Route path='/dashboardAdmin/css' element={<CSSGuides />} />
+          <Route path='/dashboardAdmin/js' element={<JSGuides />} />
+
+          <Route path='/dashboardAdmin/Add_HTML' element={<AddHTML />} />
+          <Route path='/dashboardAdmin/Add_CSS' element={<AddCSS />} />
+          <Route path='/dashboardAdmin/Add_JS' element={<AddJS />} />
+
+          <Route path='/dashboardAdmin/Update_HTML' element={<UpdateHTML />} />
+          <Route path='/dashboardAdmin/Update_CSS' element={<UpdateCSS />} />
+          <Route path='/dashboardAdmin/Update_JS' element={<UpdateJS />} />
+
+          <Route path='/dashboardAdmin/View_HTML' element={<ViewHTML />} />
+          <Route path='/dashboardAdmin/View_CSS' element={<ViewCSS />} />
+          <Route path='/dashboardAdmin/View_JS' element={<ViewJS />} />
+
+          <Route path='/dashboardAdmin/View_HTML/Editor' element={<Editor />} />
+          <Route path='/dashboardAdmin/View_CSS/Editor' element={<Editor />} />
+          <Route path='/dashboardAdmin/View_JS/Editor' element={<Editor />} />
+        </Route>
+      )}
+
       {user && (
         <Route path='/Admin_Dashboard' element={<AdminDashboard />}>
           <Route
@@ -123,6 +220,7 @@ function App() {
       <Route path='/dashboard/Templates/FoodSite/FS1' element={<FS1 />} />
       <Route path='/dashboard/Templates/PortfolioWeb/P01' element={<P01 />} />
       <Route path='/dashboard/Templates/IBlog/B01' element={<B01 />} />
+      <Route path='/Preview' element={<Preview />} />
     </Routes>
   );
 }

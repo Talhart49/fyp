@@ -5,6 +5,20 @@
   margin: 20px 0;
 }
 
+.THeading {
+  text-align: left;
+  margin-bottom: 80px;
+  font-size: 1.9rem;
+  font-family: Abril Fatface, cursive;
+  color: #3da58a;
+  letter-spacing: 2px;
+  margin-left: 4rem;
+  box-shadow: #8cf1d6 -5px 5px, #70d8bd -10px 10px, #4cceac -15px 15px,
+    #3da58a -20px 20px, #3da58a -25px 25px;
+
+  padding: 0.5rem;
+}
+
 @media screen and (max-width: 1200px) {
   .myTemplates {
     grid-template-columns: repeat(2, 1fr);

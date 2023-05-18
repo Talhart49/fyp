@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const UserTemplate = new mongoose.Schema({
   authorName: { type: String, required: true },
+  authorEmail: { type: String, required: true },
   templateName: { type: String, required: true },
   templateDescription: {
     type: String,
@@ -11,6 +12,8 @@ const UserTemplate = new mongoose.Schema({
   templateCode: { type: String, required: true },
   templateStatus: { type: String, required: true, default: 'private' },
   dateCreated: { type: Date, default: Date.now },
+  Count: { type: Number, default: 0 },
+  image: { type: String },
 });
 
 const TemplateSchema = mongoose.model('UserTemplate', UserTemplate);

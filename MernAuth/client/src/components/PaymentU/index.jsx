@@ -13,6 +13,7 @@ function Payment() {
           price={0}
           duration='y'
           currency='$'
+          color='#1823e9'
           buttonContent='Get Started'
           subTitle='Great for starters'
           priceText='Discover how to create your first projects.'
@@ -63,7 +64,8 @@ const MainContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #f5f1ff;
+  position: relative;
+  z-index: 1;
 
   @media screen and (max-width: 970px) {
     height: 100%;
