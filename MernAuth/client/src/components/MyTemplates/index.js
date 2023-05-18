@@ -131,12 +131,16 @@ function Index() {
                         <span>Copy to clipboard</span>
                       </CopyToClipboard>
                     </Button>
-                    <div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                      }}>
                       <Button
                         variant='contained'
                         color='error'
                         size='small'
-                        style={{ marginRight: '10px', marginTop: '10px' }}>
+                        style={{ marginTop: '10px' }}>
                         {/* <DeleteOutlineIcon /> */}
                         <a
                           onClick={() => {

@@ -35,6 +35,8 @@ import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
 
 import FormControl from '@mui/material/FormControl';
 
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -816,6 +818,7 @@ function Index() {
           templateDescription: description,
         }
       );
+      setLoading(false);
       console.log(response.data);
     } catch (err) {
       console.log(err);
@@ -970,10 +973,30 @@ function Index() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  
+  let [loading, setLoading] = useState(false);
 
   return (
     <div className='main_container_code'>
+      {loading ? (
+        <div className='Loader'>
+          <ClimbingBoxLoader
+            color={'#eeb85c'}
+            loading={loading}
+            size={15}
+            aria-label='Loading Spinner'
+            data-testid='loader'
+          />
+          <h3
+            style={{
+              color: '#eeb85c',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              marginTop: '1rem',
+            }}>
+            Please Wait while we Save your Template
+          </h3>
+        </div>
+      ) : null}
       <div class='Preview_wrapper'>
         <div class='link_wrapper'>
           <a
@@ -1237,6 +1260,7 @@ function Index() {
             <Box sx={style}>
               <form
                 onSubmit={() => {
+                  setLoading(true);
                   firstTemplate();
                   saveCode();
                   SETCODE();

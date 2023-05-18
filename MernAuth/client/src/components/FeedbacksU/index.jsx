@@ -309,6 +309,14 @@ const FAQ = () => {
                   }}>
                   Update
                 </Button>
+
+                <Button
+                  onClick={() => {
+                    setOpen(true);
+                    setId(item._id);
+                  }}>
+                  View Response
+                </Button>
               </Box>
             </AccordionDetails>
           </Accordion>
