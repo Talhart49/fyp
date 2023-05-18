@@ -1957,7 +1957,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
                   <Feedback
                     style={{ marginTop: 10 }}
                     email={userData}
-                    template={Tname}
+                    template='Futuristic Portfolio'
                   />
                 </div>
               </form>

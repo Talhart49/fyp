@@ -8,7 +8,7 @@ import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 function Index() {
   const userEmail = localStorage.getItem('email');
 
@@ -30,7 +30,7 @@ function Index() {
     }
 
     displayTemplates();
-  }, [userEmail]);
+  }, []);
 
   const displayTemplates = () => {
     try {
@@ -56,6 +56,21 @@ function Index() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+      });
+  };
+
+  const handleDelete = (e) => {
+    fetch(`http://localhost:8080/api/usersTemplate/${e}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ templateStatus: 'public' }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
       });
   };
 
@@ -88,8 +103,8 @@ function Index() {
                     <p
                       style={{
                         textAlign: 'right',
-                        marginTop: '20px',
-                        marginBottom: '20px',
+                        marginTop: '10px',
+                        marginBottom: '5px',
                         fontSize: '1.2rem',
                       }}>
                       {moment(key.dateCreated).fromNow()}...
@@ -116,6 +131,21 @@ function Index() {
                         <span>Copy to clipboard</span>
                       </CopyToClipboard>
                     </Button>
+                    <div>
+                      <Button
+                        variant='contained'
+                        color='error'
+                        size='small'
+                        style={{ marginRight: '10px', marginTop: '10px' }}>
+                        {/* <DeleteOutlineIcon /> */}
+                        <a
+                          onClick={() => {
+                            handleDelete(key._id);
+                          }}>
+                          Delete
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

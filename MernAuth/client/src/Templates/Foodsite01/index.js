@@ -3068,7 +3068,7 @@ Overall, this footer section provides visitors with important information about
                   <Feedback
                     style={{ marginTop: 10 }}
                     email={userData}
-                    template={Tname}
+                    template='FoodSite'
                   />
                 </div>
               </form>

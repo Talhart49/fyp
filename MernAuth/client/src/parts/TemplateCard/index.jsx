@@ -9,9 +9,9 @@ function Index({ data }) {
   const navigate = useNavigate();
 
   const [stars, setStars] = useState({
-    FP: 3,
-    FS: 5,
-    IB: 3,
+    FP: 1,
+    FS: 1,
+    IB: 1,
   });
 
   const [final, setFinal] = useState();

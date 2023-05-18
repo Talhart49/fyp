@@ -970,6 +970,8 @@ function Index() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  
+
   return (
     <div className='main_container_code'>
       <div class='Preview_wrapper'>
@@ -1291,7 +1293,7 @@ function Index() {
                   <Feedback
                     style={{ marginTop: 10 }}
                     email={userData}
-                    template={Tname}
+                    template='iBlog'
                   />
                 </div>
               </form>

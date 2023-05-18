@@ -50,6 +50,21 @@ const Contacts = () => {
     displayTemplates();
   }, []);
 
+  const handleDelete = (e) => {
+    fetch(`http://localhost:8080/api/usersTemplate/${e}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ templateStatus: 'public' }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      });
+  };
+
   return (
     <Box m='20px'>
       <Header
@@ -67,7 +82,7 @@ const Contacts = () => {
                     backgroundColor: colors.primary[400],
                   }}>
                   <div className='imgbox'>
-                    <img src={handleImage(key.templateName)} />
+                    <img src={`data:image/png;base64,${key.image}`} />
                   </div>
 
                   <div class='content'>
@@ -86,8 +101,8 @@ const Contacts = () => {
                     <p
                       style={{
                         textAlign: 'right',
-                        marginTop: '20px',
-                        marginBottom: '20px',
+                        marginTop: '5px',
+                        marginBottom: '5px',
                         fontSize: '1.2rem',
 
                         color: colors.greenAccent[200],
@@ -119,6 +134,25 @@ const Contacts = () => {
                       to='/Preview'>
                       Preview
                     </Button>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                      }}>
+                      <Button
+                        variant='contained'
+                        color='error'
+                        size='small'
+                        style={{ alignSelf: 'right' }}>
+                        {/* <DeleteOutlineIcon /> */}
+                        <a
+                          onClick={() => {
+                            handleDelete(key._id);
+                          }}>
+                          Delete
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

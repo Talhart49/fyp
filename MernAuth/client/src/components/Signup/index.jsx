@@ -62,7 +62,7 @@ const Signup = () => {
           <div className={styles.Top_content}>
             <h1 className={styles.Logo}>Templater</h1>
             <h1 className={styles.title}>Welcome to Templater</h1>
-            <button className={styles.googleBtn}>
+            {/* <button className={styles.googleBtn}>
               <FcGoogle className={styles.googleIcon} />
               <span className={styles.googleBtn__text}>
                 Sign up with Google
@@ -70,7 +70,7 @@ const Signup = () => {
             </button>
             <div className={styles.Or}>
               <span>OR</span>
-            </div>
+            </div> */}
           </div>
 
           <div className={styles.left}>
