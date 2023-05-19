@@ -59,6 +59,20 @@ const FAQ = () => {
       });
   }, []);
 
+  const [feedBackResponse, setFeedBackResponse] = useState('');
+  const [displayResponse, setDisplayResponse] = useState(false);
+
+  const viewResponse = (id) => {
+    console.log('id', id);
+    axios
+      .get(`http://localhost:8080/api/feedback/response/${id}`)
+      .then((res) => {
+        console.log('res', res.data.feedback.feedbackResponse);
+        setFeedBackResponse(res.data.feedback.feedbackResponse);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -115,6 +129,7 @@ const FAQ = () => {
                 }}>
                 {item.feedback}
               </Typography>
+
               <StarRatingComponent
                 name='rate1'
                 starCount={5}
@@ -302,6 +317,61 @@ const FAQ = () => {
                     </Box>
                   </Modal>
                 )}
+                {displayResponse && (
+                  <Modal
+                    open={displayResponse}
+                    onClose={() => {
+                      displayResponse(false);
+                    }}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'>
+                    <Box sx={style}>
+                      <h3
+                        style={{
+                          textAlign: 'center',
+                          color: '#3f51b5',
+                          fontWeight: 'bold',
+                          fontSize: '1.5rem',
+                          marginTop: '0',
+                        }}>
+                        Feedbacks Response from Admins
+                      </h3>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          borderBottom: '0.5px dashed #000',
+                          width: '100%',
+                        }}>
+                        <DescriptionIcon
+                          style={{
+                            color: '#3f51b5',
+                            fontSize: '3rem',
+                            textAlign: 'center',
+                            margin: '0 auto',
+                            display: 'block',
+                          }}
+                        />
+                        <p>{feedBackResponse}</p>
+                      </div>
+                      <Button
+                        type='submit'
+                        variant='contained'
+                        style={{
+                          backgroundColor: '#3f51b5',
+                          color: '#fff',
+                          marginTop: '1rem',
+                          width: '100%',
+                        }}
+                        onClick={() => {
+                          setDisplayResponse(false);
+                        }}>
+                        Close
+                      </Button>
+                    </Box>
+                  </Modal>
+                )}
                 <Button
                   onClick={() => {
                     setOpen(true);
@@ -310,13 +380,15 @@ const FAQ = () => {
                   Update
                 </Button>
 
-                <Button
-                  onClick={() => {
-                    setOpen(true);
-                    setId(item._id);
-                  }}>
-                  View Response
-                </Button>
+                {item.feedbackResponse !== 'No response' ? (
+                  <Button
+                    onClick={() => {
+                      viewResponse(item._id);
+                      setDisplayResponse(true);
+                    }}>
+                    View Response
+                  </Button>
+                ) : null}
               </Box>
             </AccordionDetails>
           </Accordion>

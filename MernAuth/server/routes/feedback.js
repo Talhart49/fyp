@@ -76,7 +76,8 @@ router.put('response/:id', async (req, res) => {
   try {
     const feedback = await FeedbackSchema.findByIdAndUpdate(
       req.params.id,
-      req.body
+
+      { feedbackResponse: req.body.feedbackResponse }
     );
     res.status(200).json({ message: 'Feedback updated successfully' });
   } catch (err) {

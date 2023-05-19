@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, useTheme } from '@mui/material';
+import { Box, useTheme, Button } from '@mui/material';
 import Header from '../../components/Header';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -31,39 +31,62 @@ const FAQ = () => {
       />
 
       {feedbacks.map((item) => (
-        <Accordion
-          defaultExpanded
+        <Box
           sx={{
-            backgroundColor: colors.primary[500],
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             width: '100%',
             mt: '20px',
-            borderRadius: '10px',
           }}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography color={colors.greenAccent[500]} variant='h5'>
-              {item.Template}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{item.feedback}</Typography>
-            <StarRatingComponent
-              name='rate1'
-              starCount={5}
-              value={item.rating}
-            />
+          <Accordion
+            defaultExpanded
+            sx={{
+              backgroundColor: colors.primary[500],
+              width: '60%',
+              mt: '20px',
+              borderRadius: '10px',
+            }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography color={colors.greenAccent[500]} variant='h5'>
+                {item.Template}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{item.feedback}</Typography>
+              <StarRatingComponent
+                name='rate1'
+                starCount={5}
+                value={item.rating}
+              />
 
-            <Typography
-              color={colors.greenAccent[500]}
-              variant='h5'
-              sx={{
-                width: '100%',
-                textAlign: 'right',
-                mr: '20px',
-              }}>
-              {item.userEmail}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  width: '100%',
+                  mb: '20px',
+                }}>
+                <Button variant='contained' color='secondary'>
+                  Respond
+                </Button>
+              </Box>
+              <Typography
+                color={colors.greenAccent[500]}
+                variant='h5'
+                sx={{
+                  width: '100%',
+                  textAlign: 'right',
+                  mr: '20px',
+                }}>
+                {item.userEmail}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
       ))}
     </Box>
   );
