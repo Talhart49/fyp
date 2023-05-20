@@ -9,9 +9,11 @@ function Index({ data }) {
   const navigate = useNavigate();
 
   const [stars, setStars] = useState({
-    FP: 1,
-    FS: 1,
-    IB: 1,
+    FP: 5,
+    FS: 5,
+    IB: 5,
+    GB: 5,
+    DP: 5,
   });
 
   const [final, setFinal] = useState();
@@ -41,6 +43,22 @@ function Index({ data }) {
         ...stars,
         IB: res.data.average,
       });
+    } else if (data.name === 'Gradient Blog') {
+      const res = await axios.get(
+        `http://localhost:8080/api/feedback/${data.name}`
+      );
+      setStars({
+        ...stars,
+        GB: res.data.average,
+      });
+    } else if (data.name === 'Developer Portfolio') {
+      const res = await axios.get(
+        `http://localhost:8080/api/feedback/${data.name}`
+      );
+      setStars({
+        ...stars,
+        DP: res.data.average,
+      });
     }
   };
 
@@ -52,8 +70,12 @@ function Index({ data }) {
       setFinal(stars.FS);
     } else if (data.name === 'iBlog') {
       setFinal(stars.IB);
+    } else if (data.name === 'Gradient Blog') {
+      setFinal(stars.GB);
+    } else if (data.name === 'Developer Portfolio') {
+      setFinal(stars.DP);
     }
-  }, [data]);
+  }, []);
 
   console.log(final);
 

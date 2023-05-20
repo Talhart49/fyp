@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { finalCode } from "../../redux/FoodSite01_redux/FS1_Slice";
-import Navbar from "./Navbar";
-import Home from "./Home";
-import About from "./About";
-import Menu from "./Menu";
-import Popular from "./Popular";
-import Gallery from "./Gallery";
-import Order from "./Order";
-import Footer from "./Footer";
-import "../style.css";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { finalCode } from '../../redux/PortfolioWeb_redux/PW_slice';
 
-import Feedback from "../../parts/Feedback/Index";
+import HeaderSection from './Header';
+import HeroSection from './Hero';
+import ServiceSection from './Service';
+import ProjectSection from './Project';
+import AboutSection from './About';
+import ContactSection from './Contact';
+import FooterSection from './Footer';
 
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { lucario } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import '../style.css';
 
-import Modal from "@mui/material/Modal";
+import Feedback from '../../parts/Feedback/Index';
 
-import axios from "axios";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { lucario } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import Modal from '@mui/material/Modal';
+
+import axios from 'axios';
+
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 
 import {
   Checkbox,
@@ -31,26 +34,26 @@ import {
   Box,
   Fab,
   TextField,
-} from "@mui/material";
-import UnfoldLessIcon from "@mui/icons-material/UnfoldLess";
+} from '@mui/material';
+import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
 
-import FormControl from "@mui/material/FormControl";
+import FormControl from '@mui/material/FormControl';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 function Index() {
@@ -72,14 +75,19 @@ function Index() {
   const footerElem = useSelector((state) => state.PW.Footer);
   const footerDesignElem = useSelector((state) => state.PW.footerDesign);
 
-  const [name, setName] = useState("");
-  const userData = localStorage.getItem("email");
+  const [name, setName] = useState('');
+  const userData = localStorage.getItem('email');
+
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/${userData}`).then((res) => {
       setName(res.data.fullName);
+      setTotalTemp(res.data.totalTemplates);
+      setStatus(res.data.status);
       console.log(res.data.fullName);
     });
+    timeSinceFirstTemplate();
   }, []);
 
   const dispatch = useDispatch();
@@ -624,7 +632,7 @@ p {
           <h1>${projectElem.project_5_name}</h1>
           <h2>${projectElem.project_5_heading2}</h2>
           <p>
-          ${projectEle.project_5_description}
+          ${projectElem.project_5_description}
           </p>
         </div>
         <div class="project-img">
@@ -905,7 +913,7 @@ p {
         </div>
 
         <div class="social-item">
-          <a href="#"><img src=${footerElem.image2} /></a>
+          <a href="#"><img src=${footerElem.image3} /></a>
         </div>
       </div>
       <p>${footerElem.copyRight}</p>
@@ -1121,10 +1129,45 @@ p {
   }
   `;
 
+  const jsCode = `
+  <script>
+  const hamburger = document.querySelector(
+    '.header .nav-bar .nav-list .hamburger'
+  );
+  const mobile_menu = document.querySelector(
+    '.header .nav-bar .nav-list ul'
+  );
+  const menu_item = document.querySelectorAll(
+    '.header .nav-bar .nav-list ul li a'
+  );
+  const header = document.querySelector('.header.container');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobile_menu.classList.toggle('active');
+  });
+
+  document.addEventListener('scroll', () => {
+    var scroll_position = window.scrollY;
+    if (scroll_position > 250) {
+      header.style.backgroundColor = '#29323c';
+    } else {
+      header.style.backgroundColor = 'transparent';
+    }
+  });
+
+  menu_item.forEach((item) => {
+    item.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobile_menu.classList.toggle('active');
+    });
+  });
+</script>
+  `;
   const [sections, setSections] = useState([]);
   const [extend, setExtend] = useState([]);
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
 
   const handleSectionsChange = (event) => {
     const { value, checked } = event.target;
@@ -1134,18 +1177,22 @@ p {
       setSections((prev) => prev.filter((item) => item !== value));
     }
   };
+  const [Tname, setTName] = useState('');
 
   const saveCode = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/usersTemplate",
+        'http://localhost:8080/api/usersTemplate',
         {
           authorName: name,
-          templateName: "FoodSite Variation",
+          authorEmail: userData,
+          templateName: Tname,
           templateCode: completeCode,
           templateDescription: description,
         }
       );
+      setLoading(false);
+
       console.log(response.data);
     } catch (err) {
       console.log(err);
@@ -1153,360 +1200,98 @@ p {
   };
 
   const sectionsCode = (sections) => {
-    console.log("sections", sections);
+    console.log('sections', sections);
     sections.forEach((section) => {
-      if (section == "Header") {
+      if (section == 'Header') {
         setHead(true);
-      } else if (section == "Home") {
+      } else if (section == 'Hero') {
         setHero(true);
-      } else if (section == "Services") {
+      } else if (section == 'Services') {
         setService(true);
-      } else if (section == "Projects") {
+      } else if (section == 'Projects') {
         setProject(true);
-      } else if (section == "About") {
+      } else if (section == 'About') {
         setAbout(true);
-      } else if (section == "Contact") {
+      } else if (section == 'Contact') {
         setContact(true);
-      } else if (section == "Footer") {
+      } else if (section == 'Footer') {
         setFooter(true);
       }
     });
     let code = `
     <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>food-website</title>
-    <link
-      rel="shortcut icon"
-      href="https://i.ibb.co/Vgf46Dw/title-logo.png"
-      type="image/x-icon"
-    />
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Developer Portfolio</title>
+        <style>
+          @import 'https://fonts.googleapis.com/css?family=Montserrat:300, 400, 700&display=swap';
 
-    <!-- ----linked font awesome cdn---- -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
+          ${head ? globalDesign : ''}
+          ${head ? headerDesign : ''}
+          ${hero ? heroSectionDesign : ''}
+          ${services ? serviceDesign : ''}
+          ${projects ? projectDesign : ''}
+          ${abouts ? aboutDesign : ''}
+          ${contacts ? contactDesign : ''}
+          ${footer ? footerDesign : ''}
 
-    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500&family=Roboto:wght@100;300;400;500;700&display=swap');
+          /* Keyframes */
+          @keyframes hamburger_puls {
+            0% {
+              opacity: 1;
+              transform: scale(1);
+            }
+            100% {
+              opacity: 0;
+              transform: scale(1.4);
+            }
+          }
+          @keyframes text_reveal_box {
+            50% {
+              width: 100%;
+              left: 0;
+            }
+            100% {
+              width: 0;
+              left: 100%;
+            }
+          }
+          @keyframes text_reveal {
+            100% {
+              color: white;
+            }
+          }
+          @keyframes text_reveal_name {
+            100% {
+              color: crimson;
+              font-weight: 500;
+            }
+          }
+          /* End Keyframes */
+
+          ${responsive ? Responsiveness : ''}
+        </style>
+      </head>
+        
+      ${head ? header : ''}
+      ${hero ? heroSection : ''}
+      ${service ? service : ''}
+      ${project ? project : ''}
+      ${about ? about : ''}
+      ${contact ? contact : ''}
+      ${footer ? Footer : ''}
+
+
+      <body>
+        
+        
+      </body>
+    </html>
     
-    ${cssComments ? keywordsCssComments : ""}
-
-    /* This section applies styles to various elements using CSS selectors
-    separated by commas. The elements targeted are buttons,
-    input fields in different sections of the website 
-    (home, about, menu, popular, and order),
-    and submit buttons in the order section. The styles include padding,
-    border width,
-    border color,
-    border radius,
-    font size,
-    color,
-    cursor,
-    text-transform,
-    background-color,
-    and transitions for hover effects.  */
-
-    .buttonStyle,
-    ${sections.includes("Home") ? ".home .home-desc input," : ""}
-    ${sections.includes("About") ? ".about .about-desc input," : ""}
-    ${sections.includes("Menu") ? ".menu .catagory input," : ""}
-    ${
-      sections.includes("Popular")
-        ? ".popular .popular-content .p-card input,"
-        : ""
-    }
-    ${
-      sections.includes("Order")
-        ? ".order .order-content .order-form button"
-        : ""
-    }{
-      padding: 0.5rem 3rem;
-      border: 0.2rem solid #f7ca3e;
-      border-radius: 50rem;
-      font-size: 2rem;
-      color: #000000;
-      cursor: pointer;
-      text-transform: capitalize;
-      background-color: transparent;
-      -webkit-transition: all 0.4s linear;
-      transition: all 0.4s linear;
-    }
-
-    /* This section applies hover styles to the same elements 
-    as in the first section. The hover styles change the text 
-    color to white and the background color to the same color as the border. */
-
-
-    .buttonStyle:hover,
-    ${sections.includes("Home") ? ".home .home-desc input:hover," : ""}
-    ${sections.includes("About") ? ".about .about-desc input:hover," : ""}
-    ${sections.includes("Menu") ? ".menu .catagory input:hover," : ""}
-    ${
-      sections.includes("Popular")
-        ? ".popular .popular-content .p-card input:hover,"
-        : ""
-    }
-    ${
-      sections.includes("Order")
-        ? ".order .order-content .order-form button:hover"
-        : ""
-    } {
-      color: #ffffff;
-      background-color: #f7ca3e;
-    }
-
-    /* This section applies styles to headings in different sections 
-    of the website,
-    such as the section heading,
-    menu heading,
-    popular heading,
-    gallery heading,
-    and order heading. The styles include font size,
-    padding,
-    font weight,
-    text alignment,
-    text-transform,
-    and color.  */
-
-    .sectionHeading,
-    ${sections.includes("Menu") ? ".menu h2," : ""}
-    ${sections.includes("Popular") ? ".popular h2," : ""}
-    ${sections.includes("Gallery") ? ".gallery h2," : ""}
-    ${sections.includes("Order") ? ".order h2" : ""} {
-      font-size: 4rem;
-      padding: 2rem;
-      font-weight: 700;
-      text-align: center;
-      text-transform: capitalize;
-      color: #000000;
-    }
-    
-    /* This section applies styles to the span elements within the 
-    headings in different sections of the website.
-     The styles include padding and color. */
-
-
-    .sectionHeading span,
-    ${sections.includes("Menu") ? ".menu h2 span," : ""}
-    ${sections.includes("Popular") ? ".popular h2 span," : ""}
-    ${sections.includes("Gallery") ? ".gallery h2 span," : ""}
-    ${sections.includes("Order") ? ".order h2 span" : ""} {
-      padding: 0 1rem;
-      color: #f7ca3e;
-    }
-    
-    /* This section applies styles to all elements using the 
-    universal selector.The styles include margin, padding,
-     box-sizing, outline, border, and font family. */
-
-
-    * {
-      margin: 0;
-      padding: 0;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      outline: none;
-      border: none;
-      font-family: 'Roboto', sans-serif;
-    }
- /* The section applies styles to the HTML element. 
-    The styles include font size, overflow, and scroll behavior. */
-    
-
-    html {
-      font-size: 62.5%;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-/* This section applies styles to the scrollbar in the HTML element. 
-    The styles include width, background color for the track,
-     and background color for the thumb. */
-  
-
-    html::-webkit-scrollbar {
-      width: 1.4rem;
-    }
-
-    html::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    html::-webkit-scrollbar-thumb {
-      background: #f7ca3e;
-    }
-
-    
-    /* The body element is selected and styled with a max-width of 1200px,
-     centered with margin: auto, given a background-color of #ffffff,
-      positioned relative, and its overflow-x is set to hidden.
- These styles apply to the entire body of the HTML document. */
-  
-    body {
-      max-width: 1200px;
-      margin: auto;
-      background-color: #ffffff;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* The h1, h2, h3, and h4 elements are styled with the font-family
-     property set to 'Oswald', sans-serif. */
-
-    h1,
-    h2,
-    h3,
-    h4 {
-      font-family: 'Oswald', sans-serif;
-    }
-
-    /* The a element is styled with text-decoration: none to remove
-     any underlines from links. */
-
-    a {
-      text-decoration: none;
-    }
-
-    /* This block of code is adding a transition effect to links,
-     buttons, and input elements with either a "button" or "submit"
-      attribute. The -webkit-transition property is used for webkit-based
-    browsers (such as Safari and Chrome),
-    while the transition property is used for other browsers.
-     The all value specifies that all properties should be transitioned,
-      and the duration of the transition is set to 0.4 seconds with a
-       linear timing function. */
-  
-    a,
-    button,
-    input[button],
-    input[submit] {
-      -webkit-transition: all 0.4s linear;
-      transition: all 0.4s linear;
-    }
-
-    /* The ul element is styled with list-style-type: none to remove any
-     bullet points from unordered lists. */
-
-    ul {
-      list-style-type: none;
-    }
-
-    /* The section element is styled with padding: 3rem 1rem, which
-     sets padding on the top and bottom to 3rem and padding on the
-      left and right to 1rem. your padding will change according to
-       your values */
-
-    section {
-      padding: 3rem 1rem;
-    }
-
-    /* The .buttonStyle class is defined with various styles for
-     buttons, including padding, border, font-size, color, cursor,
-      text-transform, and transitions. 
-    These styles are applied to any element with the .buttonStyle class. */
-    
-
-    .buttonStyle {
-      padding: 0.5rem 3rem;
-      border: 0.2rem solid #f7ca3e;
-      border-radius: 50rem;
-      font-size: 2rem;
-      color: #000000;
-      cursor: pointer;
-      text-transform: capitalize;
-      background-color: transparent;
-      -webkit-transition: all 0.4s linear;
-      transition: all 0.4s linear;
-    }
-
-    /* The .buttonStyle:hover selector applies styles to the
-     .buttonStyle element when it is hovered over by the user,
-      changing the color and background-color. */
-
-    .buttonStyle:hover {
-      color: #ffffff;
-      background-color: #f7ca3e;
-    }
-
-    /* The .sectionHeading class is defined with various styles
-     for section headings, including font-size, padding, font-weight,
-      text-align, text-transform, and color. */
-
-    .sectionHeading {
-      font-size: 4rem;
-      padding: 2rem;
-      font-weight: 700;
-      text-align: center;
-      text-transform: capitalize;
-      color: #000000;
-    }
-
-    /* The .sectionHeading span selector applies styles to any
-     span elements within a section heading, setting the padding
-      and color properties. */
-
-    .sectionHeading span {
-      padding: 0 1rem;
-      color: #f7ca3e;
-    }
-
-
-      ${nav && cssComments ? headerCssComments : ""}
-      ${nav ? navbarDesign : ""}
-      ${home && cssComments ? homeCssComments : ""}
-      ${home ? homeDesign : ""}
-      ${about && cssComments ? aboutCssComments : ""}
-      ${about ? aboutDesign : ""}
-      ${menu && cssComments ? menuCssComments : ""}
-      ${menu ? menuDesign : ""}
-      ${popular && cssComments ? popularCssComments : ""}
-      ${popular ? popularDesign : ""}
-      ${gallery && cssComments ? galleryCssComments : ""}
-      ${gallery ? galleryDesign : ""}
-      ${order && cssComments ? orderCssComments : ""}
-      ${order ? orderDesign : ""}
-      ${footer && cssComments ? footerCssComments : ""}
-      ${footer ? footerDesign : ""}
-
-      ${responsive ? responsiveDesign : ""}
-
-
-      </style>
-    <body>
-
-        ${nav && htmlComments ? headerHtmlComments : ""}
-        ${nav ? navbarCode : ""} 
-        ${home && htmlComments ? homeHtmlComments : ""}
-        ${home ? homeCode : ""}
-        ${about && htmlComments ? aboutHtmlComments : ""}
-        ${about ? aboutCode : ""}
-        ${menu && htmlComments ? menuHtmlComments : ""}
-        ${menu ? menuCode : ""}
-        ${popular && htmlComments ? popularHtmlComments : ""}
-        ${popular ? popularCode : ""}
-        ${gallery && htmlComments ? galleryHtmlComments : ""}
-        ${gallery ? galleryCode : ""}
-        ${order && htmlComments ? orderHtmlComments : ""}
-        ${order ? orderCode : ""}
-        ${footer && htmlComments ? footerHtmlComments : ""}
-        ${footer ? footerCode : ""}
-
-
-       ${jsCode} 
-    </body>
-  </html>
-  
-  <!-- happy coding!!!! -->
-  
-      `;
+    `;
 
     setCompleteCode(code);
     console.log(code);
@@ -1522,149 +1307,231 @@ p {
   };
   const [generate, setGenerate] = useState(false);
 
+  const SETCODE = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/newCode/`, {
+        code: completeCode,
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const totalTemplate = async () => {
+    try {
+      const response = await axios.post(`
+      http://localhost:8080/api/users/totalTemplates/${userData}`);
+      console.log('faf', response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const [totalTemp, setTotalTemp] = useState(-99);
+  const firstTemplate = async () => {
+    if (totalTemp == 0) {
+      try {
+        const response = await axios.post(
+          `http://localhost:8080/api/users/firstTemplate/${userData}`
+        );
+
+        console.log('fafdd', response);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log('faf;ldd', totalTemp);
+    }
+
+    totalTemplate();
+  };
+
+  const [timeSinceFirst, setTimeSinceFirst] = useState(0);
+
+  const timeSinceFirstTemplate = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/users/timeSince/${userData}`
+      );
+      setTimeSinceFirst(response.data.daysElapsed);
+      console.log('faf', response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkIfCanSave = () => {
+    console.log('totalTemp:', totalTemp);
+    console.log('timeSinceFirst:', timeSinceFirst);
+    if (status == 'Normal' && totalTemp > 2 && timeSinceFirst < 30) {
+      console.log('you cannot save');
+      setOpenPayment(true);
+    } else {
+      handleOpen();
+    }
+  };
+
+  const [openPayment, setOpenPayment] = useState(false);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  let [loading, setLoading] = useState(false);
+
   return (
-    <div className="main_container_code">
-      <div class="Preview_wrapper">
-        <div class="link_wrapper">
+    <div className='main_container_code'>
+      {loading ? (
+        <div className='Loader'>
+          <ClimbingBoxLoader
+            color={'#eeb85c'}
+            loading={loading}
+            size={15}
+            aria-label='Loading Spinner'
+            data-testid='loader'
+          />
+          <h3
+            style={{
+              color: '#eeb85c',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              marginTop: '1rem',
+            }}>
+            Please Wait while we Save your Template
+          </h3>
+        </div>
+      ) : null}
+      <div class='Preview_wrapper'>
+        <div class='link_wrapper'>
           <a
             onClick={() => {
-              navigate("/dashboard/Templates/FoodSite/FS1");
-            }}
-          >
+              navigate('/dashboard/Templates/DeveloperPortfolio/DP');
+            }}>
             Preview
           </a>
-          <div class="Preview_icon">
+          <div class='Preview_icon'>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 268.832 268.832"
-            >
-              <path d="M265.17 125.577l-80-80c-4.88-4.88-12.796-4.88-17.677 0-4.882 4.882-4.882 12.796 0 17.678l58.66 58.66H12.5c-6.903 0-12.5 5.598-12.5 12.5 0 6.903 5.597 12.5 12.5 12.5h213.654l-58.66 58.662c-4.88 4.882-4.88 12.796 0 17.678 2.44 2.44 5.64 3.66 8.84 3.66s6.398-1.22 8.84-3.66l79.997-80c4.883-4.882 4.883-12.796 0-17.678z" />
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 268.832 268.832'>
+              <path d='M265.17 125.577l-80-80c-4.88-4.88-12.796-4.88-17.677 0-4.882 4.882-4.882 12.796 0 17.678l58.66 58.66H12.5c-6.903 0-12.5 5.598-12.5 12.5 0 6.903 5.597 12.5 12.5 12.5h213.654l-58.66 58.662c-4.88 4.882-4.88 12.796 0 17.678 2.44 2.44 5.64 3.66 8.84 3.66s6.398-1.22 8.84-3.66l79.997-80c4.883-4.882 4.883-12.796 0-17.678z' />
             </svg>
           </div>
         </div>
       </div>
-      <div className="formControl_sections">
-        <div className="formControl_sections_header">
+      <div className='formControl_sections'>
+        <div className='formControl_sections_header'>
           <h3>Sections</h3>
           <p>Select the sections you want to include in your website</p>
         </div>
-        <FormGroup className="formGroup_sections">
-          <div className="formControl_sections_home">
+        <FormGroup className='formGroup_sections'>
+          <div className='formControl_sections_home'>
             <FormControlLabel
-              disabled
               control={
                 <Checkbox
-                  checked={sections.includes("Header")}
+                  checked={sections.includes('Header')}
                   onChange={handleSectionsChange}
                 />
               }
-              label="Header"
-              value="Header"
-            />
-            <FormControlLabel
-              disabled
-              control={
-                <Checkbox
-                  checked={sections.includes("Home")}
-                  onChange={handleSectionsChange}
-                />
-              }
-              label="Home"
-              value="Home"
+              label='Header'
+              value='Header'
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={sections.includes("Services")}
+                  checked={sections.includes('Hero')}
                   onChange={handleSectionsChange}
                 />
               }
-              label="Services"
-              value="Services"
+              label='Hero'
+              value='Hero'
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={sections.includes("Projects")}
+                  checked={sections.includes('Services')}
                   onChange={handleSectionsChange}
                 />
               }
-              label="Projects"
-              value="Projects"
+              label='Services'
+              value='Services'
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={sections.includes("About")}
+                  checked={sections.includes('Projects')}
                   onChange={handleSectionsChange}
                 />
               }
-              label="About"
-              value="About"
+              label='Projects'
+              value='Projects'
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={sections.includes("Contact")}
+                  checked={sections.includes('About')}
                   onChange={handleSectionsChange}
                 />
               }
-              label="Contact"
-              value="Contact"
+              label='About'
+              value='About'
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={sections.includes("Footer")}
+                  checked={sections.includes('Contact')}
                   onChange={handleSectionsChange}
                 />
               }
-              label="Footer"
-              value="Footer"
+              label='Contact'
+              value='Contact'
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sections.includes('Footer')}
+                  onChange={handleSectionsChange}
+                />
+              }
+              label='Footer'
+              value='Footer'
             />
           </div>
 
-          <div className="design_selection_buttons">
+          <div className='design_selection_buttons'>
             <Button
-              variant="contained"
-              color="secondary"
+              variant='contained'
+              color='secondary'
               onClick={() => {
                 setHtmlComments(!htmlComments);
-              }}
-            >
+              }}>
               {htmlComments
-                ? "Remove HTML Documentation"
-                : "Add HTML Documentation"}
+                ? 'Remove HTML Documentation'
+                : 'Add HTML Documentation'}
             </Button>
             <Button
-              variant="contained"
-              color="secondary"
+              variant='contained'
+              color='secondary'
               onClick={() => {
                 setCssComments(!cssComments);
-              }}
-            >
+              }}>
               {cssComments
-                ? "Remove CSS Documentation"
-                : "Add CSS Documentation"}
+                ? 'Remove CSS Documentation'
+                : 'Add CSS Documentation'}
             </Button>
           </div>
           <Button
-            variant="contained"
-            color="secondary"
+            variant='contained'
+            color='secondary'
             onClick={() => {
               setResponsive(!responsive);
-            }}
-          >
-            {responsive ? "Remove Responsiveness" : "Add Responsiveness"}
+            }}>
+            {responsive ? 'Remove Responsiveness' : 'Add Responsiveness'}
           </Button>
 
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={() => {
               setHead(false);
               setHero(false);
@@ -1678,102 +1545,95 @@ p {
               setExtend([]);
               sectionsCode(sections);
               setGenerate(true);
-            }}
-          >
+            }}>
             Generate
           </Button>
         </FormGroup>
       </div>
 
       {sections.length > 0 ? (
-        <Box className="customSection">
+        <Box className='customSection'>
           <h1
             style={{
               marginTop: 100,
-              textAlign: "center",
-            }}
-          >
+              textAlign: 'center',
+            }}>
             Sections Customizations
           </h1>
 
           {sections.map((section) => {
             return (
-              <Box className="section_rows">
+              <Box className='section_rows'>
                 <h3
                   style={{
-                    textAlign: "center",
+                    textAlign: 'center',
                     marginLeft: 10,
-                  }}
-                >
+                  }}>
                   {section}
                 </h3>
 
                 <Button
                   onClick={() => {
                     handleCustomeSection(section);
-                  }}
-                >
+                  }}>
                   <UnfoldLessIcon />
                 </Button>
               </Box>
             );
           })}
           {extend.map((section) => {
-            if (section === "Header") {
-              return <Navbar />;
-            } else if (section === "Home") {
-              return <Home />;
-            } else if (section === "Services") {
-              return <About />;
-            } else if (section === "Projects") {
-              return <Menu />;
-            } else if (section === "About") {
-              return <Popular />;
-            } else if (section === "Contact") {
-              return <Gallery />;
-            } else if (section === "Footer") {
-              return <Order />;
+            if (section === 'Header') {
+              return <HeaderSection />;
+            } else if (section === 'Hero') {
+              return <HeroSection />;
+            } else if (section === 'Services') {
+              return <ServiceSection />;
+            } else if (section === 'Projects') {
+              return <ProjectSection />;
+            } else if (section === 'About') {
+              return <AboutSection />;
+            } else if (section === 'Contact') {
+              return <ContactSection />;
+            } else if (section === 'Footer') {
+              return <FooterSection />;
             }
           })}
         </Box>
       ) : (
-        " "
+        ' '
       )}
 
       {generate ? (
         <div
           style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
           <h1>Generated Code</h1>
           <div
             style={{
-              width: "50%",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+              width: '50%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
             <button
               style={{
-                width: "40%",
-                maxWidth: "200px",
-                height: "50px",
-                margin: "auto",
-                marginBottom: "20px",
-                border: "none",
-                borderRadius: "5px",
-                backgroundColor: "#1565C0",
-                color: "white",
-                cursor: "pointer",
-                fontSize: "1.2rem",
-              }}
-            >
+                width: '40%',
+                maxWidth: '200px',
+                height: '50px',
+                margin: 'auto',
+                marginBottom: '20px',
+                border: 'none',
+                borderRadius: '5px',
+                backgroundColor: '#1565C0',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+              }}>
               <CopyToClipboard text={completeCode}>
                 <span>Copy to clipboard</span>
               </CopyToClipboard>
@@ -1781,88 +1641,127 @@ p {
 
             <button
               style={{
-                width: "40%",
-                maxWidth: "200px",
-                height: "50px",
-                margin: "auto",
-                marginBottom: "20px",
-                border: "none",
-                borderRadius: "5px",
-                backgroundColor: "#1565C0",
-                color: "white",
-                cursor: "pointer",
-                fontSize: "1.2rem",
+                width: '40%',
+                maxWidth: '200px',
+                height: '50px',
+                margin: 'auto',
+                marginBottom: '20px',
+                border: 'none',
+                borderRadius: '5px',
+                backgroundColor: '#1565C0',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
               }}
               onClick={() => {
-                handleOpen();
-              }}
-            >
+                checkIfCanSave();
+              }}>
               Save Template
             </button>
           </div>
           <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+            aria-labelledby='modal-modal-title'
+            aria-describedby='modal-modal-description'>
             <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Please Enter Template Description
-              </Typography>
-              <TextField
-                sx={{ width: "100%", marginTop: 3 }}
-                multiline
-                rows={3}
-                id="outlined-basic"
-                label="Template Description"
-                variant="outlined"
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Button
-                  style={{ marginTop: 10 }}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    saveCode();
-                    handleClose();
+              <form
+                onSubmit={() => {
+                  setLoading(true);
+                  firstTemplate();
+                  saveCode();
+                  SETCODE();
+                  handleClose();
+                }}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Template Name
+                </Typography>
+                <TextField
+                  required
+                  sx={{
+                    width: '100%',
+                    marginTop: 3,
                   }}
-                >
-                  Save
-                </Button>
-                <Feedback
-                  style={{ marginTop: 10 }}
-                  email={userData}
-                  template="FoodSite"
+                  id='outlined-basic'
+                  label='Template Name'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setTName(e.target.value);
+                  }}
                 />
-              </div>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Please Enter Template Description
+                </Typography>
+                <TextField
+                  sx={{ width: '100%', marginTop: 3 }}
+                  multiline
+                  rows={3}
+                  id='outlined-basic'
+                  label='Template Description'
+                  variant='outlined'
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <button
+                    type='submit'
+                    style={{ marginTop: 10 }}
+                    className='Save_btn_primary'>
+                    Save
+                  </button>
+                  <Feedback
+                    style={{ marginTop: 10 }}
+                    email={userData}
+                    template='Developer Portfolio'
+                  />
+                </div>
+              </form>
             </Box>
           </Modal>
           <div
             style={{
-              width: "75%",
-              margin: "auto",
-              boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
-            }}
-          >
-            <SyntaxHighlighter language="html" style={lucario}>
+              width: '75%',
+              margin: 'auto',
+              boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+            }}>
+            <SyntaxHighlighter language='html' style={lucario}>
               {completeCode}
             </SyntaxHighlighter>
           </div>
         </div>
       ) : (
-        ""
+        ''
       )}
+      <div>
+        <Modal
+          open={openPayment}
+          onClose={() => {
+            setOpenPayment(false);
+          }}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'>
+          <Box sx={style}>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Your Free Trail has Expired Please Upgrade to Premium
+            </Typography>
+            <Button
+              variant='contained'
+              onClick={() => {
+                navigate('/dashboard/Payments');
+                setOpenPayment(false);
+              }}>
+              Upgrade
+            </Button>
+          </Box>
+        </Modal>
+      </div>
     </div>
   );
 }

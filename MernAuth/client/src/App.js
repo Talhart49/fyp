@@ -39,12 +39,17 @@ import PaymentsU from './components/PaymentU';
 import CardPayment from './components/PaymentU/CardPayment';
 
 import TemplatesU from './pages/TemplatesU';
-import FoodSite from './Templates/Foodsite01';
-import FS1 from './Templates/Foodsite01/FS1';
-import PortfolioWeb from './Templates/Portfolio01';
-import P01 from './Templates/Portfolio01/P01';
-import IBlog from './Templates/Blog01';
-import B01 from './Templates/Blog01/B01';
+
+import FoodSite from './Templates/FoodSite';
+import FS1 from './Templates/FoodSite/FS1';
+import PortfolioWeb from './Templates/FuturisticPortfolio';
+import P01 from './Templates/FuturisticPortfolio/P01';
+import IBlog from './Templates/iBlog';
+import B01 from './Templates/iBlog/B01';
+import Gradient from './Templates/GradientBlog';
+import GB from './Templates/GradientBlog/GB';
+import DeveloperPorfolio from './Templates/DeveloperPortfolio';
+import DP from './Templates/DeveloperPortfolio/DP';
 
 import MyTemplate from './components/MyTemplates';
 
@@ -106,6 +111,12 @@ function App() {
             path='/dashboard/Templates/PortfolioWeb'
             element={<PortfolioWeb />}
           />
+          <Route path='/dashboard/Templates/Gradient' element={<Gradient />} />
+          <Route
+            path='/dashboard/Templates/DeveloperPortfolio'
+            element={<DeveloperPorfolio />}
+          />
+
           <Route path='/dashboard/Templates/IBlog' element={<IBlog />} />
           <Route path='/dashboard/MyTemplates' element={<MyTemplate />} />
           <Route path='/dashboard/Payments' element={<PaymentsU />} />
@@ -220,6 +231,12 @@ function App() {
       <Route path='/dashboard/Templates/FoodSite/FS1' element={<FS1 />} />
       <Route path='/dashboard/Templates/PortfolioWeb/P01' element={<P01 />} />
       <Route path='/dashboard/Templates/IBlog/B01' element={<B01 />} />
+      <Route path='/dashboard/Templates/Gradient/GB' element={<GB />} />
+      <Route
+        path='/dashboard/Templates/DeveloperPortfolio/DP'
+        element={<DP />}
+      />
+
       <Route path='/Preview' element={<Preview />} />
     </Routes>
   );

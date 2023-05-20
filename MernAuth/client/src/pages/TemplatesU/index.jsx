@@ -31,6 +31,25 @@ const Templates = [
       'A blog site with various sections for the user to read and interact with.',
     link: '/dashboard/Templates/iBlog',
   },
+
+  {
+    id: 4,
+    name: 'Gradient Blog',
+    category: 'Blog',
+    image: 'https://i.ibb.co/S6LxNsW/image-2023-05-20-152114218.png',
+    description:
+      'A blog Website with various sections for introductions to our teams and some Articles.',
+    link: '/dashboard/Templates/Gradient',
+  },
+  {
+    id: 5,
+    name: 'Developer Portfolio',
+    category: 'Portfolio',
+    image: 'https://i.ibb.co/CbNyNjs/image-2023-05-20-170410384.png',
+    description:
+      'A Portfolio for a Developer to showcase their Projects and other Sections which are customizable.',
+    link: '/dashboard/Templates/DeveloperPortfolio',
+  },
 ];
 
 function Index() {
@@ -45,7 +64,6 @@ function Index() {
         <ul>
           <li>
             <a
-            
               href='#'
               onClick={() => {
                 setTemplates(Templates);
