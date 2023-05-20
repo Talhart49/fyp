@@ -75,7 +75,7 @@ function Index({ data }) {
     } else if (data.name === 'Developer Portfolio') {
       setFinal(stars.DP);
     }
-  }, []);
+  }, [stars]);
 
   console.log(final);
 
