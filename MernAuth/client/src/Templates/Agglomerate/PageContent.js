@@ -2,35 +2,35 @@ import React, { useState, useEffect } from "react";
 import { TextField, InputLabel, Select, MenuItem, Button } from "@mui/material";
 
 import { useSelector, useDispatch } from "react-redux";
-
+import InputColor from 'react-input-color';
 import {
-  editClient,
-  editClientDesign,
-} from "../../redux/Ecommerce02_redux/E02_Slice";
+  editPage,
+  editPageDesign,
+} from "../../redux/Ecommerce03_redux/E03_Slice";
 
-function Client() {
-  const ClientElements = useSelector((state) => state.E02.client);
-  const ClientDesign = useSelector((state) => state.E02.clientDesign);
+function Page() {
+  const PageElements = useSelector((state) => state.E03.PageContent);
+  const PageDesign = useSelector((state) => state.E03.pageDesign);
 
   useEffect(() => {
-    console.log(ClientDesign);
-  }, [ClientDesign]);
+    console.log(PageDesign);
+  }, [PageDesign]);
 
   const dispatch = useDispatch();
 
-  const [ClientElementsNew, setClientElementsNew] = useState(ClientElements);
+  const [PageElementsNew, setPageElementsNew] = useState(PageElements);
 
-  const [backgroundImage, setbackgroundImage] = useState(
-    ClientDesign.backgroundImage
+  const [page_borderLine_weight, setpage_borderLine_weight] = useState(
+    PageDesign.page_borderLine_weight
   );
-  const [backgroundImage_opacity, setbackgroundImage_opacity] = useState(
-    ClientDesign.backgroundImage_opacity
+  const [page_borderLine_color, setpage_borderLine_color] = useState(
+    PageDesign.page_borderLine_color
   );
-  const [justifyContent, setjustifyContent] = useState(
-    ClientDesign.justifyContent
+  const [page_paddingTop, setpage_paddingTop] = useState(
+    PageDesign.page_paddingTop
   );
-  const [itemPadding, setitemPadding] = useState(ClientDesign.itemPadding);
-  const [imageHeight, setimageHeight] = useState(ClientDesign.imageHeight);
+  const [Content_float, setContent_float] = useState(PageDesign.Content_float);
+  const [contentWidth, setcontentWidth] = useState(PageDesign.contentWidth);
 
   return (
     <div>
@@ -44,7 +44,7 @@ function Client() {
             textTransform: "uppercase",
           }}
         >
-          Client Customization
+          Page Customization
         </h1>
 
         <div
@@ -59,7 +59,7 @@ function Client() {
           <div
             style={{
               display: "flex",
-              flexDirection: "Client",
+              flexDirection: "column",
               justifyContent: "start",
               alignItems: "start",
               gap: "1rem",
@@ -69,9 +69,9 @@ function Client() {
               paddingRight: "1rem",
             }}
           >
-            <h3>Client Elements</h3>
+            <h3>Page Elements</h3>
             <form action="" className="Elements_form">
-              {Object.keys(ClientElements).map((key) => {
+              {Object.keys(PageElements).map((key) => {
                 return (
                   <TextField
                     rows={5}
@@ -82,10 +82,10 @@ function Client() {
                     label={key}
                     variant="standard"
                     name={key}
-                    value={ClientElementsNew[key]}
+                    value={PageElementsNew[key]}
                     onChange={(e) => {
-                      setClientElementsNew({
-                        ...ClientElementsNew,
+                      setPageElementsNew({
+                        ...PageElementsNew,
                         [e.target.name]: e.target.value,
                       });
                     }}
@@ -95,7 +95,7 @@ function Client() {
               <Button
                 variant="contained"
                 onClick={() => {
-                  dispatch(editClient(ClientElementsNew));
+                  dispatch(editPage(PageElementsNew));
                 }}
               >
                 Save Changes
@@ -104,79 +104,93 @@ function Client() {
           </div>
 
           <div>
-            <h3>Client Design</h3>
+            <h3>Page Design</h3>
             <form
               action=""
               style={{
                 display: "flex",
-                flexDirection: "Footer",
+                flexDirection: "column",
                 gap: "1rem",
                 width: "100%",
                 margin: "0 auto",
               }}
             >
               <TextField
-                type="text"
+                type="number"
                 id="standard-basic"
-                label="Background image"
+                label="Page_border line weight"
                 variant="standard"
-                value={backgroundImage}
+                value={page_borderLine_weight}
                 onChange={(e) => {
-                  setbackgroundImage(e.target.value);
+                  setpage_borderLine_weight(e.target.value);
                 }}
               />
+
+              <InputLabel id="demo-simple-select-label">
+                Page border line color
+              </InputLabel>
+              <div
+                style={{
+                  width: "100px",
+                }}
+              >
+                <InputColor
+                  initialValue="#141010"
+                  onChange={(e) => {
+                    setpage_borderLine_color(e.hex);
+                  }}
+                  placement="center"
+                />
+                <div
+                  style={{
+                    width: 100,
+                    height: 50,
+                    marginTop: 20,
+                    backgroundColor: page_borderLine_color,
+                  }}
+                />
+              </div>
 
               <TextField
                 type="number"
                 id="standard-basic"
-                label="Background image opacity"
+                label="Page padding top"
                 variant="standard"
-                value={backgroundImage_opacity}
+                value={page_paddingTop}
                 onChange={(e) => {
-                  setbackgroundImage_opacity(e.target.value);
+                  setpage_paddingTop(e.target.value);
                 }}
               />
+
               <InputLabel
                 id="demo-simple-select-label"
                 style={{
                   marginTop: "1rem",
                 }}
               >
-                justify Content
+                Content float
               </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={justifyContent}
+                value={Content_float}
                 onChange={(e) => {
-                  setjustifyContent(e.target.value);
+                  setContent_float(e.target.value);
                 }}
               >
-                <MenuItem value="center">center</MenuItem>
-                <MenuItem value="start">start</MenuItem>
                 <MenuItem value="left">left</MenuItem>
                 <MenuItem value="right">right</MenuItem>
+                <MenuItem value="none">none</MenuItem>
               </Select>
 
               <TextField
                 type="number"
                 id="standard-basic"
-                label="Item padding"
+                label="Content width"
                 variant="standard"
-                value={itemPadding}
+                value={contentWidth}
                 onChange={(e) => {
-                  setitemPadding(e.target.value);
-                }}
-              />
-
-              <TextField
-                type="number"
-                id="standard-basic"
-                label="Image height"
-                variant="standard"
-                value={imageHeight}
-                onChange={(e) => {
-                  setimageHeight(e.target.value);
+                  setcontentWidth(e.target.value);
                 }}
               />
 
@@ -184,12 +198,12 @@ function Client() {
                 variant="contained"
                 onClick={() => {
                   dispatch(
-                    editClientDesign({
-                      backgroundImage,
-                      backgroundImage_opacity,
-                      justifyContent,
-                      itemPadding,
-                      imageHeight,
+                    editPageDesign({
+                      page_borderLine_weight,
+                      page_borderLine_color,
+                      page_paddingTop,
+                      Content_float,
+                      contentWidth,
                     })
                   );
                 }}
@@ -204,4 +218,4 @@ function Client() {
   );
 }
 
-export default Client;
+export default Page;

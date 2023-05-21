@@ -62,7 +62,7 @@ function SideBar() {
           <div
             style={{
               display: "flex",
-              flexDirection: "SideBar",
+              flexDirection: "column",
               justifyContent: "start",
               alignItems: "start",
               gap: "1rem",
@@ -112,7 +112,7 @@ function SideBar() {
               action=""
               style={{
                 display: "flex",
-                flexDirection: "SideBar",
+                flexDirection: "column",
                 gap: "1rem",
                 width: "100%",
                 margin: "0 auto",

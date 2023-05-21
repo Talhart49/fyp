@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { TextField, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { TextField, InputLabel, Select, MenuItem, Button } from '@mui/material';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   editNavbar,
   editNavbarDesign,
   editglobalDesign,
-} from "../../redux/Ecommerce02_redux/E02_Slice";
+} from '../../redux/Ecommerce02_redux/E02_Slice';
+
+import InputColor from 'react-input-color';
 
 function Navbar() {
   const NavbarElements = useSelector((state) => state.E02.navbar);
@@ -61,53 +63,50 @@ function Navbar() {
 
   return (
     <div>
-      <div className="specific_customization_container">
+      <div className='specific_customization_container'>
         <h1
           style={{
-            textAlign: "center",
-            borderBottom: "1px solid #000",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-          }}
-        >
+            textAlign: 'center',
+            borderBottom: '1px solid #000',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+          }}>
           Navbar Customization
         </h1>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
 
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
-        >
+            gap: '1rem',
+            marginTop: '2rem',
+          }}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "Navbar",
-              justifyContent: "start",
-              alignItems: "start",
-              gap: "1rem",
-              width: "50%",
-              height: "100%",
-              borderRight: "1px solid #000",
-              paddingRight: "1rem",
-            }}
-          >
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'start',
+              gap: '1rem',
+              width: '50%',
+              height: '100%',
+              borderRight: '1px solid #000',
+              paddingRight: '1rem',
+            }}>
             <h3>Navbar Elements</h3>
-            <form action="" className="Elements_form">
+            <form action='' className='Elements_form'>
               {Object.keys(NavbarElements).map((key) => {
                 return (
                   <TextField
                     rows={5}
                     multiline
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     key={key}
-                    id="standard-basic"
+                    id='standard-basic'
                     label={key}
-                    variant="standard"
+                    variant='standard'
                     name={key}
                     value={NavbarElementsNew[key]}
                     onChange={(e) => {
@@ -120,11 +119,10 @@ function Navbar() {
                 );
               })}
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(editNavbar(NavbarElementsNew));
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
@@ -133,29 +131,27 @@ function Navbar() {
           <div>
             <h3>Navbar Design</h3>
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "home",
-                gap: "1rem",
-                width: "100%",
-                margin: "0 auto",
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '0 auto',
+              }}>
+              <InputLabel id='demo-simple-select-label'>
                 Background Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#000000"
+                  initialValue='#000000'
                   onChange={(e) => {
                     setbackgroundColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -168,10 +164,10 @@ function Navbar() {
               </div>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Background color opacity"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Background color opacity'
+                variant='standard'
                 value={backgroundColor_opacity}
                 onChange={(e) => {
                   setbackgroundColor_opacity(e.target.value);
@@ -179,32 +175,30 @@ function Navbar() {
               />
 
               <InputLabel
-                id="demo-simple-select-label"
+                id='demo-simple-select-label'
                 style={{
-                  marginTop: "1rem",
-                }}
-              >
+                  marginTop: '1rem',
+                }}>
                 justify Content
               </InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
                 value={justifyContent}
                 onChange={(e) => {
                   setjustifyContent(e.target.value);
-                }}
-              >
-                <MenuItem value="center">center</MenuItem>
-                <MenuItem value="start">start</MenuItem>
-                <MenuItem value="left">left</MenuItem>
-                <MenuItem value="right">right</MenuItem>
+                }}>
+                <MenuItem value='center'>center</MenuItem>
+                <MenuItem value='start'>start</MenuItem>
+                <MenuItem value='left'>left</MenuItem>
+                <MenuItem value='right'>right</MenuItem>
               </Select>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Image margin top"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Image margin top'
+                variant='standard'
                 value={imageMarginTop}
                 onChange={(e) => {
                   setimageMarginTop(e.target.value);
@@ -212,10 +206,10 @@ function Navbar() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Image margin bottom"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Image margin bottom'
+                variant='standard'
                 value={imageMarginBottom}
                 onChange={(e) => {
                   setimageMarginBottom(e.target.value);
@@ -223,10 +217,10 @@ function Navbar() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Image height"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Image height'
+                variant='standard'
                 value={imageHeight}
                 onChange={(e) => {
                   setimageHeight(e.target.value);
@@ -234,7 +228,7 @@ function Navbar() {
               />
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editNavbarDesign({
@@ -246,28 +240,26 @@ function Navbar() {
                       imageHeight,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                width: "100%",
-                margin: "1.5rem auto",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '1.5rem auto',
+              }}>
               <h2>Root Theme </h2>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Heading font size"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Heading font size'
+                variant='standard'
                 value={heading_FontSize}
                 onChange={(e) => {
                   setheading_FontSize(e.target.value);
@@ -275,10 +267,10 @@ function Navbar() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Heading padding"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Heading padding'
+                variant='standard'
                 value={heading_padding}
                 onChange={(e) => {
                   setheading_padding(e.target.value);
@@ -286,10 +278,10 @@ function Navbar() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Paragraph font size"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Paragraph font size'
+                variant='standard'
                 value={paragraph_FontSize}
                 onChange={(e) => {
                   setparagraph_FontSize(e.target.value);
@@ -297,30 +289,29 @@ function Navbar() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Paragraph padding"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Paragraph padding'
+                variant='standard'
                 value={paragraph_padding}
                 onChange={(e) => {
                   setparagraph_padding(e.target.value);
                 }}
               />
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Button background Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#ffffff"
+                  initialValue='#ffffff'
                   onChange={(e) => {
                     setbutton_borderColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -332,20 +323,19 @@ function Navbar() {
                 />
               </div>
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Button background Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#a52a2a"
+                  initialValue='#a52a2a'
                   onChange={(e) => {
                     setbutton_backgroundColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -358,7 +348,7 @@ function Navbar() {
               </div>
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editglobalDesign({
@@ -370,8 +360,7 @@ function Navbar() {
                       button_backgroundColor,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>

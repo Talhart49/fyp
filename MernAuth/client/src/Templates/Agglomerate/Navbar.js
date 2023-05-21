@@ -87,7 +87,7 @@ function Navbar() {
           <div
             style={{
               display: "flex",
-              flexDirection: "Navbar",
+              flexDirection: "column",
               justifyContent: "start",
               alignItems: "start",
               gap: "1rem",
@@ -137,7 +137,7 @@ function Navbar() {
               action=""
               style={{
                 display: "flex",
-                flexDirection: "Footer",
+                flexDirection: "column",
                 gap: "1rem",
                 width: "100%",
                 margin: "0 auto",

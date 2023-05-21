@@ -50,6 +50,24 @@ const Templates = [
       'A Portfolio for a Developer to showcase their Projects and other Sections which are customizable.',
     link: '/dashboard/Templates/DeveloperPortfolio',
   },
+  {
+    id: 6,
+    name: 'My Online Meal',
+    category: 'eCommerce',
+    image: 'https://i.ibb.co/7g2qfBH/image-2023-05-21-145940544.png',
+    description:
+      'An OnlineMeal Website to display the services provided and us to interact with the customers and take orders from them.',
+    link: '/dashboard/Templates/MyOnlineMeal',
+  },
+  {
+    id: 7,
+    name: 'Agglomerate',
+    category: 'Blog',
+    image: 'https://i.ibb.co/9bt2Mhb/image-2023-05-21-160903198.png',
+    description:
+      'A blog website with varios options of articles and some frontend Ideas to naviagte to other articles.',
+    link: '/dashboard/Templates/Agglomerate',
+  },
 ];
 
 function Index() {

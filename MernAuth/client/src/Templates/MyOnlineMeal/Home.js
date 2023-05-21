@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { TextField, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { TextField, InputLabel, Select, MenuItem, Button } from '@mui/material';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   editHome,
   editHomeDesign,
-} from "../../redux/Ecommerce02_redux/E02_Slice";
+} from '../../redux/Ecommerce02_redux/E02_Slice';
+
+import InputColor from 'react-input-color';
 
 function Home() {
   const homeElements = useSelector((state) => state.E02.home);
@@ -46,53 +48,50 @@ function Home() {
 
   return (
     <div>
-      <div className="specific_customization_container">
+      <div className='specific_customization_container'>
         <h1
           style={{
-            textAlign: "center",
-            borderBottom: "1px solid #000",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-          }}
-        >
+            textAlign: 'center',
+            borderBottom: '1px solid #000',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+          }}>
           Home Customization
         </h1>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
 
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
-        >
+            gap: '1rem',
+            marginTop: '2rem',
+          }}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "home",
-              justifyContent: "start",
-              alignItems: "start",
-              gap: "1rem",
-              width: "50%",
-              height: "100%",
-              borderRight: "1px solid #000",
-              paddingRight: "1rem",
-            }}
-          >
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'start',
+              gap: '1rem',
+              width: '50%',
+              height: '100%',
+              borderRight: '1px solid #000',
+              paddingRight: '1rem',
+            }}>
             <h3>Home Elements</h3>
-            <form action="" className="Elements_form">
+            <form action='' className='Elements_form'>
               {Object.keys(homeElements).map((key) => {
                 return (
                   <TextField
                     rows={5}
                     multiline
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     key={key}
-                    id="standard-basic"
+                    id='standard-basic'
                     label={key}
-                    variant="standard"
+                    variant='standard'
                     name={key}
                     value={homeElementsNew[key]}
                     onChange={(e) => {
@@ -105,11 +104,10 @@ function Home() {
                 );
               })}
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(editHome(homeElementsNew));
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
@@ -118,20 +116,19 @@ function Home() {
           <div>
             <h3>Home Design</h3>
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "home",
-                gap: "1rem",
-                width: "100%",
-                margin: "0 auto",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '0 auto',
+              }}>
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Home height"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Home height'
+                variant='standard'
                 value={Height}
                 onChange={(e) => {
                   setHeight(e.target.value);
@@ -139,41 +136,38 @@ function Home() {
               />
 
               <InputLabel
-                id="demo-simple-select-label"
+                id='demo-simple-select-label'
                 style={{
-                  marginTop: "1rem",
-                }}
-              >
+                  marginTop: '1rem',
+                }}>
                 justify Content
               </InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
                 value={justifyContent}
                 onChange={(e) => {
                   setjustifyContent(e.target.value);
-                }}
-              >
-                <MenuItem value="center">center</MenuItem>
-                <MenuItem value="start">start</MenuItem>
-                <MenuItem value="left">left</MenuItem>
-                <MenuItem value="right">right</MenuItem>
+                }}>
+                <MenuItem value='center'>center</MenuItem>
+                <MenuItem value='start'>start</MenuItem>
+                <MenuItem value='left'>left</MenuItem>
+                <MenuItem value='right'>right</MenuItem>
               </Select>
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Heading 1 Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#ffffff"
+                  initialValue='#ffffff'
                   onChange={(e) => {
                     setheading01_color(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -185,36 +179,34 @@ function Home() {
                 />
               </div>
 
-              <InputLabel id="fontFamily"> Heading Font Family</InputLabel>
+              <InputLabel id='fontFamily'> Heading Font Family</InputLabel>
               <Select
-                labelId="fontFamily"
-                id="demo-simple-select"
-                label="Age"
+                labelId='fontFamily'
+                id='demo-simple-select'
+                label='Age'
                 value={heading_fontFamily}
                 onChange={(e) => {
                   setheading_fontFamily(e.target.value);
-                }}
-              >
-                <MenuItem value="Bree Serif">Bree Serif</MenuItem>
-                <MenuItem value="DM Sans">DM Sans</MenuItem>
-                <MenuItem value="Roboto">Roboto</MenuItem>
-                <MenuItem value="sans-serif">sans-serif</MenuItem>
+                }}>
+                <MenuItem value='Bree Serif'>Bree Serif</MenuItem>
+                <MenuItem value='DM Sans'>DM Sans</MenuItem>
+                <MenuItem value='Roboto'>Roboto</MenuItem>
+                <MenuItem value='sans-serif'>sans-serif</MenuItem>
               </Select>
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Paragraph Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#ffffff"
+                  initialValue='#ffffff'
                   onChange={(e) => {
                     setparagraph_color(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -227,37 +219,36 @@ function Home() {
               </div>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Paragraph Font Size"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Paragraph Font Size'
+                variant='standard'
                 value={paragraph_fontSize}
                 onChange={(e) => {
                   setparagraph_fontSize(e.target.value);
                 }}
               />
 
-              <InputLabel id="fontFamily"> Paragraph Font Family</InputLabel>
+              <InputLabel id='fontFamily'> Paragraph Font Family</InputLabel>
               <Select
-                labelId="fontFamily"
-                id="demo-simple-select"
-                label="Age"
+                labelId='fontFamily'
+                id='demo-simple-select'
+                label='Age'
                 value={paragraph_fontFamily}
                 onChange={(e) => {
                   setparagraph_fontFamily(e.target.value);
-                }}
-              >
-                <MenuItem value="Bree Serif">Bree Serif</MenuItem>
-                <MenuItem value="DM Sans">DM Sans</MenuItem>
-                <MenuItem value="Roboto">Roboto</MenuItem>
-                <MenuItem value="sans-serif">sans-serif</MenuItem>
+                }}>
+                <MenuItem value='Bree Serif'>Bree Serif</MenuItem>
+                <MenuItem value='DM Sans'>DM Sans</MenuItem>
+                <MenuItem value='Roboto'>Roboto</MenuItem>
+                <MenuItem value='sans-serif'>sans-serif</MenuItem>
               </Select>
 
               <TextField
-                type="text"
-                id="standard-basic"
-                label="Background Image"
-                variant="standard"
+                type='text'
+                id='standard-basic'
+                label='Background Image'
+                variant='standard'
                 value={backgroundImage}
                 onChange={(e) => {
                   setbackgroundImage(e.target.value);
@@ -265,7 +256,7 @@ function Home() {
               />
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editHomeDesign({
@@ -279,8 +270,7 @@ function Home() {
                       backgroundImage,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>

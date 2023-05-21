@@ -14,6 +14,8 @@ function Index({ data }) {
     IB: 5,
     GB: 5,
     DP: 5,
+    OM: 5,
+    AG: 5,
   });
 
   const [final, setFinal] = useState();
@@ -59,6 +61,22 @@ function Index({ data }) {
         ...stars,
         DP: res.data.average,
       });
+    } else if (data.name === 'My Online Meal') {
+      const res = await axios.get(
+        `http://localhost:8080/api/feedback/${data.name}`
+      );
+      setStars({
+        ...stars,
+        OM: res.data.average,
+      });
+    } else if (data.name === 'Agglomerate') {
+      const res = await axios.get(
+        `http://localhost:8080/api/feedback/${data.name}`
+      );
+      setStars({
+        ...stars,
+        AG: res.data.average,
+      });
     }
   };
 
@@ -74,6 +92,10 @@ function Index({ data }) {
       setFinal(stars.GB);
     } else if (data.name === 'Developer Portfolio') {
       setFinal(stars.DP);
+    } else if (data.name === 'My Online Meal') {
+      setFinal(stars.OM);
+    } else if (data.name === 'Agglomerate') {
+      setFinal(stars.AG);
     }
   }, [stars]);
 

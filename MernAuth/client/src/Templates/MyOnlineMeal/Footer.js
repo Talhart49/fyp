@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { TextField, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { TextField, InputLabel, Select, MenuItem, Button } from '@mui/material';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   editFooter,
   editFooterDesign,
-} from "../../redux/Ecommerce02_redux/E02_Slice";
+} from '../../redux/Ecommerce02_redux/E02_Slice';
+
+import InputColor from 'react-input-color';
 
 function Footer() {
   const FooterElements = useSelector((state) => state.E02.footer);
-  const FooterDesign = useSelector((state) => state.E02.FooterDesign);
+  const FooterDesign = useSelector((state) => state.E02.footerDesign);
 
   useEffect(() => {
     console.log(FooterDesign);
@@ -30,53 +32,50 @@ function Footer() {
 
   return (
     <div>
-      <div className="specific_customization_container">
+      <div className='specific_customization_container'>
         <h1
           style={{
-            textAlign: "center",
-            borderBottom: "1px solid #000",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-          }}
-        >
+            textAlign: 'center',
+            borderBottom: '1px solid #000',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+          }}>
           Footer Customization
         </h1>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
 
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
-        >
+            gap: '1rem',
+            marginTop: '2rem',
+          }}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "Footer",
-              justifyContent: "start",
-              alignItems: "start",
-              gap: "1rem",
-              width: "50%",
-              height: "100%",
-              borderRight: "1px solid #000",
-              paddingRight: "1rem",
-            }}
-          >
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'start',
+              gap: '1rem',
+              width: '50%',
+              height: '100%',
+              borderRight: '1px solid #000',
+              paddingRight: '1rem',
+            }}>
             <h3>Footer Elements</h3>
-            <form action="" className="Elements_form">
+            <form action='' className='Elements_form'>
               {Object.keys(FooterElements).map((key) => {
                 return (
                   <TextField
                     rows={5}
                     multiline
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     key={key}
-                    id="standard-basic"
+                    id='standard-basic'
                     label={key}
-                    variant="standard"
+                    variant='standard'
                     name={key}
                     value={FooterElementsNew[key]}
                     onChange={(e) => {
@@ -89,11 +88,10 @@ function Footer() {
                 );
               })}
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(editFooter(FooterElementsNew));
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
@@ -102,29 +100,27 @@ function Footer() {
           <div>
             <h3>Footer Design</h3>
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "Footer",
-                gap: "1rem",
-                width: "100%",
-                margin: "0 auto",
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '0 auto',
+              }}>
+              <InputLabel id='demo-simple-select-label'>
                 Background color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#000000"
+                  initialValue='#000000'
                   onChange={(e) => {
                     setbackgroundColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -136,20 +132,19 @@ function Footer() {
                 />
               </div>
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Background color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#ffffff"
+                  initialValue='#ffffff'
                   onChange={(e) => {
                     settextColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -162,10 +157,10 @@ function Footer() {
               </div>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Padding top and bottom"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Padding top and bottom'
+                variant='standard'
                 value={paddingTopAndBottom}
                 onChange={(e) => {
                   setpaddingTopAndBottom(e.target.value);
@@ -173,7 +168,7 @@ function Footer() {
               />
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editFooterDesign({
@@ -182,8 +177,7 @@ function Footer() {
                       paddingTopAndBottom,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>

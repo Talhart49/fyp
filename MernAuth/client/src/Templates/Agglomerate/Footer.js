@@ -61,7 +61,7 @@ function Footer() {
           <div
             style={{
               display: "flex",
-              flexDirection: "Footer",
+              flexDirection: "column",
               justifyContent: "start",
               alignItems: "start",
               gap: "1rem",
@@ -111,7 +111,7 @@ function Footer() {
               action=""
               style={{
                 display: "flex",
-                flexDirection: "Footer",
+                flexDirection: "column",
                 gap: "1rem",
                 width: "100%",
                 margin: "0 auto",

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { TextField, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { TextField, InputLabel, Select, MenuItem, Button } from '@mui/material';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   editService,
   editServiceDesign,
-} from "../../redux/Ecommerce02_redux/E02_Slice";
+} from '../../redux/Ecommerce02_redux/E02_Slice';
+
+import InputColor from 'react-input-color';
 
 function Service() {
   const ServiceElements = useSelector((state) => state.E02.service);
@@ -40,53 +42,50 @@ function Service() {
 
   return (
     <div>
-      <div className="specific_customization_container">
+      <div className='specific_customization_container'>
         <h1
           style={{
-            textAlign: "center",
-            borderBottom: "1px solid #000",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-          }}
-        >
+            textAlign: 'center',
+            borderBottom: '1px solid #000',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+          }}>
           Service Customization
         </h1>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
 
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
-        >
+            gap: '1rem',
+            marginTop: '2rem',
+          }}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "Service",
-              justifyContent: "start",
-              alignItems: "start",
-              gap: "1rem",
-              width: "50%",
-              height: "100%",
-              borderRight: "1px solid #000",
-              paddingRight: "1rem",
-            }}
-          >
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'start',
+              gap: '1rem',
+              width: '50%',
+              height: '100%',
+              borderRight: '1px solid #000',
+              paddingRight: '1rem',
+            }}>
             <h3>Service Elements</h3>
-            <form action="" className="Elements_form">
+            <form action='' className='Elements_form'>
               {Object.keys(ServiceElements).map((key) => {
                 return (
                   <TextField
                     rows={5}
                     multiline
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     key={key}
-                    id="standard-basic"
+                    id='standard-basic'
                     label={key}
-                    variant="standard"
+                    variant='standard'
                     name={key}
                     value={ServiceElementsNew[key]}
                     onChange={(e) => {
@@ -99,11 +98,10 @@ function Service() {
                 );
               })}
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(editService(ServiceElementsNew));
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
@@ -112,20 +110,19 @@ function Service() {
           <div>
             <h3>Service Design</h3>
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "home",
-                gap: "1rem",
-                width: "100%",
-                margin: "0 auto",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '0 auto',
+              }}>
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Section name margin bottom"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Section name margin bottom'
+                variant='standard'
                 value={sectionName_marginBottom}
                 onChange={(e) => {
                   setsectionName_marginBottom(e.target.value);
@@ -133,40 +130,39 @@ function Service() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Service box padding"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Service box padding'
+                variant='standard'
                 value={serviceBox_padding}
                 onChange={(e) => {
                   setserviceBox_padding(e.target.value);
                 }}
               />
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Service box border radius"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Service box border radius'
+                variant='standard'
                 value={serviceBox_borderRadius}
                 onChange={(e) => {
                   setserviceBox_borderRadius(e.target.value);
                 }}
               />
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Service box background Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#f2f2f2"
+                  initialValue='#f2f2f2'
                   onChange={(e) => {
                     setserviceBox_backgroundColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -178,30 +174,29 @@ function Service() {
                 />
               </div>
 
-              <InputLabel id="fontFamily">
-                {" "}
+              <InputLabel id='fontFamily'>
+                {' '}
                 Service paragraphs Font Family
               </InputLabel>
               <Select
-                labelId="fontFamily"
-                id="demo-simple-select"
-                label="Age"
+                labelId='fontFamily'
+                id='demo-simple-select'
+                label='Age'
                 value={serviceParagraph_fontFamily}
                 onChange={(e) => {
                   setserviceParagraph_fontFamily(e.target.value);
-                }}
-              >
-                <MenuItem value="Bree Serif">Bree Serif</MenuItem>
-                <MenuItem value="DM Sans">DM Sans</MenuItem>
-                <MenuItem value="Roboto">Roboto</MenuItem>
-                <MenuItem value="sans-serif">sans-serif</MenuItem>
+                }}>
+                <MenuItem value='Bree Serif'>Bree Serif</MenuItem>
+                <MenuItem value='DM Sans'>DM Sans</MenuItem>
+                <MenuItem value='Roboto'>Roboto</MenuItem>
+                <MenuItem value='sans-serif'>sans-serif</MenuItem>
               </Select>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Service image height"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Service image height'
+                variant='standard'
                 value={serviceImage_height}
                 onChange={(e) => {
                   setserviceImage_height(e.target.value);
@@ -209,7 +204,7 @@ function Service() {
               />
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editServiceDesign({
@@ -221,8 +216,7 @@ function Service() {
                       serviceImage_height,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>

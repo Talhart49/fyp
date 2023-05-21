@@ -50,6 +50,10 @@ import Gradient from './Templates/GradientBlog';
 import GB from './Templates/GradientBlog/GB';
 import DeveloperPorfolio from './Templates/DeveloperPortfolio';
 import DP from './Templates/DeveloperPortfolio/DP';
+import MyOnlineMeal from './Templates/MyOnlineMeal';
+import OM from './Templates/MyOnlineMeal/OM';
+import Agglomerate from './Templates/Agglomerate';
+import AG from './Templates/Agglomerate/AG';
 
 import MyTemplate from './components/MyTemplates';
 
@@ -115,6 +119,14 @@ function App() {
           <Route
             path='/dashboard/Templates/DeveloperPortfolio'
             element={<DeveloperPorfolio />}
+          />
+          <Route
+            path='/dashboard/Templates/MyOnlineMeal'
+            element={<MyOnlineMeal />}
+          />
+          <Route
+            path='/dashboard/Templates/Agglomerate'
+            element={<Agglomerate />}
           />
 
           <Route path='/dashboard/Templates/IBlog' element={<IBlog />} />
@@ -236,6 +248,8 @@ function App() {
         path='/dashboard/Templates/DeveloperPortfolio/DP'
         element={<DP />}
       />
+      <Route path='/dashboard/Templates/MyOnlineMeal/OM' element={<OM />} />
+      <Route path='/dashboard/Templates/Agglomerate/AG' element={<AG />} />
 
       <Route path='/Preview' element={<Preview />} />
     </Routes>
