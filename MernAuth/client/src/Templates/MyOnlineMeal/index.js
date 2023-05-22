@@ -101,6 +101,31 @@ function Index() {
 
   const [responsive, setResponsive] = useState(false);
 
+  let globalDesignComments = `
+  /* CSS Reset */
+  /* 
+The contains some commonly used CSS styles and the declaration of a CSS variable. Here's an explanation of the CSS properties used:
+
+*: This universal selector targets all elements on the page and applies the following styles:
+
+margin: This property sets the margin of all elements to 0, effectively removing any default margins.
+padding: This property sets the padding of all elements to 0, effectively removing any default padding.
+The purpose of these styles is to reset the default margin and padding for all elements, providing a clean starting point for styling.
+
+html: This selector targets the <html> element and applies the following style:
+
+scroll-behavior: This property specifies the scrolling behavior for the webpage. In this case, it is set to smooth, which enables smooth scrolling animation when navigating to different sections of the page.
+This style enhances the user experience by providing smooth scrolling behavior when using anchor links or other methods to navigate within the webpage.
+
+:root: This pseudo-class selector targets the root element (usually the <html> element) and is used to declare CSS variables. In this case, it declares a CSS variable named --navbar-height with a value of 59px.
+
+CSS variables are custom properties that can hold values and be reused throughout the CSS code. They provide a convenient way to define and manage values that may be used in multiple places, making it easier to maintain and update styles.
+
+By setting --navbar-height as a CSS variable, you can use this variable wherever you need to refer to the height of the navbar in your CSS code, providing flexibility and consistency.
+
+These styles and CSS variable declaration are commonly used in web development to reset default styles, enable smooth scrolling, and define reusable values using CSS variables.
+*/
+  `;
   const globalDesign = `
   /* CSS Reset */
   * {
@@ -145,6 +170,19 @@ function Index() {
     }
   
   `;
+  let navbarComments = `
+  <!-- 
+  Header and Navigation:
+  
+  The code begins with the opening <body> tag and includes a <nav> element with the id "navbar" for the website's navigation.
+  
+  Inside the navigation, there is a <div> element with the id "logo" that contains an <img> tag for the website logo.
+  
+  Following the logo, there is an unordered list <ul> containing navigation links as list items <li>.
+  
+  Each list item has a class "item" and an anchor <a> tag with a corresponding href attribute for linking to different sections of the page.
+   -->
+  `;
   const navbar = `
   <nav id="navbar">
   <div id="logo">
@@ -158,6 +196,67 @@ function Index() {
   </ul>
 </nav>
 
+  `;
+  const navbarDesignComments = `
+  /* Navigation Bar */
+  /* 
+The contains CSS styles for a navigation bar with a logo, list items, and anchor links. Here's an explanation of the CSS properties used:
+
+#navbar: This selector targets an element with the ID "navbar" and applies the following styles:
+
+display: flex;: This property sets the element's display to flex, enabling flexbox layout.
+
+justify-content: This property aligns the flex items along the horizontal axis (main axis) and centers them horizontally.
+
+align-items: This property aligns the flex items along the vertical axis (cross axis) and centers them vertically.
+
+position: This property positions the element as "sticky," meaning it will remain fixed at its position when scrolling.
+
+top:This property positions the element at the top of its container, with a top offset of 0 pixels.
+
+#navbar:This selector targets the before pseudo-element of the element with the ID "navbar" and applies the following styles:
+
+content: This property inserts content before the element, in this case, an empty string.
+
+background-color:This property sets the background color of the pseudo-element to user color.
+
+position: This property positions the pseudo-element absolutely relative to its nearest positioned ancestor.
+
+top:This property positions the pseudo-element at the top of its container, with a top offset of 0 pixels.
+
+left:This property positions the pseudo-element at the left edge of its container, with a left offset of 0 pixels.
+
+height: This property sets the height of the pseudo-element to 100% of its container's height.
+
+width: This property sets the width of the pseudo-element to 100% of its container's width.
+
+z-index:This property sets the z-index of the pseudo-element to -1, positioning it behind the content.
+
+opacit: This property sets the opacity of the pseudo-element,making it partially transparent.
+
+The before pseudo-element is used here to create a background overlay for the navigation bar.
+
+#logo: This selector targets an element with the ID "logo" and applies the following styles:
+
+margin-top: px;: This property sets the top margin of the element to pixels.
+
+margin-right: This property sets the right margin of the element to pixels.
+
+#logo img: This selector targets img elements within the element with the ID "logo" and applies the following styles:
+
+height: This property sets the height of the image to  pixels.
+
+margin-bottom: This property sets the bottom margin of the image to  pixels.
+
+These styles are specific to the logo image within the navigation bar.
+
+#navbar ul: This selector targets ul elements within the element with the ID "navbar" and applies the following styles:
+
+display:This property sets the display of the ul element to flex, enabling flexbox layout.
+
+font-family:This property sets the font family of the text within the ul element to 'Baloo Bhai' or a fallback cursive font.
+
+*/
   `;
   const navbarDesign = `
   /* Navigation Bar */
@@ -220,6 +319,17 @@ function Index() {
   }
 
   `;
+  let homeComments = `
+  <!-- 
+  Home Section:
+  
+  The id "home" using the <section> tag.
+  
+  Inside the section, there is an <h1> heading with the class "h-primary" and a couple of paragraphs <p> for introductory text.
+  
+  A button with the class "btn" is also included for the "Order Now" action.
+   -->
+  `;
   const home = `
 
   <section id="home">
@@ -228,6 +338,56 @@ function Index() {
   <p>${homeElemSection.paragraph02}</p>
   <button class="btn">${homeElemSection.button}</button>
 </section>
+  `;
+  const homeDesignComments = `
+  /* Home Section */
+
+  /* 
+The contains CSS styles for a section with the ID "home" that includes a background image, a heading, and a paragraph. Here's an explanation of the CSS properties used:
+
+#home: This selector targets an element with the ID "home" and applies the following styles:
+
+display: This property sets the element's display to, enabling flexbox layout.
+
+flex-direction:This property sets the direction of the flex items to be stacked vertically.
+
+padding:This property sets the padding of the element to pixels on the top and bottom, and pixels on the left and right.
+
+height: This property sets the height of the element to  pixels.
+
+justify-content: This property aligns the flex items along the vertical axis (cross axis) and centers them vertically.
+
+align-items: This property aligns the flex items along the horizontal axis (main axis) and centers them horizontally.
+
+#home:This selector targets the before pseudo-element of the element with the ID "home" and applies the following styles:
+
+content: "";: This property inserts content before the element, in this case, an empty string.
+
+position: This property positions the pseudo-element absolutely relative to its nearest positioned ancestor.
+
+height:This property sets the height of the pseudo-element to  pixels.
+
+top:This property positions the pseudo-element at the top of its container, with a top offset.
+
+left:This property positions the pseudo-element at the left edge of its container, with a left.
+
+width:This property sets the width of the pseudo-element to 100% of its container's width.
+
+z-index:This property sets the z-index of the pseudo-element, positioning it behind the content.
+
+opacity:This property sets the opacity of the pseudo-element to,making it slightly transparent.
+
+The before pseudo-element is used here to create a background image for the "home" section.
+
+#home h1: This selector targets the heading elements (h1) within the element with the ID "home" and applies the following styles:
+
+text-align: center;: This property aligns the text to the center.
+
+font-family:This property sets the font family of the text.
+
+#home p: This selector targets the paragraph elements (p) within the element with the ID "home" and applies the following styles:
+User
+*/
   `;
   const homeDesign = `
   #home {
@@ -264,6 +424,21 @@ function Index() {
     font-family: ${homeElemSectionDesign.paragraph_fontFamily};
 }
   `;
+  let serviceComments = `
+
+  <!-- 
+  Services Section:
+  
+  The id "services-container" is created using the <section> tag.
+  
+  It starts with an <h1> heading with the class "h-primary center" for the section title.
+  
+  Inside the section, there is a <div> container with the id "services" that wraps three service boxes.
+  
+  Each service box consists of an image <img>, an <h2> heading with the class "h-secondary center" for the service title, and a <p> paragraph for the service description.
+   -->
+  
+  `;
   const service = `
   <section id="services-container">
   <h1 class="h-primary center">${serviceElem.sectionName}</h1>
@@ -286,6 +461,43 @@ function Index() {
       </div>
   </div>
 </section>
+  `;
+  const serviceDesignComments = `
+  /* Services Section */
+  /* 
+Here's the explanation for the CSS properties used:
+
+#services:
+
+margin:Adds a margin of  pixels around the element.
+
+display: Sets the element to a flex container, allowing its child elements to be laid out in a flex layout.
+
+border: Sets a solid border with a thickness.
+
+padding: Adds a padding inside the element, creating space between the content and the border.
+
+margin:Sets the margin of user provided pixels on the top and bottom, and user provided pixels on the left and right, creating space between adjacent boxes.
+
+border-radius: Rounds the corners of the element with a border radius o:els.
+
+background: Sets the background color of the element to a light gray.
+
+margin-bottom: Adds a margin of  pixels at the bottom of the element, creating space between boxes.
+
+#services .box img:
+
+height: Sets the height of the image to  pixels.
+
+margin:Centers the image horizontally within its container.
+
+display: block;: Sets the image to a block element, allowing other elements to be positioned around it.
+
+#services .box p:
+
+font-family: Sets the font family of the paragraph text.
+
+*/
   `;
   const serviceDesign = `
   #services {
@@ -313,6 +525,20 @@ function Index() {
 
 }
   `;
+  let clientComments = `
+  <!-- 
+  Client Section:
+  
+  The id "client-section" is defined using the <section> tag.
+  
+  It begins with an <h1> heading with the class "h-primary center" for the section title.
+  
+  Inside the section, there is a <div> container with the id "clients" that holds multiple client items.
+  
+  Each client item is represented by a <div> with the class "client-item" and contains an <img> tag displaying the client's logo.
+  
+   -->
+  `;
   const client = `
   <section id="client-section">
   <h1 class="h-primary center">${clientElem.sectionName}</h1>
@@ -333,6 +559,48 @@ function Index() {
   </div>
 
 </section>
+  `;
+  let clientDesignComments = `
+  /* Clients Section */
+
+  /* 
+Here's the explanation for the CSS properties used in the :
+
+#client-section:
+
+position:Sets the position of the element to relative, allowing other positioned elements inside it to be positioned relative to this element.
+
+#client-section::before:
+
+content:Inserts content before the element.
+
+position: Sets the position of the pseudo-element to absolute, positioning it relative to the #client-section.
+
+width: Sets the width of the pseudo-element to 100% of its container.
+
+height:Sets the height of the pseudo-element to 100% of its container.
+
+z-index:Sets the stacking order of the pseudo-element to be behind other elements.
+
+opacity:Sets the opacity of the pseudo-element to partially transparent).
+#clients:
+
+display:Sets the element to a flex container, allowing its child elements to be laid out in a flex layout.
+
+justify-content:Horizontally aligns the flex items at the center of the container.
+
+align-items:Vertically aligns the flex items at the center of the container.
+.client-item:
+
+padding: Adds padding to the client-item elements.
+#clients img:
+
+height:Sets the height of the images inside the #clients container to pixels.
+
+These styles are applied to create a client section. The #client-section has a pseudo-element before it with a background image.
+
+The #clients container is a flex container, horizontally and vertically centering its child elements. The client-item elements have padding, and the images inside them have a specified height
+*/
   `;
   const clientDesign = `
   #client-section {
@@ -366,6 +634,19 @@ function Index() {
 
 
   `;
+  let contactComments = `
+  <!-- 
+Contact Section:
+
+The id "contact" is created using the <section> tag.
+
+It starts with an <h1> heading with the class "h-primary center" for the section title.
+
+Inside the section, there is a <div> container with the id "contact-box" that wraps a <form> element.
+
+The form includes various form fields such as input fields for name, email, and phone number, and a textarea for the message.    
+ -->
+  `;
   const contact = `
  
   <section id="contact">
@@ -391,6 +672,55 @@ function Index() {
             </form>
         </div>
     </section>
+  `;
+  let contactDesignComments = `
+  /* Contact Section */
+  /* 
+Here's the explanation for the CSS properties used:
+
+#contact:
+
+position:Sets the position of the element to relative, allowing other positioned elements inside it to be positioned relative to this element.
+
+content:Inserts content before the element.
+
+position:Sets the position of the pseudo-element, positioning it relative to the #contact.
+
+width:Sets the width of the pseudo-element to 100% of its container.
+
+height:Sets the height of the pseudo-element to 100% of its container.
+
+z-index: Sets the stacking order of the pseudo-element to be behind other elements.
+
+opacity:Sets the opacity of the pseudo-element (partially transparent).
+
+display: Sets the element to a flex container, allowing its child elements to be laid out in a flex layout.
+
+justify-content:Horizontally aligns the flex items at the center of the container.
+
+align-items:Vertically aligns the flex items at the center of the container.
+
+padding-bottom: Adds padding to the bottom of the #contact-box.
+
+width:Sets the width of the input and textarea elements to 100% of their container.
+
+padding: Adds padding to the input and textarea elements.
+
+border-radius: Sets the border-radius of the input and textarea elements.
+
+font-size:Sets the font size of the input and textarea elements.
+
+width: Sets the width of the form element inside the #contact-box of its container.
+
+font-size: Sets the font size of the label elements inside the #contact-box.
+
+font-family:Sets the font family of the label elements.
+
+These styles are applied to create a contact section. The #contact element has a pseudo-element before it with a background image. The #contact-box container is a flex container, horizontally and vertically centering its child elements. The input and textarea elements inside the #contact-box have specific widths, padding, and border radius. 
+
+The form element has a specified width, and the label elements inside the #contact-box have specific font size and font family.
+
+*/
   `;
   const contactDesign = `
   #contact {
@@ -435,13 +765,38 @@ function Index() {
 
 
   `;
-
+  let FooterComments = `
+  <!-- 
+  Footer:
+  
+  Finally, the code ends with the <footer> tag that contains a <div> with the class "center" for the copyright information.
+   -->
+  `;
   const Footer = `
   <footer>
   <div class="center">
       ${footerElem.copyRight}
   </div>
 </footer>
+  `;
+  const footerDesignComments = `
+  /* 
+  The code  contains CSS styles for the <footer> element of a webpage. Here's an explanation of the CSS properties used:
+  
+  footer: This selector targets the <footer> element and applies the following styles:
+  
+  background: This property sets the background color of the <footer> element to the specified value.
+  
+  color: This property sets the text color of the content within the <footer> element to the specified value.
+  
+  padding: This property sets the padding (inner spacing) of the content within the <footer> element. 
+  
+  It specifies the top and bottom padding to the left and right padding.
+  
+  These styles define the background color, text color, and padding for the <footer> element. 
+  
+  You can customize these styles to match the desired design and layout of your footer.
+  */
   `;
   const footerDesign = `
   footer {
@@ -450,7 +805,55 @@ function Index() {
     padding: ${footerDesignElem.paddingTopAndBottom}px 20px;
 }
   `;
-
+  let responsiveDesignComments = `
+  /* 
+  The code  contains CSS styles within a media query, targeting screens with a maximum width of 1170 pixels. Here's an explanation of the CSS properties used within the media query:
+  
+  #navbar: This selector targets the navigation element and applies the following styles:
+  
+  flex-direction: This property changes the direction of the flex container to be column-based, making the navigation items stack vertically.
+  #navbar ul li a: This selector targets the anchor tags within the navigation list items and applies the following styles:
+  
+  font-size: This property sets the font size of the anchor tags to 1rem.
+  padding: This property sets the padding around the anchor tags, with 0px on the top and bottom, and 7px on the left and right.
+  padding-bottom: This property sets additional padding on the bottom of the anchor tags, specifically 8px.
+  #home: This selector targets the home section and applies the following styles:
+  
+  height: This property sets the height of the home section to 370 pixels.
+  padding: This property sets the padding within the home section to 3px on the top and bottom, and 28px on the left and right.
+  #home::before: This selector targets the pseudo-element ::before of the home section and applies the following styles:
+  
+  height: This property sets the height of the pseudo-element to 480 pixels.
+  #home p: This selector targets the paragraph elements within the home section and applies the following styles:
+  
+  font-size: This property sets the font size of the paragraph elements to 13px.
+  #services: This selector targets the services section and applies the following styles:
+  
+  flex-direction: This property changes the direction of the flex container to be column-based, making the services items stack vertically.
+  #services .box: This selector targets the box elements within the services section and applies the following styles:
+  
+  padding: This property sets the padding within the box elements to 14px.
+  margin: This property sets the margin around the box elements to 2px on the top and bottom, and 0px on the left and right.
+  margin-bottom: This property sets additional margin at the bottom of the box elements, specifically 20px.
+  #clients: This selector targets the clients section and applies the following styles:
+  
+  flex-wrap: This property allows the flex items to wrap onto multiple lines if needed.
+  #clients img: This selector targets the images within the clients section and applies the following styles:
+  
+  width: This property sets the width of the images to 66px.
+  padding: This property sets the padding around the images to 6px.
+  height: This property sets the height of the images to adjust automatically based on their aspect ratio.
+  #contact-box form: This selector targets the form within the contact box and applies the following styles:
+  
+  width: This property sets the width of the form to 80% of its parent container.
+  .h-primary: This selector targets elements with the class "h-primary" and applies the following styles:
+  font-size: This property sets the font size of the elements to 26px.
+  .btn: This selector targets elements with the class "btn" and applies the following styles:
+  font-size: This property sets the font size of the elements to 13px.
+  padding: This property sets the padding around the elements to 4px on the top and bottom
+      */
+          /* for media queries */
+  `;
   const Responsiveness = `
   @media only screen and (max-width: 1170px) {
 
@@ -589,13 +992,28 @@ function Index() {
         
 
         <style>
+        ${cssComments ? globalDesignComments : ''}
           ${nav ? globalDesign : ''}
+
+          ${cssComments && nav ? navbarDesignComments : ' '}
           ${nav ? navbarDesign : ''}
+
+          ${cssComments && homes ? homeDesignComments : ' '}
           ${homes ? homeDesign : ''}
+
+          ${cssComments && services ? serviceDesignComments : ' '}
           ${services ? serviceDesign : ''}
+
+          ${cssComments && clients ? clientDesignComments : ' '}
           ${clients ? clientDesign : ''}
+
+          ${cssComments && contacts ? contactDesignComments : ' '}
           ${contacts ? contactDesign : ''}
+
+          ${cssComments && footer ? footerDesignComments : ' '}
           ${footer ? footerDesign : ''}
+
+          ${cssComments && responsive ? responsiveDesignComments : ' '}
           ${responsive ? Responsiveness : ''}
           
 
@@ -605,11 +1023,22 @@ function Index() {
     
       <body>
 
+      ${htmlComments && nav ? navbarComments : ' '}
       ${nav ? navbar : ''}
+
+      ${htmlComments && homes ? homeComments : ' '}
       ${homes ? home : ''}
+
+      ${htmlComments && services ? serviceComments : ' '}
       ${services ? service : ''}
+
+      ${htmlComments && clients ? clientComments : ' '}
       ${clients ? client : ''}
+
+      ${htmlComments && contacts ? contactComments : ' '}
       ${contacts ? contact : ''}
+
+      ${htmlComments && footer ? FooterComments : ' '}
       ${footer ? Footer : ''}
       
 
