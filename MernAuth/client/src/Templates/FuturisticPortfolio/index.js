@@ -29,6 +29,7 @@ import {
 } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 
 const style = {
   position: 'absolute',
@@ -1577,6 +1578,8 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
           templateDescription: description,
         }
       );
+      setLoading(false);
+
       console.log(response.data);
     } catch (err) {
       console.log(err);
@@ -1654,8 +1657,30 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  let [loading, setLoading] = useState(false);
+
   return (
     <div className='templateCreation main_container_code'>
+      {loading ? (
+        <div className='Loader'>
+          <ClimbingBoxLoader
+            color={'#eeb85c'}
+            loading={loading}
+            size={15}
+            aria-label='Loading Spinner'
+            data-testid='loader'
+          />
+          <h3
+            style={{
+              color: '#eeb85c',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              marginTop: '1rem',
+            }}>
+            Please Wait while we Save your Template
+          </h3>
+        </div>
+      ) : null}
       <div class='Preview_wrapper'>
         <div class='link_wrapper'>
           <a
@@ -1901,7 +1926,7 @@ The "con-bottom-col" div contains a form with input fields for name, email, subj
               <form
                 onSubmit={() => {
                   firstTemplate();
-
+                  setLoading(true);
                   saveCode();
                   SETCODE();
                   handleClose();

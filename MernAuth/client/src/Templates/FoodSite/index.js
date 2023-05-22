@@ -22,6 +22,8 @@ import Modal from '@mui/material/Modal';
 
 import axios from 'axios';
 
+import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
+
 import {
   Checkbox,
   Button,
@@ -2285,10 +2287,11 @@ Overall, this footer section provides visitors with important information about
           templateDescription: description,
         }
       );
+      setLoading(false);
+
       console.log(response.data);
     } catch (err) {
       console.log(err);
-      console.log('hh');
     }
   };
 
@@ -2735,8 +2738,30 @@ Overall, this footer section provides visitors with important information about
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  let [loading, setLoading] = useState(false);
+
   return (
     <div className='main_container_code'>
+      {loading ? (
+        <div className='Loader'>
+          <ClimbingBoxLoader
+            color={'#eeb85c'}
+            loading={loading}
+            size={15}
+            aria-label='Loading Spinner'
+            data-testid='loader'
+          />
+          <h3
+            style={{
+              color: '#eeb85c',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              marginTop: '1rem',
+            }}>
+            Please Wait while we Save your Template
+          </h3>
+        </div>
+      ) : null}
       <div class='Preview_wrapper'>
         <div class='link_wrapper'>
           <a
@@ -3012,7 +3037,7 @@ Overall, this footer section provides visitors with important information about
                 }}
                 onSubmit={() => {
                   firstTemplate();
-
+                  setLoading(true);
                   saveCode();
                   SETCODE();
                   handleClose();
