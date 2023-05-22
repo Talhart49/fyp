@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { TextField, InputLabel, Select, MenuItem, Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { TextField, InputLabel, Select, MenuItem, Button } from '@mui/material';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
-import InputColor from "react-input-color";
+import InputColor from 'react-input-color';
 
 import {
   editRootTheme,
   editheader,
   editheaderDesign,
-} from "../../redux/Portfolio02_redux/P02_Slice";
+} from '../../redux/Portfolio02_redux/P02_Slice';
 
 function Header() {
   const headerElements = useSelector((state) => state.P02.header);
@@ -52,53 +52,50 @@ function Header() {
 
   return (
     <div>
-      <div className="specific_customization_container">
+      <div className='specific_customization_container'>
         <h1
           style={{
-            textAlign: "center",
-            borderBottom: "1px solid #000",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            textTransform: "uppercase",
-          }}
-        >
+            textAlign: 'center',
+            borderBottom: '1px solid #000',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            textTransform: 'uppercase',
+          }}>
           Header Customization
         </h1>
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
 
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
-        >
+            gap: '1rem',
+            marginTop: '2rem',
+          }}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "start",
-              alignItems: "start",
-              gap: "1rem",
-              width: "50%",
-              height: "100%",
-              borderRight: "1px solid #000",
-              paddingRight: "1rem",
-            }}
-          >
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'start',
+              alignItems: 'start',
+              gap: '1rem',
+              width: '50%',
+              height: '100%',
+              borderRight: '1px solid #000',
+              paddingRight: '1rem',
+            }}>
             <h3>Header Elements</h3>
-            <form action="" className="Elements_form">
+            <form action='' className='Elements_form'>
               {Object.keys(headerElements).map((key) => {
                 return (
                   <TextField
                     rows={3}
                     multiline
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     key={key}
-                    id="standard-basic"
+                    id='standard-basic'
                     label={key}
-                    variant="standard"
+                    variant='standard'
                     name={key}
                     value={headerElementsNew[key]}
                     onChange={(e) => {
@@ -111,11 +108,10 @@ function Header() {
                 );
               })}
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(editheader(headerElementsNew));
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
@@ -124,20 +120,19 @@ function Header() {
           <div>
             <h3>Header Design</h3>
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                width: "100%",
-                margin: "0 auto",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '0 auto',
+              }}>
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Navbar height"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Navbar height'
+                variant='standard'
                 value={navbar_height}
                 onChange={(e) => {
                   setnavbar_height(e.target.value);
@@ -145,30 +140,29 @@ function Header() {
               />
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Navbar menu font weight"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Navbar menu font weight'
+                variant='standard'
                 value={navbarMenu_font_weight}
                 onChange={(e) => {
                   setnavbarMenu_font_weight(e.target.value);
                 }}
               />
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Navbar background Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#ffffff"
+                  initialValue='#ffffff'
                   onChange={(e) => {
                     setnavbar_Bg(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -180,20 +174,19 @@ function Header() {
                 />
               </div>
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Navbar box shadow color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#5d8ec026"
+                  initialValue='#5d8ec026'
                   onChange={(e) => {
                     setnavbar_box_shadow_Bg(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -206,34 +199,32 @@ function Header() {
               </div>
 
               <InputLabel
-                id="demo-simple-select-label"
+                id='demo-simple-select-label'
                 style={{
-                  marginTop: "1rem",
-                }}
-              >
+                  marginTop: '1rem',
+                }}>
                 Navbar menu justify Content
               </InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
                 value={navbarMenu_justify_content}
                 onChange={(e) => {
                   setnavbarMenu_justify_content(e.target.value);
-                }}
-              >
-                <MenuItem value="space-between">space-between</MenuItem>
-                <MenuItem value="space-around">space-around</MenuItem>
-                <MenuItem value="space-evenly">space-evenly</MenuItem>
-                <MenuItem value="start">start</MenuItem>
-                <MenuItem value="left">left</MenuItem>
-                <MenuItem value="right">right</MenuItem>
+                }}>
+                <MenuItem value='space-between'>space-between</MenuItem>
+                <MenuItem value='space-around'>space-around</MenuItem>
+                <MenuItem value='space-evenly'>space-evenly</MenuItem>
+                <MenuItem value='start'>start</MenuItem>
+                <MenuItem value='left'>left</MenuItem>
+                <MenuItem value='right'>right</MenuItem>
               </Select>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Navbar image width"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Navbar image width'
+                variant='standard'
                 value={navbarImage_width}
                 onChange={(e) => {
                   setnavbarImage_width(e.target.value);
@@ -241,7 +232,7 @@ function Header() {
               />
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editheaderDesign({
@@ -253,38 +244,35 @@ function Header() {
                       navbarImage_width,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>
 
             <form
-              action=""
+              action=''
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                width: "100%",
-                margin: "1.5rem auto",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                width: '100%',
+                margin: '1.5rem auto',
+              }}>
               <h2>Root Theme </h2>
 
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id='demo-simple-select-label'>
                 Background Color
               </InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#ffffff"
+                  initialValue='#ffffff'
                   onChange={(e) => {
                     setbackgroundColor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -295,44 +283,42 @@ function Header() {
                   }}
                 />
               </div>
-              <InputLabel id="fontFamily"> Headings Font Family</InputLabel>
+              <InputLabel id='fontFamily'> Headings Font Family</InputLabel>
               <Select
-                labelId="fontFamily"
-                id="demo-simple-select"
-                label="fontFamily"
+                labelId='fontFamily'
+                id='demo-simple-select'
+                label='fontFamily'
                 value={fontFamily}
                 onChange={(e) => {
                   setfontFamily(e.target.value);
-                }}
-              >
-                <MenuItem value="Poppins">Poppins</MenuItem>
-                <MenuItem value="Roboto">Roboto</MenuItem>
-                <MenuItem value="sans-serif">sans-serif</MenuItem>
+                }}>
+                <MenuItem value='Poppins'>Poppins</MenuItem>
+                <MenuItem value='Roboto'>Roboto</MenuItem>
+                <MenuItem value='sans-serif'>sans-serif</MenuItem>
               </Select>
 
               <TextField
-                type="number"
-                id="standard-basic"
-                label="Font size"
-                variant="standard"
+                type='number'
+                id='standard-basic'
+                label='Font size'
+                variant='standard'
                 value={fontSize}
                 onChange={(e) => {
                   setfontSize(e.target.value);
                 }}
               />
 
-              <InputLabel id="demo-simple-select-label">Color</InputLabel>
+              <InputLabel id='demo-simple-select-label'>Color</InputLabel>
               <div
                 style={{
-                  width: "100px",
-                }}
-              >
+                  width: '100px',
+                }}>
                 <InputColor
-                  initialValue="#0e3113"
+                  initialValue='#0e3113'
                   onChange={(e) => {
                     setcolor(e.hex);
                   }}
-                  placement="center"
+                  placement='center'
                 />
                 <div
                   style={{
@@ -345,19 +331,17 @@ function Header() {
               </div>
 
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   dispatch(
                     editRootTheme({
-                      headingFontFamily,
-                      paragraphFontFamily,
-                      themeColor,
                       backgroundColor,
-                      textColor,
+                      fontFamily,
+                      fontSize,
+                      color,
                     })
                   );
-                }}
-              >
+                }}>
                 Save Changes
               </Button>
             </form>

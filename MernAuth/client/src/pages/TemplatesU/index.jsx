@@ -68,6 +68,15 @@ const Templates = [
       'A blog website with varios options of articles and some frontend Ideas to naviagte to other articles.',
     link: '/dashboard/Templates/Agglomerate',
   },
+  {
+    id: 8,
+    name: 'Professional Portfolio',
+    category: 'Portfolio',
+    image: 'https://i.ibb.co/GTPdgT6/image-2023-05-22-153738110.png',
+    description:
+      'A Portfolio Template to showcase your Skills and Projects along with information about yourself',
+    link: '/dashboard/Templates/ProfessionalPortfolio',
+  },
 ];
 
 function Index() {

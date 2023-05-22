@@ -16,6 +16,7 @@ function Index({ data }) {
     DP: 5,
     OM: 5,
     AG: 5,
+    PP: 5,
   });
 
   const [final, setFinal] = useState();
@@ -77,6 +78,14 @@ function Index({ data }) {
         ...stars,
         AG: res.data.average,
       });
+    } else if (data.name === 'Professional Portfolio') {
+      const res = await axios.get(
+        `http://localhost:8080/api/feedback/${data.name}`
+      );
+      setStars({
+        ...stars,
+        PP: res.data.average,
+      });
     }
   };
 
@@ -96,6 +105,8 @@ function Index({ data }) {
       setFinal(stars.OM);
     } else if (data.name === 'Agglomerate') {
       setFinal(stars.AG);
+    } else if (data.name === 'Professional Portfolio') {
+      setFinal(stars.PP);
     }
   }, [stars]);
 

@@ -54,6 +54,8 @@ import MyOnlineMeal from './Templates/MyOnlineMeal';
 import OM from './Templates/MyOnlineMeal/OM';
 import Agglomerate from './Templates/Agglomerate';
 import AG from './Templates/Agglomerate/AG';
+import ProfessionalPortfolio from './Templates/ProfessionalPortfolio';
+import PP from './Templates/ProfessionalPortfolio/PP';
 
 import MyTemplate from './components/MyTemplates';
 
@@ -127,6 +129,10 @@ function App() {
           <Route
             path='/dashboard/Templates/Agglomerate'
             element={<Agglomerate />}
+          />
+          <Route
+            path='/dashboard/Templates/ProfessionalPortfolio'
+            element={<ProfessionalPortfolio />}
           />
 
           <Route path='/dashboard/Templates/IBlog' element={<IBlog />} />
@@ -250,6 +256,10 @@ function App() {
       />
       <Route path='/dashboard/Templates/MyOnlineMeal/OM' element={<OM />} />
       <Route path='/dashboard/Templates/Agglomerate/AG' element={<AG />} />
+      <Route
+        path='/dashboard/Templates/ProfessionalPortfolio/PP'
+        element={<PP />}
+      />
 
       <Route path='/Preview' element={<Preview />} />
     </Routes>
