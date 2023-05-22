@@ -110,6 +110,33 @@ function Index() {
 
   const [responsive, setResponsive] = useState(false);
 
+  let navbarCodeComments = `
+  <!-- Navigation
+  Contains a logo and links to different sections of the webpage.
+  
+  Includes a search form with an input field and a search button.
+  
+  <nav>: Defines a navigation section.
+  
+  <div class="nav-left">: Defines a container for the left part of the navigation.
+  
+  <a href="/">: Defines a hyperlink to the homepage.
+  
+  <ul>: Defines an unordered list for the navigation links.
+  
+  <li>: Defines a list item.
+  
+  <a href="/">: Defines a hyperlink for a navigation link.
+  
+  <div class="nav-right">: Defines a container for the right part of the navigation.
+  
+  <form action="" method="get">: Defines a form for search functionality.
+  
+  <input class="form-input" type="text" name="query" placeholder="Article Search" />: Defines an input field for the search query.
+  
+  <button class="btn">Search</button>: Defines a button for submitting the search form.
+  -->
+  `;
   let navbarCode = `
 
   <nav class="navigation max-width-1 m-auto">
@@ -140,6 +167,53 @@ function Index() {
     <div class="max-width-1 m-auto">
       <hr />
     </div>
+    `;
+
+  let globalDesignComments = `
+      
+    /* 
+    The * selector sets margin and padding to 0 for all elements.
+    
+    The :root selector is used to define CSS variables, which can be referenced later in the code. Here, --main-bg-color, --font1, and --font2 are defined.
+    
+    The .center class is used to align text in the center.
+    
+    The .font1 and .font2 classes apply the respective font families to elements.
+    
+    The .max-width-1 and .max-width-2 classes set the maximum width of elements to 80vw and 60vw respectively.
+    
+    The .m-auto class sets the margin to auto, horizontally centering the element.
+    
+    The .mx-1 class sets the left and right margins to 23px.
+    
+    The .my-2 class sets the top and bottom margins to 32px.
+    
+    The .btn class styles a button element with specific padding, border, font family, font size, cursor, and transition properties. On hover, the color is changed to white and the background color is set to the value of --main-bg-color variable.
+    
+    The .form-input class styles an input element for a form, setting specific padding, font size, border, and font family.
+    
+    The .form-box input, textarea selector styles the input and textarea elements inside a form box, setting their width, padding, margin, font size, font family, border, and border radius.
+    */
+    `;
+
+  let navbarDesignComments = `
+    /* nav Design
+    The .navigation class styles a navigation bar, setting margin-top, font family, display, justify-content, and align-items properties.
+    
+    The .nav-left class styles the left section of the navigation bar, setting display to flex.
+    
+    The .nav-left span styles a span element within the left section, setting font size and padding-top.
+    
+    The .nav-left ul styles an unordered list within the left section, setting display to flex, align-items, margin, font size, and padding-bottom.
+    
+    The .nav-left ul li styles the list items within the unordered list, setting list-style to none, margin, font family, and transition properties.
+    
+    The .nav-left ul li a styles the anchor tags within the list items, setting text-decoration to none and color to black.
+    
+    The .nav-left ul li a:hover styles the anchor tags on hover, setting color to the value of --main-bg-color variable and font-weight to bolder.
+          
+          */
+    
     `;
   let navbarDesign = `
   
@@ -261,6 +335,22 @@ function Index() {
     font-weight: bolder;
   }
     `;
+
+  let aboutCodeComments = `
+    <!-- About 
+    Provides a brief description of the website and its purpose.
+    
+    <div id="about">: Defines a container for the about section.
+    
+    <div class="m-auto content max-width-1 my-2">: Defines a container for the content within the about section.
+    
+    <div class="content-left">: Defines a container for the left part of the content.
+    
+    <h1>The heaven for bloggers</h1>: Defines a heading for the about section.
+    
+    <p>: Defines paragraphs of text within the about section.
+    -->
+    `;
   let aboutCode = `
 
   <div id="about">
@@ -279,6 +369,25 @@ function Index() {
         </div>
       </div>
     </div>
+  `;
+
+  let aboutDesignComments = `
+  /* about Design 
+  The .content class styles a content container, setting height to 100%, display to flex, margin-top, padding, and position properties.
+  
+  The .content::after pseudo-element styles the background image of the content container,
+  
+  setting content to an empty string, background-image to a URL, position to absolute, 
+  
+  width, height to inherit, opacity, and border-radius properties.
+  
+  The .content-left class styles the left section of the content container, setting font family, display to flex, flex-direction to column, justify-content to center, padding, and z-index properties.
+  
+  The .content-right class styles the right section of the content container, setting display to flex, align-items to center, and justify-content to center.
+  
+  The .content-right img styles an image within the right section, setting height, border, and border-radius properties.
+  
+  */
   `;
   let aboutDesign = `
 
@@ -323,6 +432,41 @@ function Index() {
   }
   `;
 
+  let articlesCodeComments = `
+  <!-- Featured Articles
+  Displays a heading for featured articles.
+  
+  Includes a radio button group for selecting the year of the articles.
+  
+  Contains multiple article cards, each with an image, title, author name, and publication date.
+  
+  <div class="home-articles max-width-1 m-auto font2">: Defines a container for the featured articles section.
+  
+  <h2>Featured Articles</h2>: Defines a heading for the featured articles section.
+  
+  <div class="year-box adjust-year">: Defines a container for the year selection.
+  
+  <div>: Defines a container for the radio button.
+  
+  <input type="radio" name="year" id="" />: Defines a radio button for selecting a year.
+  
+  <div class="home-article">: Defines a container for a home article.
+  
+  <div class="home-article-img">: Defines a container for the article image.
+  
+  <img src="..." alt="article" />: Defines an image for the article.
+  
+  <div class="home-article-content font1">: Defines a container for the article content.
+  
+  <a href="#blogPost">: Defines a hyperlink to the blog post.
+  
+  <h3>Lorem ipsum dolor sit amet consectetur adipisicing.</h3>: Defines a heading for the article.
+  
+  <div>Author Name</div>: Defines the name of the author.
+  
+  
+  -->
+  `;
   let articlesCode = `
 
 <div class="max-width-1 m-auto">
@@ -433,6 +577,25 @@ function Index() {
 
       
 `;
+
+  let articlesDesignComments = `
+/* article Design
+
+The .home-articles class styles a container for home articles, setting padding, background-color, margin-top, and position properties.
+
+The .year-box class styles a box that displays the year, setting position to absolute, right, top, width, height, and font-size properties.
+
+The .year-box div styles the individual elements within the year box, setting margin properties.
+
+The .home-article class styles a single home article, setting display to flex and margin properties.
+
+The .home-article img styles the image within a home article, setting width property.
+
+The .home-article-content class styles the content of a home article, setting align-self, padding properties.
+
+The .home-article-content a styles the anchor tags within the home article content, setting text-decoration and color properties.
+      */
+`;
   let articlesDesign = `
   /* article Design */
 
@@ -485,6 +648,35 @@ function Index() {
   }
   `;
 
+  let blogPostCodeComments = `
+  <!-- Blogg
+  Displays a single blog post.
+  
+  Includes an image, post title, author information, publication date, and the post content.
+  
+  <div id="blogPost">: Defines a container for the blog post section.
+  
+  <div class="max-width-1 m-auto">: Defines a container for a horizontal rule.
+  
+  <div class="post-img">: Defines a container for the blog post image.
+  
+  <img src="..." alt="" />: Defines an image for the blog post.
+  
+  <div class="m-auto blog-post-content max-width-2 m-auto my-2">: Defines a container for the blog post content.
+  
+  <h1 class="font1">The heaven for bloggers</h1>: Defines a heading for the blog post.
+  
+  <div class="blogpost-meta">: Defines a container for the blog post metadata.
+  
+  <div class="author">: Defines a container for the author information.
+  
+  <div class="blogpost-content">: Defines a container for the main content of the blog post.
+  
+  <img src="..." alt="" />: Specifies images within the blog post.
+  
+  <code>: Defines inline code snippets within the blog post.
+  -->
+  `;
   let blogPostCode = `
 <div id="blogPost">
       <div class="max-width-1 m-auto">
@@ -539,6 +731,35 @@ function Index() {
           ${blogPostElements.blogPostText}
         </p>
       </div>
+`;
+
+  let blogPostDesignComments = `
+/* blog Post Design
+
+The .post-img class styles the container for the blog post image, setting height and overflow properties to control its dimensions and ensure the image fits within the container.
+
+The .post-img img class styles the actual image within the post-img container, setting its width to 100% to make it responsive.
+
+The .blog-post-content class styles the container for the blog post content, but the background-color property is commented out.
+
+The .blog-post-content h1 class styles the heading within the blog post content, aligning it to the center.
+
+The .blog-post-content p class styles the paragraphs within the blog post content, setting the font size to 18px.
+
+The .row class styles a container element as a flex container.
+
+The .more-post class styles a container for additional blog posts, setting flex-direction to column and aligning items to the center.
+
+The .blogpost-meta class styles a container for blog post metadata, such as author information and social icons, setting it as a flex container and justifying the content space between.
+
+The .author-info class styles a container for author information within the blog post metadata, setting margin and padding properties.
+
+The .author-info div class styles the individual elements within the author-info container, setting padding and font-family properties.
+
+The .social class styles the container for social icons, setting padding-right, align-self, and cursor properties.
+      
+      */
+
 `;
   let blogPostDesign = `
   /* blog Post Design */
@@ -641,6 +862,44 @@ function Index() {
 </div>
 `;
 
+  let contactCodeComments = `
+<!-- Contact 
+  
+<div id="contact">: Defines a container for the contact section.
+
+<div class="max-width-1 m-auto">: Defines a container with a maximum width and centers its content.
+
+<hr />: Represents a horizontal rule to visually separate content.
+
+<div class="contact-content font1 max-width-1 m-auto">: Defines a container for the contact content.
+
+<div class="max-width-1 m-auto mx-1">: Defines a container with a maximum width and adds a small margin on the X-axis.
+
+<h2>Feel Free to Contact Us</h2>: Represents a heading for the contact form.
+
+<div class="contact-form">: Defines a container for the contact form.
+
+<div class="form-box">: Defines a container for a form input field.
+
+<input type="text" placeholder="Enter Your Name" />: Represents a text input field for the user's name.
+
+<div class="form-box">: Defines a container for a form input field.
+
+<input type="text" placeholder="Enter Your Phone Number" />: Represents a text input field for the user's phone number.
+
+<div class="form-box">: Defines a container for a form input field.
+
+<input type="text" placeholder="Enter Your Email Id" />: Represents a text input field for the user's email address.
+
+<div class="form-box">: Defines a container for a form input field.
+
+<textarea name="" id="" cols="30" rows="10" placeholder="How may we help you?"></textarea>: Represents a textarea input field for the user to enter their message.
+
+<div class="form-box">: Defines a container for a form input field.
+
+<button class="btn">Submit</button>: Represents a submit button for the contact form.
+-->
+`;
   let contactCode = `
 
 <div id="contact">
@@ -700,10 +959,24 @@ function Index() {
   }
 `;
 
+  let footerCodeComments = `
+<!-- Footer
+<div class="footer">: Defines a container for the footer section.
+<p></p>: Represents a paragraph element that contains the copyright information for the website. The &copy; entity represents the copyright symbol.
+-->
+`;
   let footerCode = `
   <div class="footer">
     <p>${footerElements.footerText}</p>
   </div>
+`;
+
+  let footerDesignComments = `
+/* footer Design 
+The .footer class styles the footer element, setting height, background-color, display, align-items, justify-content, color, and flex-direction properties.
+
+The .footer a styles the anchor tags within the footer, setting color property to any color.
+      */
 `;
   let footerDesign = `
 /* footer Design */
@@ -723,6 +996,47 @@ function Index() {
 }
 `;
 
+  let responseiveDesignComments = `
+/* Resposive 
+The @media rule applies the following styles when the screen width is less than or equal to 1200px.
+
+The .navigation class is updated to change the flex-direction to column and add margin-bottom to create a vertical navigation layout.
+
+The .nav-left class is updated to change the flex-direction to column and center the text within the navigation.
+
+The .content-right class is hidden by setting the display to none, as it is not needed in smaller screen sizes.
+
+The .home-article class is updated to change the flex-direction to column, stacking the home article content vertically.
+
+The .home-article-img class is updated to align the home article image to the center using text-align property.
+
+The .year-box class is adjusted to change the position to top: 25px and left: 60vw, and decrease the font-size to 11px. It also displays as a flex container.
+
+The .year-box div class is updated to modify the padding and margin values for the year box.
+
+The width of the .home-article img is set to 70vw to make it responsive and fit within the smaller screen width.
+
+The width of the .form-input class is set to 50% to adjust the width of the input fields in the form.
+
+The width of the .form-box input, textarea is set to 66vw to adjust the width of the input fields and textarea in the form.
+
+The .row class is updated to change the flex-direction to column, stacking the elements vertically.
+
+The .social class is updated to remove the padding.
+
+The .post-img class is updated to set the height to auto, allowing the blog post image to resize based on its content.
+
+The .adjust-year class is added to adjust the layout of the year box in smaller screens. It sets the position to static, changes the height to auto, and aligns the content to the flex-end.
+
+Following the media query, a new section for contact design is added:
+
+The .contact-content class is created to style the container for the contact section, setting its height, margin-top, padding, and position.
+
+The .contact-content::after pseudo-element is added to create a background image effect using the specified URL. It sets the position to absolute, top to 0, width to 100%, height to inherit, opacity to 0.15, and adds a border-radius. The z-index is set to -1 to position it behind the content.
+      
+      */
+
+`;
   let responsiveDesign = `
 /* Resposive */
 
@@ -862,26 +1176,53 @@ function Index() {
             padding: 0;
           }
 
+          ${cssComments ? globalDesignComments : ''}
+          ${cssComments && nav ? navbarDesignComments : ' '}
           ${nav ? navbarDesign : ''}
+
+          ${cssComments && about ? aboutDesignComments : ' '}
           ${about ? aboutDesign : ''}
+
+          ${cssComments && articles ? articlesDesignComments : ' '}
           ${articles ? articlesDesign : ''}
+
+          ${cssComments && blogPost ? blogPostDesignComments : ' '}
           ${blogPost ? blogPostDesign : ''}
+
           ${contact ? contactDesign : ''}
+
+          ${cssComments && footer ? footerDesignComments : ' '}
           ${footer ? footerDesign : ''} 
-          
+
+          ${cssComments && responsive ? responseiveDesignComments : ' '}
           ${responsive ? responsiveDesign : ''}
         </style>
       </head>
           
 
       <body>
+      ${htmlComments && nav ? navbarCodeComments : ' '}
           ${nav ? navbarCode : ''}
+
+          ${htmlComments && about ? aboutCodeComments : ' '}
           ${about ? aboutCode : ''}
+
+          ${htmlComments && articles ? articlesCodeComments : ' '}
           ${articles ? articlesCode : ''}
+
+          ${htmlComments && blogPost ? blogPostCodeComments : ' '}
           ${blogPost ? blogPostCode : ''}
+
           ${recomendedBlogs ? recommendedCode : ''}
+
+          ${htmlComments && contact ? contactCodeComments : ' '}
           ${contact ? contactCode : ''}
+
+          ${htmlComments && footer ? footerCodeComments : ' '}
           ${footer ? footerCode : ''}
+
+          ${htmlComments && about ? aboutCodeComments : ' '}
+
 
       </body>
     </html>
