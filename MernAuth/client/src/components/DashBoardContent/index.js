@@ -63,7 +63,9 @@ function Index() {
   }, [Websites]);
 
   const displayTemplates = async () => {
-    const res = await axios.get('http://localhost:8080/api/usersTemplate');
+    const res = await axios.get(
+      'http://localhost:8080/api/usersTemplate/templates/total'
+    );
     setTemplates(res.data);
     console.log(res.data);
   };

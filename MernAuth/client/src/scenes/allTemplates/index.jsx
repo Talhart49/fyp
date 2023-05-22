@@ -30,18 +30,10 @@ const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const handleImage = (e) => {
-    if (e == 'FoodSite Variation') {
-      return FoodSiteImg;
-    } else if (e == 'PortfolioWeb Variation') {
-      return portfolioImg;
-    } else if (e == 'iBlog Variation') {
-      return iBlog;
-    }
-  };
-
   const displayTemplates = async () => {
-    const res = await axios.get('http://localhost:8080/api/usersTemplate');
+    const res = await axios.get(
+      'http://localhost:8080/api/usersTemplate/templates/total'
+    );
     setTemplates(res.data);
     console.log(res.data);
   };

@@ -85,6 +85,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/Public', async (req, res) => {
+  try {
+    const template = await TemplateSchema.find({
+      templateStatus: 'public',
+    });
+
+    res.status(200).send({ template });
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting template' });
+  }
+});
+
 router.get('/templates/total', async (req, res) => {
   try {
     const template = await TemplateSchema.find({

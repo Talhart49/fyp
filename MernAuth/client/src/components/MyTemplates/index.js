@@ -55,6 +55,7 @@ function Index() {
     })
       .then((res) => res.json())
       .then((data) => {
+        alert(data.message);
         console.log(data);
       });
   };
