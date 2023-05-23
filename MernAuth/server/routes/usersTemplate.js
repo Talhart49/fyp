@@ -227,6 +227,20 @@ router.get('/t/ending', async (req, res) => {
   }
 });
 
+router.get('/trending/pie', async (req, res) => {
+  try {
+    const template = await TemplateSchema.find({
+      templateStatus: 'public',
+    })
+      .sort({ Count: -1 })
+      .limit(5);
+
+    res.status(200).send(template);
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting template' });
+  }
+});
+
 router.post('/takeScreenshot', async (req, res) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();

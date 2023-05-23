@@ -94,4 +94,14 @@ router.get('/response/:id', async (req, res) => {
   }
 });
 
+router.get('/feedbacksCount/:Template', async (req, res) => {
+  try {
+    const feedback = await FeedbackSchema.findById(req.params.id);
+    res.status(200).json({ feedback });
+  } catch (err) {
+    res.status(500).json({ message: 'fff' });
+  }
+});
+
+
 module.exports = router;

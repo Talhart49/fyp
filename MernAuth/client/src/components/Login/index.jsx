@@ -38,7 +38,7 @@ const Login = () => {
         data.password === 'Admin@123'
       ) {
         console.log('Block', res.block);
-        navigate('/Admin_Dashboard/AdminMainContent');
+        navigate('/dashboardAdmin/MainContent');
       } else {
         navigate('/dashboard/MainContent');
       }
@@ -48,6 +48,7 @@ const Login = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
+        alert(error.response.data.message);
         setError(error.response.data.message);
       }
     }

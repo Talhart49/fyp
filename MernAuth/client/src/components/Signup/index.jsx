@@ -44,6 +44,7 @@ const Signup = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
+        alert(error.response.data.message);
         setError(error.response.data.message);
       }
     }
