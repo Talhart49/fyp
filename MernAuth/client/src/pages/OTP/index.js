@@ -112,10 +112,14 @@ const OTP = () => {
     }
   };
   return (
-    <div className='main_container'>
+    <div className='main_containerOTP'>
       <div className='main'>
         {!result ? (
-          <div className='form_container-dis'>
+          <div
+            className='form_container-dis'
+            style={{
+              padding: '3rem',
+            }}>
             <h1 className='title-top'>Forgot Password</h1>
             <form onSubmit={handleSubmit}>
               <h1 className='title'>Enter Email</h1>
