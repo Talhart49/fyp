@@ -250,7 +250,7 @@ p {
           </div>
           <ul>
             <li><a href="#hero" data-after="${headerElements.nav_element1}">${headerElements.nav_element1}</a></li>
-            <li><a href="#services" data-after="${headerElements.nav_element2}">${headerElements.nav_element12}</a></li>
+            <li><a href="#services" data-after="${headerElements.nav_element2}">${headerElements.nav_element2}</a></li>
             <li><a href="#projects" data-after="${headerElements.nav_element3}">${headerElements.nav_element3}</a></li>
             <li><a href="#about" data-after="${headerElements.nav_element4}">${headerElements.nav_element4}</a></li>
             <li><a href="#contact" data-after="${headerElements.nav_element5}">${headerElements.nav_element5}</a></li>
@@ -1314,14 +1314,14 @@ The project-img div includes an image (img tag) representing the project.
       <h2>${footerElem.message}</h2>
       <div class="social-icon">
         <div class="social-item">
-          <a href="#"><img src=${footerElem.image1} /></a>
+          <a href="#"><img src='${footerElem.image1}' /></a>
         </div>
         <div class="social-item">
-          <a href="#"><img src=${footerElem.image2}/></a>
+          <a href="#"><img src='${footerElem.image2}' /></a>
         </div>
 
         <div class="social-item">
-          <a href="#"><img src=${footerElem.image3} /></a>
+          <a href="#"><img src='${footerElem.image3}' /></a>
         </div>
       </div>
       <p>${footerElem.copyRight}</p>
@@ -1792,13 +1792,13 @@ These keyframes animations can be used in CSS rules to apply animated effects to
       ${htmlComments && hero ? heroSectionComments : ' '}
       ${hero ? heroSection : ''}
       ${htmlComments && service ? serviceComments : ' '}
-      ${service ? service : ''}
+      ${services ? service : ''}
       ${htmlComments && project ? projectComments : ' '}
-      ${project ? project : ''}
+      ${projects ? project : ''}
       ${htmlComments && about ? aboutComments : ' '}
-      ${about ? about : ''}
+      ${abouts ? about : ''}
       ${htmlComments && contact ? contactComments : ' '}
-      ${contact ? contact : ''}
+      ${contacts ? contact : ''}
       ${htmlComments && footer ? FooterComments : ' '}
       ${footer ? Footer : ''}
 
