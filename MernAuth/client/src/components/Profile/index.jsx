@@ -90,7 +90,7 @@ const Profile = () => {
     try {
       const url = 'http://localhost:8080/api/users/edit';
       const { data: res } = await axios.post(url, data);
-      navigate('/dashboard');
+      alert('Profile Updated');
       console.log(res.message);
     } catch (error) {
       console.log(error.response.data.message);

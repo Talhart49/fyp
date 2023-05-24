@@ -86,35 +86,35 @@ similarity = cosine_similarity(vector)
 #     recommendations = [webs.iloc[i]['id'] for i, _ in distances[:6]]
 #     return recommendations
 
-# def recommend(web):
-#     distances = []
-#     for i, template in webs.iterrows():
-#         templateDescription = template['templateDescription']
-#         similarity_score = 1 - (Levenshtein.distance(web, templateDescription) / max(len(web), len(templateDescription)))
-#         distances.append((i, similarity_score))
-#     distances = sorted(distances, key=lambda x: x[1], reverse=True)
-#     recommendations = [webs.iloc[i]['id'] for i, _ in distances[:6]]
-#     return recommendations
-
 def recommend(web):
     distances = []
-    input_words = set(web.split())  # Split input category into individual words
-
     for i, template in webs.iterrows():
         templateDescription = template['templateDescription']
-        template_words = set(templateDescription.split())  # Split template name into individual words
-        matched_words = input_words.intersection(template_words)  # Find common words
-
-        if len(matched_words) > 0:
-            similarity_score = len(matched_words) / len(input_words)
-        else:
-            similarity_score = 0
-
+        similarity_score = 1 - (Levenshtein.distance(web, templateDescription) / max(len(web), len(templateDescription)))
         distances.append((i, similarity_score))
-
     distances = sorted(distances, key=lambda x: x[1], reverse=True)
     recommendations = [webs.iloc[i]['id'] for i, _ in distances[:6]]
     return recommendations
+
+# def recommend(web):
+#     distances = []
+#     input_words = set(web.split())  # Split input category into individual words
+
+#     for i, template in webs.iterrows():
+#         templateDescription = template['templateDescription']
+#         template_words = set(templateDescription.split())  # Split template name into individual words
+#         matched_words = input_words.intersection(template_words)  # Find common words
+
+#         if len(matched_words) > 0:
+#             similarity_score = len(matched_words) / len(input_words)
+#         else:
+#             similarity_score = 0
+
+#         distances.append((i, similarity_score))
+
+#     distances = sorted(distances, key=lambda x: x[1], reverse=True)
+#     recommendations = [webs.iloc[i]['id'] for i, _ in distances[:6]]
+#     return recommendations
 
 # Define the API route for recommendations
 @app.route('/recommend', methods=['POST'])
